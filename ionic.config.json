@@ -1,0 +1,7 @@
+{
+  "name": "usuarios_mecodex",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
