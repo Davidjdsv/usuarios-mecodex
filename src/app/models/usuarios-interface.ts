@@ -10,7 +10,8 @@ export interface UsuariosInterface {
     documento: number;
     fecha_expedicion: string;
     correo: string;
-    id_pais: number; // ID de la tabla paises... Debería de ser un objeto del tipo país?
+    pais_nombre: string; // ID de la tabla paises... Debería de ser un objeto del tipo país?
+    plan_mecodex: string;
     observacion_cliente: string;
     observacion_comercial: string;
     observacion_soporte: string;
