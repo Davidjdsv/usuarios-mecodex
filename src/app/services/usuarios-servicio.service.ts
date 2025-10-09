@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable, map } from 'rxjs';
@@ -11,13 +11,13 @@ import {
   providedIn: 'root',
 })
 export class UsuariosServicioService {
-  api = environment.api_db;
+  api = signal(environment.api_db);
 
   constructor(private http: HttpClient) {}
 
   // * Nota: Los datos de la interface, si no son opcionales, deben de ser incluidos en la solicitud.
   getUsuarios(): Observable<UsuariosInterface[]> {
-  return this.http.get<UsuariosResponseInterface>(this.api).pipe(
+  return this.http.get<UsuariosResponseInterface>(this.api()).pipe(
     map((res) => {
       return res.data.map((usuario: UsuariosInterface) => ({
         id: usuario.id,
