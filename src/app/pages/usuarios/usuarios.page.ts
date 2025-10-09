@@ -1,5 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, ChangeDetectionStrategy, signal, inject } from '@angular/core';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
   IonContent,
@@ -23,6 +23,8 @@ import {
   IonRow,
   IonCol,
 } from '@ionic/angular/standalone';
+import { UsuariosInterface } from 'src/app/models/usuarios-interface';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -41,7 +43,6 @@ import {
     IonCardTitle,
     IonCardContent,
     IonThumbnail,
-    IonIcon,
     IonItem,
     IonLabel,
     IonText,
@@ -55,7 +56,22 @@ import {
 })
 export class UsuariosPage implements OnInit {
   folder = signal('Usuarios Mecodex');
+  // * Una señal de tipo array de UsuariosInterface que contiene un array vacío como valor inicial
+  usuarios = signal<UsuariosInterface[]>([]);
+
   constructor() {}
 
-  ngOnInit() {}
+  private usuariosServices = inject(UsuariosService)
+
+  ngOnInit() {
+    this.usuariosServices.getUsuarios().subscribe({
+      next: (res: UsuariosInterface[]) => {
+        this.usuarios.set(res)
+        // this.usuarios.update((usuarios) => [...usuarios, ... res])
+      },
+      error: (err: any) => {
+        console.log(err)
+      }
+    })
+  }
 }

@@ -10,7 +10,7 @@ import {
 @Injectable({
   providedIn: 'root',
 })
-export class UsuariosServicioService {
+export class UsuariosService {
   api = signal(environment.api_db);
 
   constructor(private http: HttpClient) {}
