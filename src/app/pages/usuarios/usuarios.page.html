@@ -29,22 +29,70 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-card class="ion-margin-top">
-    <ion-card-content class="ion-padding">
+<ion-card class="ion-margin-top">
+  <ion-card-content class="ion-padding">
+    <ion-grid [fixed]="true">
 
-      <ion-grid [fixed]="true">
-        <ion-row>
-          <ion-col size="auto">
-            <ion-thumbnail>
-              <img
-                alt="Silhouette of a person's head"
-                src="https://ionicframework.com/docs/img/demos/avatar.svg"
-              />
-            </ion-thumbnail>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+      <ion-row class="ion-justify-content-evenly ion-align-items-center">
 
-    </ion-card-content>
-  </ion-card>
+        <ion-col size="auto" class="ion-align-items-center">
+          <ion-thumbnail>
+            <img
+              alt="Silhouette of a person's head"
+              src="https://ionicframework.com/docs/img/demos/avatar.svg"
+            />
+          </ion-thumbnail>
+
+        </ion-col>
+
+        <ion-col size="auto">
+
+          <ion-icon name="person" slot="start"></ion-icon>
+          <ion-item lines="none">
+            <ion-label>
+              <ion-text>Nombre: nombre</ion-text>
+            </ion-label>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-label>
+              <ion-text>Contacto: 12345</ion-text>
+            </ion-label>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-label>
+              <ion-text>Email: email@example.com</ion-text>
+            </ion-label>
+          </ion-item>
+
+        </ion-col>
+
+        <ion-col size="auto">
+
+          <ion-item lines="none">
+            <ion-label>
+              <ion-text>Documento: 123445</ion-text>
+            </ion-label>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-label>
+              <ion-text>País: Colombia</ion-text>
+            </ion-label>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-label>
+              <ion-text>Plan: Premium</ion-text>
+            </ion-label>
+          </ion-item>
+
+        </ion-col>
+
+      </ion-row>
+
+    </ion-grid>
+  </ion-card-content>
+</ion-card>
 </ion-content>

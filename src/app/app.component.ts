@@ -33,6 +33,8 @@ import {
   bookmarkSharp,
   peopleOutline,
   peopleSharp,
+  personOutline,
+  personSharp,
 } from 'ionicons/icons';
 
 @Component({
@@ -83,6 +85,8 @@ export class AppComponent {
       bookmarkSharp,
       peopleOutline,
       peopleSharp,
+      personOutline,
+      personSharp,
     });
   }
 }
