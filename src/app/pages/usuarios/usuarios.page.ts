@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, signal, inject } from '@angular/core';
-import { CommonModule, TitleCasePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
   IonContent,
@@ -49,6 +49,7 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
     IonGrid,
     IonRow,
     IonCol,
+    IonIcon,
     CommonModule,
     FormsModule,
   ],

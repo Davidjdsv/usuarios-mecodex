@@ -35,6 +35,14 @@ import {
   peopleSharp,
   personOutline,
   personSharp,
+  callOutline,
+  callSharp,
+  documentTextOutline,
+  documentTextSharp,
+  cardOutline,
+  cardSharp,
+  globeOutline,
+  globeSharp,
 } from 'ionicons/icons';
 
 @Component({
@@ -87,6 +95,14 @@ export class AppComponent {
       peopleSharp,
       personOutline,
       personSharp,
+      callOutline,
+      callSharp,
+      documentTextOutline,
+      documentTextSharp,
+      cardOutline,
+      cardSharp,
+      globeOutline,
+      globeSharp,
     });
   }
 }
