@@ -64,14 +64,16 @@ export class UsuariosPage implements OnInit {
   private usuariosServices = inject(UsuariosService)
 
   ngOnInit() {
-    this.usuariosServices.getUsuarios().subscribe({
-      next: (res: UsuariosInterface[]) => {
-        this.usuarios.set(res)
-        // this.usuarios.update((usuarios) => [...usuarios, ... res])
-      },
-      error: (err: any) => {
-        console.log(err)
-      }
-    })
+    setTimeout(() => {
+      this.usuariosServices.getUsuarios().subscribe({
+        next: (res: UsuariosInterface[]) => {
+          this.usuarios.set(res)
+          // this.usuarios.update((usuarios) => [...usuarios, ... res])
+        },
+        error: (err: any) => {
+          console.log(err)
+        }
+      })
+    }, 1000)
   }
 }
