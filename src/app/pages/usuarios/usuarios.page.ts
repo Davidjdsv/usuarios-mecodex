@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import {
   IonContent,
   IonHeader,
@@ -52,6 +53,7 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
     IonIcon,
     CommonModule,
     FormsModule,
+    RouterLink
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
