@@ -67,7 +67,6 @@ export class UsuariosPage implements OnInit {
   private usuariosServices = inject(UsuariosService)
 
   ngOnInit() {
-    setTimeout(() => {
       this.usuariosServices.getUsuarios().subscribe({
         next: (res: UsuariosInterface[]) => {
           this.usuarios.set(res)
@@ -77,6 +76,5 @@ export class UsuariosPage implements OnInit {
           console.log(err)
         }
       })
-    })
   }
 }
