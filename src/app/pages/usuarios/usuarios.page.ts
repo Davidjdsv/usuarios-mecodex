@@ -77,6 +77,6 @@ export class UsuariosPage implements OnInit {
           console.log(err)
         }
       })
-    }, 1000)
+    })
   }
 }
