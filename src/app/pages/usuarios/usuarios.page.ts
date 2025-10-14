@@ -59,7 +59,7 @@ import { NotFoundComponent } from 'src/app/components/not-found/not-found.compon
     IonInfiniteScroll,
     IonInfiniteScrollContent
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class UsuariosPage implements OnInit {
   folder = signal('Usuarios Mecodex');
@@ -82,6 +82,13 @@ export class UsuariosPage implements OnInit {
   // * Límite máximo de usuarios a mostrar
   LIMITE_USUARIOS = 10;
 
+  cont_usuarios_pro_plus = signal<number>(0)
+  cont_usuarios_pro_plus_web = signal<number>(0)
+  cont_usuarios_pro = signal<number>(0)
+  cont_usuarios_lite = signal<number>(0)
+
+  cont_usuarios_totales = signal<number>(0)
+
   constructor() {}
 
   private usuariosServices = inject(UsuariosService)
@@ -93,8 +100,10 @@ export class UsuariosPage implements OnInit {
           this.usuariosOriginales.set(res);
           // Establecer el índice inicial en 0
           this.indiceActual.set(0);
-          // Cargar los primeros 20 usuarios
+          // Cargar los primeros usuarios
           this.cargarUsuariosInicial();
+          // Contar usuarios por tipo después de cargar
+          this.contarUsuariosPorTipo();
         },
         error: (err: any) => {
           console.log(err)
@@ -107,6 +116,48 @@ export class UsuariosPage implements OnInit {
     const usuariosInicial = this.usuariosOriginales().slice(0, this.LIMITE_USUARIOS);
     this.usuarios.set(usuariosInicial);
     this.indiceActual.set(this.LIMITE_USUARIOS);
+  }
+
+  // * Método para contar los usuarios por tipo (más eficiente)
+  // * Recorre el array una sola vez en lugar de 5 veces
+  contarUsuariosPorTipo() {
+    // Objeto para almacenar los contadores
+    const contadores = {
+      proPlus: 0,
+      proPlusWeb: 0,
+      pro: 0,
+      lite: 0,
+      total: 0
+    };
+
+    // Recorrer una sola vez y contar según el plan
+    this.usuariosOriginales().forEach((usuario) => {
+      // Incrementar contador total
+      contadores.total++;
+      
+      // Clasificar por tipo de plan
+      switch (usuario.PLAN_MECODEX) {
+        case 'PRO PLUS':
+          contadores.proPlus++;
+          break;
+        case 'PRO PLUS WEB':
+          contadores.proPlusWeb++;
+          break;
+        case 'PRO':
+          contadores.pro++;
+          break;
+        case 'LITE':
+          contadores.lite++;
+          break;
+      }
+    });
+
+    // Actualizar todas las señales con los contadores
+    this.cont_usuarios_pro_plus.set(contadores.proPlus);
+    this.cont_usuarios_pro_plus_web.set(contadores.proPlusWeb);
+    this.cont_usuarios_pro.set(contadores.pro);
+    this.cont_usuarios_lite.set(contadores.lite);
+    this.cont_usuarios_totales.set(contadores.total);
   }
 
   // * Método que filtra los usuarios basados en la cadena de búsqueda
