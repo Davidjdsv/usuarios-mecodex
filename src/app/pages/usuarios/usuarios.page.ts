@@ -40,8 +40,6 @@ import { NotFoundComponent } from 'src/app/components/not-found/not-found.compon
     IonMenuButton,
     IonButtons,
     IonCard,
-    IonCardHeader,
-    IonCardTitle,
     IonCardContent,
     IonThumbnail,
     IonItem,

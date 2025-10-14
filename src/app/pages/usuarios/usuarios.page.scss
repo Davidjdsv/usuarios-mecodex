@@ -1,0 +1,17 @@
+.main-text-container{
+    padding: 20px;
+    margin: 20px 0;
+    text-align: start;
+    display: flex;
+    gap: 20px;
+}
+
+.plan-container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.plan-container ion-text{
+    padding: 10px 0;
+}

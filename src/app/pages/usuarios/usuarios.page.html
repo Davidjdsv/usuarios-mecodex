@@ -16,25 +16,19 @@
   </ion-header>
   <ion-searchbar placeholder="Buscar usuario" [(ngModel)]="searchUsers" [debounce]="1000" (ionInput)="filterUsers()"></ion-searchbar>
 
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Usuarios de Mecodex</ion-card-title>
-    </ion-card-header>
-
-    <ion-card-content>
-      <ion-label>
-
-        <ion-text
-          >Aquí pueden ir botones de acciones para agregar, editar, eliminar y
-          ver usuarios.</ion-text
-        >
-      </ion-label>
-    </ion-card-content>
-  </ion-card>
+  <div class="main-text-container ion-flex-column">
+      <ion-text><h2>Reporte de todos los usuarios de Mecodex</h2></ion-text>
+      <ion-text><h3>Cantidad de usuarios con plan PRO PLUS: </h3></ion-text>
+      <ion-text>Cantidad de usuarios con plan PRO PLUS:</ion-text>
+      <ion-text>Cantidad de usuarios con plan PRO:</ion-text>
+      <ion-text>Cantidad de usuarios con plan LITE:</ion-text>
+  </div>
 
   <!-- Verifica si el array de usuarios está vacío -->
   @if (usuarios().length === 0) {
-    <app-not-found [title]="'usuario de Mecodex'" [firstValue]="searchUsers()"></app-not-found>
+    <div class="card-not-found">
+      <app-not-found [title]="'usuario de Mecodex'" [firstValue]="searchUsers()"></app-not-found>
+    </div>
   } @else {
     <!-- Mostrar usuarios si los hay -->
     @for (usuario of usuarios(); track usuario.id; let i = $index) {
