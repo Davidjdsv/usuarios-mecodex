@@ -18,10 +18,9 @@
 
   <div class="main-text-container ion-flex-column">
       <ion-text><h2>Reporte de todos los usuarios de Mecodex</h2></ion-text>
-      <ion-text><h3>Cantidad de usuarios con plan PRO PLUS: </h3></ion-text>
-      <ion-text>Cantidad de usuarios con plan PRO PLUS:</ion-text>
-      <ion-text>Cantidad de usuarios con plan PRO:</ion-text>
-      <ion-text>Cantidad de usuarios con plan LITE:</ion-text>
+      <ion-text><h3>Cantidad de usuarios con plan <ion-badge class="plan-badge plan-pro-plus">PRO PLUS</ion-badge> : </h3></ion-text>
+      <ion-text><h3>Cantidad de usuarios con plan <ion-badge class="plan-badge plan-pro">PRO</ion-badge> : </h3></ion-text>
+      <ion-text><h3>Cantidad de usuarios con plan <ion-badge class="plan-badge plan-lite">LITE</ion-badge> : </h3></ion-text>
   </div>
 
   <!-- Verifica si el array de usuarios está vacío -->
@@ -86,7 +85,28 @@
                 <ion-item lines="none" aria-label="favorite">
                   <ion-icon slot="start" color="primary" name="card-outline" aria-hidden="true"></ion-icon>
                   <ion-label>
-                    <ion-text><strong>Plan:</strong> {{ usuario.PLAN_MECODEX || "N/A"}}</ion-text>
+                    @if (usuario.PLAN_MECODEX === "LITE"){
+                      <ion-label>
+                        <ion-text>
+                          <strong>Plan:</strong>
+                          <ion-badge class="plan-badge plan-lite">{{ usuario.PLAN_MECODEX }}</ion-badge>
+                        </ion-text>
+                      </ion-label>
+                    } @else if (usuario.PLAN_MECODEX === "PRO"){
+                      <ion-label>
+                        <ion-text>
+                          <strong>Plan:</strong>
+                          <ion-badge class="plan-badge plan-pro">{{ usuario.PLAN_MECODEX }}</ion-badge>
+                        </ion-text>
+                      </ion-label>  
+                    } @else if (usuario.PLAN_MECODEX === "PRO PLUS"){
+                      <ion-label>
+                        <ion-text>
+                          <strong>Plan:</strong>
+                          <ion-badge class="plan-badge plan-pro-plus">{{ usuario.PLAN_MECODEX }}</ion-badge>
+                        </ion-text>
+                      </ion-label>
+                    }
                   </ion-label>
                 </ion-item>
 

@@ -19,6 +19,7 @@ import {
   IonGrid,
   IonRow,
   IonCol,
+  IonBadge,
   IonSearchbar,
   IonInfiniteScroll,
   IonInfiniteScrollContent
@@ -48,6 +49,7 @@ import { NotFoundComponent } from 'src/app/components/not-found/not-found.compon
     IonGrid,
     IonRow,
     IonCol,
+    IonBadge,
     IonIcon,
     CommonModule,
     FormsModule,
