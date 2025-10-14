@@ -104,9 +104,15 @@ export class UsuariosPage implements OnInit {
       usuario.nombre.toLowerCase().includes(query) ||
       usuario.correo.toLowerCase().includes(query) ||
       usuario.telefono.toLowerCase().includes(query) ||
-      usuario.documento.toLowerCase().includes(query) ||
-      usuario.PLAN_MECODEX.toLowerCase().includes(query)
+      usuario.documento.trim().toLowerCase().includes(query)
     );
+    
+    // Verificar si encontró usuarios
+    if (usuariosFiltrados.length === 0) {
+      console.log('No se encontró ningún usuario');
+    } else {
+      console.log(`Se encontraron ${usuariosFiltrados.length} usuario(s)`);
+    }
     
     // Actualizar la señal con los usuarios filtrados
     this.usuarios.set(usuariosFiltrados);
