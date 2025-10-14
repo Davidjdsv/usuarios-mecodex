@@ -12,7 +12,9 @@
     <ion-toolbar>
       <ion-title size="large">{{ folder() }}</ion-title>
     </ion-toolbar>
+
   </ion-header>
+  <ion-searchbar placeholder="Buscar usuario" [(ngModel)]="searchUsers" (ionInput)="filterUsers()"></ion-searchbar>
 
   <ion-card>
     <ion-card-header>

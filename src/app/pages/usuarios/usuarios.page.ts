@@ -23,6 +23,7 @@ import {
   IonGrid,
   IonRow,
   IonCol,
+  IonSearchbar
 } from '@ionic/angular/standalone';
 import { UsuariosInterface } from 'src/app/models/usuarios-interface';
 import { UsuariosService } from 'src/app/services/usuarios.service';
@@ -53,7 +54,8 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
     IonIcon,
     CommonModule,
     FormsModule,
-    RouterLink
+    RouterLink,
+    IonSearchbar,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -62,6 +64,12 @@ export class UsuariosPage implements OnInit {
   // * Una señal de tipo array de UsuariosInterface que contiene un array vacío como valor inicial
   usuarios = signal<UsuariosInterface[]>([]);
 
+  // * Señal para guardar los usuarios originales sin filtrar
+  usuariosOriginales = signal<UsuariosInterface[]>([]);
+
+  // * Una señal de tipo string que contiene una cadena vacía como valor inicial
+  searchUsers = signal<string>('');
+
   constructor() {}
 
   private usuariosServices = inject(UsuariosService)
@@ -69,12 +77,38 @@ export class UsuariosPage implements OnInit {
   ngOnInit() {
       this.usuariosServices.getUsuarios().subscribe({
         next: (res: UsuariosInterface[]) => {
-          this.usuarios.set(res)
-          // this.usuarios.update((usuarios) => [...usuarios, ... res])
+          // Guardar los usuarios originales sin modificar
+          this.usuariosOriginales.set(res);
+          this.usuarios.set(res);
         },
         error: (err: any) => {
           console.log(err)
         }
       })
+  }
+
+  // * Método que filtra los usuarios basados en la cadena de búsqueda
+  // * Se ejecuta cada vez que el usuario escribe en el searchbar
+  filterUsers() {
+    // Obtener el texto de búsqueda y convertir a minúsculas
+    const query = this.searchUsers().toLowerCase();
+    
+    // Si la búsqueda está vacía, mostrar todos los usuarios originales
+    if (!query || query.trim() === '') {
+      this.usuarios.set(this.usuariosOriginales());
+      return;
+    }
+    
+    // Filtrar usuarios que coincidan por nombre, correo o teléfono
+    const usuariosFiltrados = this.usuariosOriginales().filter((usuario) =>
+      usuario.nombre.toLowerCase().includes(query) ||
+      usuario.correo.toLowerCase().includes(query) ||
+      usuario.telefono.toLowerCase().includes(query) ||
+      usuario.documento.toLowerCase().includes(query) ||
+      usuario.PLAN_MECODEX.toLowerCase().includes(query)
+    );
+    
+    // Actualizar la señal con los usuarios filtrados
+    this.usuarios.set(usuariosFiltrados);
   }
 }
