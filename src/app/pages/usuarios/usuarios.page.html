@@ -34,13 +34,7 @@
 
   <!-- Verifica si el array de usuarios está vacío -->
   @if (usuarios().length === 0) {
-    <ion-card>
-      <ion-card-content class="ion-padding">
-        <ion-text>
-          No se encontró ningún usuario con el término de búsqueda: <strong>{{ searchUsers() }}</strong>
-        </ion-text>
-      </ion-card-content>
-    </ion-card>
+    <app-not-found [title]="'usuario de Mecodex'" [firstValue]="searchUsers()"></app-not-found>
   } @else {
     <!-- Mostrar usuarios si los hay -->
     @for (usuario of usuarios(); track usuario.id; let i = $index) {

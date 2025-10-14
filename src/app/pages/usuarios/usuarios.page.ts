@@ -9,7 +9,6 @@ import {
   IonToolbar,
   IonMenuButton,
   IonButtons,
-  IonList,
   IonCard,
   IonCardHeader,
   IonCardTitle,
@@ -19,7 +18,6 @@ import {
   IonItem,
   IonLabel,
   IonText,
-  IonCardSubtitle,
   IonGrid,
   IonRow,
   IonCol,
@@ -27,6 +25,7 @@ import {
 } from '@ionic/angular/standalone';
 import { UsuariosInterface } from 'src/app/models/usuarios-interface';
 import { UsuariosService } from 'src/app/services/usuarios.service';
+import { NotFoundComponent } from 'src/app/components/not-found/not-found.component';
 
 @Component({
   selector: 'app-usuarios',
@@ -56,6 +55,7 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
     FormsModule,
     RouterLink,
     IonSearchbar,
+    NotFoundComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
