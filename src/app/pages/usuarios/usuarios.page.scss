@@ -6,31 +6,5 @@
     gap: 20px;
 }
 
-.plan-container{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-}
 
-.plan-container ion-text{
-    padding: 10px 0;
-}
-
-ion-badge.plan-badge{
-    --padding-start: 10px;
-    --padding-end: 10px;
-    --border-radius: 9999px;
-    --color: #fff;
-    font-weight: 600;
-}
-
-ion-badge.plan-lite{ 
-    --background: linear-gradient(90deg, #e98c67, #c9633d); 
-}
-ion-badge.plan-pro{ 
-    --background: linear-gradient(90deg, #51688d, #2f3f59); 
-}
-ion-badge.plan-pro-plus{ 
-    --background: linear-gradient(90deg, #f6ce69, #f8c552); 
-}
 
