@@ -1,15 +1,20 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-title>usuario</ion-title>
+    <ion-title>Más información</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Usuario</ion-title>
+      <ion-title size="large">Más información</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <ion-button class="ion-margin" [routerLink]="['/usuarios']" color="primary">
+      <ion-icon name="arrow-back" slot="start"></ion-icon>
+      Volver
+    </ion-button>
 
   <ion-card class="ion-margin-top card-hover user-card">
     <ion-card-header>

@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import {
   IonContent,
   IonHeader,
@@ -19,6 +20,7 @@ import {
   IonGrid,
   IonRow,
   IonCol,
+  IonButton
 } from '@ionic/angular/standalone';
 import { ActivatedRoute } from '@angular/router';
 import { UsuariosService } from 'src/app/services/usuarios.service';
@@ -49,6 +51,8 @@ import { UsuariosInterface } from 'src/app/models/usuarios-interface';
     IonCol,
     CommonModule,
     FormsModule,
+    RouterLink,
+    IonButton
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
