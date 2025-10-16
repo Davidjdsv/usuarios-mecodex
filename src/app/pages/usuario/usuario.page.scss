@@ -1,0 +1,23 @@
+/* Divisor de sección con texto centrado */
+.break-section {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* separación entre líneas y texto */
+  margin: 24px 0; /* espacio arriba y abajo */
+}
+
+.break-section::before,
+.break-section::after {
+  content: "";
+  flex: 1;
+  border-bottom: 2px solid #e0e0e0; /* gris claro para la línea */
+}
+
+.break-section__text {
+  color: #6b7280; /* tono gris medio para el texto */
+  background: var(--ion-background-color, #ffffff); /* fondo para que se vea limpio sobre la línea */
+  padding: 6px 12px; /* acolchado alrededor del texto */
+  border: 2px solid #d1d5db; /* borde sutil alrededor del texto ("un poco bordeada") */
+  border-radius: 12px; /* esquinas ligeramente redondeadas */
+  font-weight: 500; /* destaca el texto ligeramente */
+}

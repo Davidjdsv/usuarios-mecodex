@@ -72,7 +72,7 @@ import {
 export class AppComponent {
   public appPages = [
     { title: 'Inicio', url: '/inicio', icon: 'home' },
-    { title: 'Usuarios Mecodex', url: '/usuarios', icon: 'people' },
+    { title: 'Clientes Mecodex', url: '/usuarios', icon: 'people' },
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   constructor() {

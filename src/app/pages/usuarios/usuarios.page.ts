@@ -62,7 +62,7 @@ import { NotFoundComponent } from 'src/app/components/not-found/not-found.compon
   changeDetection: ChangeDetectionStrategy.Default,
 })
 export class UsuariosPage implements OnInit {
-  folder = signal('Usuarios Mecodex');
+  folder = signal('Clientes Mecodex');
   // * Una señal de tipo array de UsuariosInterface que contiene un array vacío como valor inicial
   usuarios = signal<UsuariosInterface[]>([]);
 
