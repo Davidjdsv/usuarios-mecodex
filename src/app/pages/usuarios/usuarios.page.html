@@ -78,7 +78,7 @@
                 <ion-item lines="none" aria-label="favorite">
                   <ion-icon slot="start" color="primary" name="document-text-outline" aria-hidden="true"></ion-icon>
                   <ion-label>
-                    <ion-text><strong>Documento:</strong> {{ usuario.documento }}</ion-text>
+                    <ion-text><strong>Documento:</strong> {{ usuario.abreviatura | uppercase }}  {{ usuario.documento }}</ion-text>
                   </ion-label>
                 </ion-item>
 

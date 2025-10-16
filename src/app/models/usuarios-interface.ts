@@ -8,6 +8,7 @@ export interface UsuariosInterface {
     telefono: string;
     direccion: string;
     id_tipo_documento: number; // ID de la tabla tipo_documento... Debería de ser un objeto del tipo tipo_documento?
+    abreviatura: string;
     documento: string;
     fecha_expedicion: string;
     correo: string;
