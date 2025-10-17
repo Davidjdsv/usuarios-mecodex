@@ -8,10 +8,7 @@ import {
   IonTitle,
   IonToolbar,
   IonCard,
-  IonCardHeader,
-  IonCardTitle,
   IonCardContent,
-  IonThumbnail,
   IonIcon,
   IonBadge,
   IonItem,
@@ -39,10 +36,7 @@ import { UsuariosInterface } from 'src/app/models/usuarios-interface';
     IonTitle,
     IonToolbar,
     IonCard,
-    IonCardHeader,
-    IonCardTitle,
     IonCardContent,
-    IonThumbnail,
     IonIcon,
     IonBadge,
     IonItem,
@@ -78,9 +72,9 @@ export class UsuarioPage implements OnInit {
   estado = signal<string | null>(null)
   modo_conexion = signal<string | null>(null)
   version_app = signal<string | null>(null)
-  fecha_clasificacion = signal<string | null>(null)
-  clasificacion = signal<number | null>(null)
-  mensaje_clasificacion = signal<string | null>(null)
+  fecha_calificacion = signal<string | null>(null)
+  calificacion = signal<number | null>(null)
+  mensaje_calificacion = signal<string | null>(null)
   documento = signal<string | null>(null)
   fecha_expedicion = signal<string | null>(null)
   correo = signal<string | null>(null)
@@ -118,9 +112,9 @@ export class UsuarioPage implements OnInit {
           this.estado.set(usuarioEncontrado.estado || null)
           this.modo_conexion.set(usuarioEncontrado.modo_conexion || null)
           this.version_app.set(usuarioEncontrado.version_app || null)
-          this.fecha_clasificacion.set(usuarioEncontrado.fecha_calificacion || null)
-          this.clasificacion.set(usuarioEncontrado.calificacion || null)
-          this.mensaje_clasificacion.set(usuarioEncontrado.mensaje_clasificacion || null)
+          this.fecha_calificacion.set(usuarioEncontrado.fecha_calificacion || null)
+          this.calificacion.set(usuarioEncontrado.calificacion || null)
+          this.mensaje_calificacion.set(usuarioEncontrado.mensaje_calificacion || null)
           this.documento.set(usuarioEncontrado.documento || null)
           this.fecha_expedicion.set(usuarioEncontrado.fecha_expedicion || null)
           this.correo.set(usuarioEncontrado.correo || null)

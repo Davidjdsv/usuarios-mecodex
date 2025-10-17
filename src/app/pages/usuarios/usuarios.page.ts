@@ -16,6 +16,7 @@ import {
   IonItem,
   IonLabel,
   IonText,
+  IonButton,
   IonGrid,
   IonRow,
   IonCol,
@@ -46,6 +47,7 @@ import { NotFoundComponent } from 'src/app/components/not-found/not-found.compon
     IonItem,
     IonLabel,
     IonText,
+    IonButton,
     IonGrid,
     IonRow,
     IonCol,
@@ -225,5 +227,9 @@ export class UsuariosPage implements OnInit {
     
     // Finalizar la carga
     event.target.complete();
+  }
+
+  addClient(){
+    
   }
 }

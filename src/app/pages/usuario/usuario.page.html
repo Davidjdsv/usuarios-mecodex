@@ -17,16 +17,15 @@
   </ion-button>
 
   <ion-card class="ion-margin-top card-hover user-card">
-    <ion-card-header> </ion-card-header>
     <ion-card-content class="ion-padding">
       <ion-grid [fixed]="true">
-        <ion-row class="ion-align-items-stretch">
+        <ion-row class="ion-align-items-stretch ion-justify-content-between">
           <!-- Col 1: Imagen -->
 
 
           <!-- Col 2: Nombre / Contacto / Email -->
           <ion-col size="12" size-md="4" class="meta">
-            <ion-item lines="none" aria-label="favorite">
+            <ion-item lines="none" aria-label="favorite" >
               <!-- Icono de persona antes del nombre - usar el nombre del icono directamente -->
               <ion-icon
                 slot="start"
@@ -147,7 +146,7 @@
       </div>
 
       <ion-grid [fixed]="true" class="ion-justify-content-center">
-        <ion-row class="ion-align-items-stretch">
+        <ion-row class="ion-align-items-stretch ion-justify-content-between">
           <ion-col size="12" size-md="4" class="meta">
             <ion-item lines="none" aria-label="favorite">
               <ion-icon
@@ -179,7 +178,7 @@
             </ion-item>
           </ion-col>
 
-          <ion-col>
+          <ion-col size="12" size-md="4" class="meta">
             <ion-item lines="none" aria-label="favorite">
               <ion-icon
                 slot="start"
@@ -214,11 +213,11 @@
       </ion-grid>
 
       <div class="break-section" aria-label="sección-divisor">
-        <span class="break-section__text">Clasificación</span>
+        <span class="break-section__text">Calificación</span>
       </div>
 
       <ion-grid [fixed]="true">
-        <ion-row class="ion-align-items-stretch">
+        <ion-row class="ion-align-items-stretch ion-justify-content-between">
           <ion-col size="12" size-md="4" class="meta">
             <ion-item lines="none" aria-label="favorite">
               <ion-icon
@@ -229,8 +228,8 @@
               ></ion-icon>
               <ion-label>
                 <ion-text
-                  ><strong>Fecha clasificación:</strong> {{
-                  fecha_clasificacion() || "N/A"}}</ion-text
+                  ><strong>Fecha Calificación</strong> {{
+                  fecha_calificacion() || "N/A"}}</ion-text
                 >
               </ion-label>
             </ion-item>
@@ -244,8 +243,8 @@
               ></ion-icon>
               <ion-label>
                 <ion-text
-                  ><strong>Mensaje clasificación:</strong> {{
-                  mensaje_clasificacion() || "N/A"}}</ion-text
+                  ><strong>Mensaje Calificación:</strong> {{
+                  mensaje_calificacion() || "N/A"}}</ion-text
                 >
               </ion-label>
             </ion-item>
@@ -261,7 +260,7 @@
               ></ion-icon>
               <ion-label>
                 <ion-text
-                  ><strong>Clasificacion:</strong> {{ clasificacion()
+                  ><strong>Calificación:</strong> {{ calificacion()
                   }}</ion-text
                 >
               </ion-label>

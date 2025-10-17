@@ -29,7 +29,7 @@ export interface UsuariosInterface {
     modo_conexion?: string;
     version_app?: string;
     fecha_calificacion?: string;
-    mensaje_clasificacion?: string | null;
+    mensaje_calificacion?: string | null;
     calificacion?: number;
 
     // Datos de la tabla país
