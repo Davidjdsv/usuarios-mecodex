@@ -20,7 +20,9 @@ import {
   IonGrid,
   IonRow,
   IonCol,
-  IonButton
+  IonButton,
+  IonAccordionGroup,
+  IonAccordion
 } from '@ionic/angular/standalone';
 import { ActivatedRoute } from '@angular/router';
 import { UsuariosService } from 'src/app/services/usuarios.service';
@@ -52,7 +54,9 @@ import { UsuariosInterface } from 'src/app/models/usuarios-interface';
     CommonModule,
     FormsModule,
     RouterLink,
-    IonButton
+    IonButton,
+    IonAccordionGroup,
+    IonAccordion
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
