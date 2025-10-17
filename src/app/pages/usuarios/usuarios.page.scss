@@ -4,6 +4,8 @@
     text-align: start;
     display: flex;
     gap: 20px;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 // Imagen a tamaño completo del contenedor

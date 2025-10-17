@@ -13,6 +13,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-devkit/schematics-cli": "^20.3.6",
     "@angular/animations": "^20.0.0",
     "@angular/common": "^20.0.0",
     "@angular/compiler": "^20.0.0",
@@ -21,6 +22,7 @@
     "@angular/platform-browser": "^20.0.0",
     "@angular/platform-browser-dynamic": "^20.0.0",
     "@angular/router": "^20.0.0",
+    "@anthropic-ai/sdk": "^0.67.0",
     "@capacitor/app": "7.1.0",
     "@capacitor/core": "7.4.3",
     "@capacitor/haptics": "7.0.2",

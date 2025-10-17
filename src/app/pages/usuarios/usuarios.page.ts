@@ -1,7 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy, signal, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Component, OnInit, ChangeDetectionStrategy, signal, inject } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { FormsModule } from '@angular/forms'
+import { RouterLink } from '@angular/router'
 import {
   IonContent,
   IonHeader,
@@ -23,11 +23,14 @@ import {
   IonBadge,
   IonSearchbar,
   IonInfiniteScroll,
+  AlertController,
+  ModalController,
   IonInfiniteScrollContent
-} from '@ionic/angular/standalone';
-import { UsuariosInterface } from 'src/app/models/usuarios-interface';
-import { UsuariosService } from 'src/app/services/usuarios.service';
-import { NotFoundComponent } from 'src/app/components/not-found/not-found.component';
+} from '@ionic/angular/standalone'
+import { UsuariosInterface } from 'src/app/models/usuarios-interface'
+import { UsuariosService } from 'src/app/services/usuarios.service'
+import { NotFoundComponent } from 'src/app/components/not-found/not-found.component'
+import { AddClientComponent } from 'src/app/components/add-client/add-client.component'
 
 @Component({
   selector: 'app-usuarios',
@@ -64,25 +67,25 @@ import { NotFoundComponent } from 'src/app/components/not-found/not-found.compon
   changeDetection: ChangeDetectionStrategy.Default,
 })
 export class UsuariosPage implements OnInit {
-  folder = signal('Clientes Mecodex');
+  folder = signal('Clientes Mecodex')
   // * Una señal de tipo array de UsuariosInterface que contiene un array vacío como valor inicial
-  usuarios = signal<UsuariosInterface[]>([]);
+  usuarios = signal<UsuariosInterface[]>([])
 
   // * Señal para guardar los usuarios originales sin filtrar
-  usuariosOriginales = signal<UsuariosInterface[]>([]);
+  usuariosOriginales = signal<UsuariosInterface[]>([])
 
   // * Una señal de tipo string que contiene una cadena vacía como valor inicial. 
   // * Se utiliza para almacenar el texto de búsqueda ingresado por el usuario en el buscador que es enviada por [(ngModel)]="searchUsers".
-  searchUsers = signal<string>('');
+  searchUsers = signal<string>('')
 
   // * Variable para controlar cuántos usuarios se han cargado (máximo 20)
-  usuariosLimitados = signal<UsuariosInterface[]>([]);
+  usuariosLimitados = signal<UsuariosInterface[]>([])
 
   // * Índice para controlar desde dónde cargar más usuarios
-  indiceActual = signal<number>(0);
+  indiceActual = signal<number>(0)
 
   // * Límite máximo de usuarios a mostrar
-  LIMITE_USUARIOS = 10;
+  LIMITE_USUARIOS = 10
 
   cont_usuarios_pro_plus = signal<number>(0)
   cont_usuarios_pro_plus_web = signal<number>(0)
@@ -91,21 +94,24 @@ export class UsuariosPage implements OnInit {
 
   cont_usuarios_totales = signal<number>(0)
 
-  constructor() {}
+  // Se puede injectar las dependencias o en el controlador (Clásico)
+  constructor(private mdlController: ModalController, 
+    private alertController: AlertController) {}
 
+  // O se pueden injectar por inject (Mas moderno)
   private usuariosServices = inject(UsuariosService)
 
   ngOnInit() {
       this.usuariosServices.getUsuarios().subscribe({
         next: (res: UsuariosInterface[]) => {
           // Guardar los usuarios originales sin modificar
-          this.usuariosOriginales.set(res);
+          this.usuariosOriginales.set(res)
           // Establecer el índice inicial en 0
-          this.indiceActual.set(0);
+          this.indiceActual.set(0)
           // Cargar los primeros usuarios
-          this.cargarUsuariosInicial();
+          this.cargarUsuariosInicial()
           // Contar usuarios por tipo después de cargar
-          this.contarUsuariosPorTipo();
+          this.contarUsuariosPorTipo()
         },
         error: (err: any) => {
           console.log(err)
@@ -115,9 +121,9 @@ export class UsuariosPage implements OnInit {
 
   // * Método para cargar los primeros usuarios al iniciar
   cargarUsuariosInicial() {
-    const usuariosInicial = this.usuariosOriginales().slice(0, this.LIMITE_USUARIOS);
-    this.usuarios.set(usuariosInicial);
-    this.indiceActual.set(this.LIMITE_USUARIOS);
+    const usuariosInicial = this.usuariosOriginales().slice(0, this.LIMITE_USUARIOS)
+    this.usuarios.set(usuariosInicial)
+    this.indiceActual.set(this.LIMITE_USUARIOS)
   }
 
   // * Método para contar los usuarios por tipo (más eficiente)
@@ -130,48 +136,48 @@ export class UsuariosPage implements OnInit {
       pro: 0,
       lite: 0,
       total: 0
-    };
+    }
 
     // Recorrer una sola vez y contar según el plan
     this.usuariosOriginales().forEach((usuario) => {
       // Incrementar contador total
-      contadores.total++;
+      contadores.total++
       
       // Clasificar por tipo de plan
       switch (usuario.PLAN_MECODEX) {
         case 'PRO PLUS':
-          contadores.proPlus++;
-          break;
+          contadores.proPlus++
+          break
         case 'PRO PLUS WEB':
-          contadores.proPlusWeb++;
-          break;
+          contadores.proPlusWeb++
+          break
         case 'PRO':
-          contadores.pro++;
-          break;
+          contadores.pro++
+          break
         case 'LITE':
-          contadores.lite++;
-          break;
+          contadores.lite++
+          break
       }
-    });
+    })
 
     // Actualizar todas las señales con los contadores
-    this.cont_usuarios_pro_plus.set(contadores.proPlus);
-    this.cont_usuarios_pro_plus_web.set(contadores.proPlusWeb);
-    this.cont_usuarios_pro.set(contadores.pro);
-    this.cont_usuarios_lite.set(contadores.lite);
-    this.cont_usuarios_totales.set(contadores.total);
+    this.cont_usuarios_pro_plus.set(contadores.proPlus)
+    this.cont_usuarios_pro_plus_web.set(contadores.proPlusWeb)
+    this.cont_usuarios_pro.set(contadores.pro)
+    this.cont_usuarios_lite.set(contadores.lite)
+    this.cont_usuarios_totales.set(contadores.total)
   }
 
   // * Método que filtra los usuarios basados en la cadena de búsqueda
   // * Se ejecuta cada vez que el usuario escribe en el searchbar
   filterUsers() {
     // Obtener el texto de búsqueda y convertir a minúsculas
-    const query = this.searchUsers().toLowerCase();
+    const query = this.searchUsers().toLowerCase()
     
     // Si la búsqueda está vacía, mostrar todos los usuarios originales
     if (!query || query.trim() === '') {
-      this.usuarios.set(this.usuariosOriginales());
-      return;
+      this.usuarios.set(this.usuariosOriginales())
+      return
     }
     
     // Filtrar usuarios que coincidan por nombre, correo o teléfono
@@ -180,56 +186,60 @@ export class UsuariosPage implements OnInit {
       usuario.correo.toLowerCase().includes(query) ||
       usuario.telefono.toLowerCase().includes(query) ||
       usuario.documento.trim().toLowerCase().includes(query)
-    );
+    )
     
     // Verificar si encontró usuarios
     if (usuariosFiltrados.length === 0) {
-      console.log('No se encontró ningún usuario');
+      console.log('No se encontró ningún usuario')
     } else {
-      console.log(`Se encontraron ${usuariosFiltrados.length} usuario(s)`);
+      console.log(`Se encontraron ${usuariosFiltrados.length} usuario(s)`)
     }
     
     // Actualizar la señal con los usuarios filtrados
-    this.usuarios.set(usuariosFiltrados);
+    this.usuarios.set(usuariosFiltrados)
   }
 
   // * Método para cargar más usuarios cuando se alcanza el final de la lista
   loadMore(event: any){
     // Obtener el índice actual (desde dónde cargar)
-    const indice = this.indiceActual();
+    const indice = this.indiceActual()
     
     // Obtener el total de usuarios disponibles
-    const totalUsuarios = this.usuariosOriginales().length;
+    const totalUsuarios = this.usuariosOriginales().length
     
     // Verificar si ya se cargaron todos los usuarios
     if (indice >= totalUsuarios) {
-      console.log('Todos los usuarios han sido cargados');
-      event.target.disabled = true; // Deshabilitar infinite scroll
-      event.target.complete();
-      return;
+      console.log('Todos los usuarios han sido cargados')
+      event.target.disabled = true // Deshabilitar infinite scroll
+      event.target.complete()
+      return
     }
     
     // Calcular el siguiente índice (índice actual + LIMITE_USUARIOS)
-    const siguienteIndice = Math.min(indice + this.LIMITE_USUARIOS, totalUsuarios);
+    const siguienteIndice = Math.min(indice + this.LIMITE_USUARIOS, totalUsuarios)
     
     // Obtener los nuevos usuarios desde indice hasta siguienteIndice
-    const nuevosUsuarios = this.usuariosOriginales().slice(indice, siguienteIndice);
+    const nuevosUsuarios = this.usuariosOriginales().slice(indice, siguienteIndice)
     
     // Agregar los nuevos usuarios a los que ya están mostrados
-    const usuariosActuales = this.usuarios();
-    const usuariosCombinados = [...usuariosActuales, ...nuevosUsuarios];
+    const usuariosActuales = this.usuarios()
+    const usuariosCombinados = [...usuariosActuales, ...nuevosUsuarios]
     
     // Actualizar la señal de usuarios
-    this.usuarios.set(usuariosCombinados);
+    this.usuarios.set(usuariosCombinados)
     
     // Actualizar el índice actual para la próxima carga
-    this.indiceActual.set(siguienteIndice);
+    this.indiceActual.set(siguienteIndice)
     
     // Finalizar la carga
-    event.target.complete();
+    event.target.complete()
   }
 
-  addClient(){
-    
+  async addClient(){
+    const modal = await this.mdlController.create({
+      component: AddClientComponent
+    })
+
+    await modal.present()
   }
 }
