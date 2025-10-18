@@ -1,3 +1,236 @@
-<p>
-  add-client works!
-</p>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Agregar nuevo cliente</ion-title>
+    <!-- Botón para cerrar el modal -->
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <!-- Identificación y nombres -->
+    <ion-item class="ion-margin-vertical">
+      <ion-input
+        required="true"
+        type="text"
+        name="nombre"
+        [(ngModel)]="nuevoUsuario.nombre"
+        label="Primer nombre"
+        label-placement="floating"
+        fill="inline"
+        color="primary"
+        maxlength="20"
+        max=20
+        minlength="5"
+        min=5
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input
+        required="true"
+        type="text"
+        name="segundo_nombre"
+        [(ngModel)]="nuevoUsuario.segundo_nombre"
+        label="Segundo nombre"
+        label-placement="floating"
+        fill="inline"
+        color="primary"
+        maxlength="20"
+        max=20
+        minlength="5"
+        min=5
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input
+        required="true"
+        type="text"
+        name="apellido"
+        [(ngModel)]="nuevoUsuario.apellido"
+        label="Primer apellido"
+        label-placement="floating"
+        fill="inline"
+        placeholder="Doe"
+        color="primary"
+        maxlength="20"
+        max=20
+        minlength="5"
+        min=5
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input
+        required="true"
+        type="text"
+        name="segundo_apellido"
+        [(ngModel)]="nuevoUsuario.segundo_apellido"
+        label="Segundo apellido"
+        label-placement="floating"
+        fill="inline"
+        placeholder="Doe"
+        color="primary"
+        maxlength="20"
+        max=20
+        minlength="5"
+        min=5
+      ></ion-input>
+    </ion-item>
+
+    <!-- Documento -->
+    <ion-item>
+      <ion-label position="stacked">Tipo de documento</ion-label>
+      <ion-select
+        required="true"
+        interface="popover"
+        name="id_tipo_documento"
+        [(ngModel)]="nuevoUsuario.id_tipo_documento"
+        placeholder="Seleccione"
+      >
+        <ion-select-option [value]="1">sin asignar (N/A)</ion-select-option>
+        <ion-select-option [value]="2">Cedula de Ciudadania (CC)</ion-select-option>
+        <ion-select-option [value]="3">Cedula Extranjería (CE)</ion-select-option>
+        <ion-select-option [value]="4">Documento de identificación extranjero (DIE)</ion-select-option>
+        <ion-select-option [value]="5">Número de Identificación Tributaria (NIT)</ion-select-option>
+        <ion-select-option [value]="6">NIT de otro país (NIT-EXT)</ion-select-option>
+        <ion-select-option [value]="7">Número Único de Identificación Personal (NUIP)</ion-select-option>
+        <ion-select-option [value]="8">Otro Documento (OTRO)</ion-select-option>
+        <ion-select-option [value]="9">Permiso Especial de Permanencia (PEP)</ion-select-option>
+        <ion-select-option [value]="10">Pasaporte (PP)</ion-select-option>
+        <ion-select-option [value]="11">Permiso protección Temporal (PPT)</ion-select-option>
+        <ion-select-option [value]="12">Registro Civil (RC)</ion-select-option>
+        <ion-select-option [value]="13">Tarjeta de Extranjería (TE)</ion-select-option>
+        <ion-select-option [value]="14">Tarjeta de Identidad (TI)</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Documento</ion-label>
+      <ion-input
+        type="text"
+        name="documento"
+        [(ngModel)]="nuevoUsuario.documento"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Fecha de expedición</ion-label>
+      <ion-input
+        type="date"
+        name="fecha_expedicion"
+        [(ngModel)]="nuevoUsuario.fecha_expedicion"
+      ></ion-input>
+    </ion-item>
+
+    <!-- Contacto y dirección -->
+    <ion-item>
+      <ion-label position="stacked">Teléfono</ion-label>
+      <ion-input
+        type="tel"
+        name="telefono"
+        [(ngModel)]="nuevoUsuario.telefono"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Correo</ion-label>
+      <ion-input
+        type="email"
+        name="correo"
+        [(ngModel)]="nuevoUsuario.correo"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Dirección</ion-label>
+      <ion-input
+        type="text"
+        name="direccion"
+        [(ngModel)]="nuevoUsuario.direccion"
+      ></ion-input>
+    </ion-item>
+
+    <!-- País -->
+    <ion-item>
+      <ion-label position="stacked">País</ion-label>
+      <ion-select
+        interface="popover"
+        name="id_pais"
+        [(ngModel)]="nuevoUsuario.id_pais"
+        placeholder="Seleccione"
+      >
+        <ion-select-option [value]="1">Colombia</ion-select-option>
+        <ion-select-option [value]="2">Ecuador</ion-select-option>
+        <ion-select-option [value]="3">Perú</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Nombre del país</ion-label>
+      <ion-input type="text" [(ngModel)]="nuevoUsuario.pais_nombre"></ion-input>
+    </ion-item>
+
+    <!-- Plan -->
+    <ion-item>
+      <ion-label position="stacked">Plan MECODEX</ion-label>
+      <ion-select
+        interface="popover"
+        [(ngModel)]="nuevoUsuario.PLAN_MECODEX"
+        placeholder="Seleccione"
+      >
+        <ion-select-option value="LITE">LITE</ion-select-option>
+        <ion-select-option value="PRO">PRO</ion-select-option>
+        <ion-select-option value="PRO PLUS">PRO PLUS</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- Fechas -->
+    <ion-item>
+      <ion-label position="stacked">Fecha de creación</ion-label>
+      <ion-input
+        type="date"
+        [(ngModel)]="nuevoUsuario.fecha_creacion"
+      ></ion-input>
+    </ion-item>
+
+    <!-- Observaciones -->
+    <ion-item>
+      <ion-label position="stacked">Observación cliente</ion-label>
+      <ion-textarea
+        auto-grow="true"
+        [(ngModel)]="nuevoUsuario.observacion_cliente"
+      ></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Observación comercial</ion-label>
+      <ion-textarea
+        auto-grow="true"
+        [(ngModel)]="nuevoUsuario.observacion_comercial"
+      ></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Observación soporte</ion-label>
+      <ion-textarea
+        auto-grow="true"
+        [(ngModel)]="nuevoUsuario.observacion_soporte"
+      ></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Observación cuenta</ion-label>
+      <ion-textarea
+        auto-grow="true"
+        [(ngModel)]="nuevoUsuario.observacion_cuenta"
+      ></ion-textarea>
+    </ion-item>
+
+    <!-- Acciones -->
+    <ion-item lines="none" class="ion-margin-top">
+      <ion-button expand="block">Guardar</ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>

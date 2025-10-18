@@ -17,8 +17,8 @@
   <ion-searchbar placeholder="Buscar usuario por nombre, correo o número de teléfono" [(ngModel)]="searchUsers" [debounce]="1000" (ionInput)="filterUsers()"></ion-searchbar>
 
   <div class="main-text-container ion-flex-column">
-      <ion-button class="ion-margin-vertical" color="primary">
-        <ion-icon name="person-add-outline" slot="start"></ion-icon>
+      <ion-button class="ion-margin-vertical" (click)="addClient()" color="primary">
+        <ion-icon name="person-add-outline"  slot="start"></ion-icon>
         Agregar usuario
       </ion-button>
       <ion-text><h2>Reporte de todos los usuarios de Mecodex</h2></ion-text>
