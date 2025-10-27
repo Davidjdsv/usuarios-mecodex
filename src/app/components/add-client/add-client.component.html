@@ -14,7 +14,7 @@
         required="true"
         type="text"
         name="nombre"
-        [(ngModel)]="nuevoUsuario"
+        [(ngModel)]="dataUsuario.nombre"
         name="nombre"
         label="Primer nombre"
         label-placement="floating"
@@ -32,7 +32,7 @@
         required="true"
         type="text"
         name="segundo_nombre"
-        [(ngModel)]="nuevoUsuario"
+        [(ngModel)]="dataUsuario.segundo_nombre"
         name="segundo_nombre"
         label="Segundo nombre"
         label-placement="floating"
@@ -50,7 +50,7 @@
         required="true"
         type="text"
         name="apellido"
-        [(ngModel)]="nuevoUsuario"
+        [(ngModel)]="dataUsuario.apellido"
         name="apellido" 
         label="Primer apellido"
         label-placement="floating"
@@ -69,7 +69,7 @@
         required="true"
         type="text"
         name="segundo_apellido"
-        [(ngModel)]="nuevoUsuario"
+        [(ngModel)]="dataUsuario.segundo_apellido"
         name="segundo_apellido"
         label="Segundo apellido"
         label-placement="floating"
@@ -90,7 +90,7 @@
         required="true"
         interface="popover"
         name="id_tipo_documento"
-        [(ngModel)]="nuevoUsuario"
+        [(ngModel)]="dataUsuario.id_tipo_documento"
         name="id_tipo_documento"
         placeholder="Seleccione"
       >
@@ -116,7 +116,7 @@
       <ion-input
         type="text"
         name="documento"
-        [(ngModel)]="nuevoUsuario"
+        [(ngModel)]="dataUsuario.documento"
         name="documento"
       ></ion-input>
     </ion-item>
@@ -126,7 +126,7 @@
       <ion-input
         type="date"
         name="fecha_expedicion"
-        [(ngModel)]="nuevoUsuario"
+        [(ngModel)]="dataUsuario.fecha_expedicion"
         name="fecha_expedicion"
       ></ion-input>
     </ion-item>
@@ -137,7 +137,7 @@
       <ion-input
         type="tel"
         name="telefono"
-        [(ngModel)]="nuevoUsuario"
+        [(ngModel)]="dataUsuario.telefono"
         name="telefono"
       ></ion-input>
     </ion-item>
@@ -147,7 +147,7 @@
       <ion-input
         type="email"
         name="correo"
-        [(ngModel)]="nuevoUsuario"
+        [(ngModel)]="dataUsuario.correo"
         name="correo"
       ></ion-input>
     </ion-item>
@@ -157,7 +157,7 @@
       <ion-input
         type="text"
         name="direccion"
-        [(ngModel)]="nuevoUsuario"
+        [(ngModel)]="dataUsuario.direccion"
         name="direccion"
       ></ion-input>
     </ion-item>
@@ -170,7 +170,7 @@
         (click)="listarPaises()"
         interface="popover"
         name="id_pais"
-        [(ngModel)]="nuevoUsuario"
+        [(ngModel)]="dataUsuario.id_pais"
         placeholder="Seleccione"
       >
       @for(pais of paises(); track pais.id; let i = $index){
@@ -184,7 +184,7 @@
       <ion-label position="stacked">Plan MECODEX</ion-label>
       <ion-select
         interface="popover"
-        [(ngModel)]="nuevoUsuario"
+        [(ngModel)]="dataUsuario.PLAN_MECODEX"
         name="plan_mecodex"
         placeholder="Seleccione"
       >
@@ -199,7 +199,7 @@
       <ion-label position="stacked">Fecha de creación</ion-label>
       <ion-input
         type="date"
-        [(ngModel)]="nuevoUsuario"
+        [(ngModel)]="dataUsuario.fecha_creacion"
         name="fecha_creacion"
       ></ion-input>
     </ion-item>
@@ -209,7 +209,7 @@
       <ion-label position="stacked">Observación cliente</ion-label>
       <ion-textarea
         auto-grow="true"
-        [(ngModel)]="nuevoUsuario"
+        [(ngModel)]="dataUsuario.observacion_cliente"
         name="observacion_cliente"
       ></ion-textarea>
     </ion-item>
@@ -218,7 +218,7 @@
       <ion-label position="stacked">Observación comercial</ion-label>
       <ion-textarea
         auto-grow="true"
-        [(ngModel)]="nuevoUsuario"
+        [(ngModel)]="dataUsuario.observacion_comercial"
         name="observacion_comercial"
       ></ion-textarea>
     </ion-item>
@@ -227,7 +227,7 @@
       <ion-label position="stacked">Observación soporte</ion-label>
       <ion-textarea
         auto-grow="true"
-        [(ngModel)]="nuevoUsuario"
+        [(ngModel)]="dataUsuario.observacion_soporte"
         name="observacion_soporte"
       ></ion-textarea>
     </ion-item>
@@ -236,7 +236,7 @@
       <ion-label position="stacked">Observación cuenta</ion-label>
       <ion-textarea
         auto-grow="true"
-        [(ngModel)]="nuevoUsuario"
+        [(ngModel)]="dataUsuario.observacion_cuenta"
         name="observacion_cuenta"
       ></ion-textarea>
     </ion-item>

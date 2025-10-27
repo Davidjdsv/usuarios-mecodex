@@ -45,11 +45,43 @@ import { PaisServicioService } from 'src/app/services/pais-servicio.service';
   ],
 })
 export class AddClientComponent implements OnInit {
-  nuevoUsuario = <UsuariosInterface[]>[];
   paises = signal<PaisesInterface[]>([]);
-  usuario = this.nuevoUsuario[0]
+  
+  nuevoUsuario = <UsuariosInterface[]>[];
 
-  constructor(private usuariosService: UsuariosService, private paisServicioService: PaisServicioService) {}
+  dataUsuario = {
+    nombre: '',
+    segundo_nombre: '',
+    apellido: '',
+    segundo_apellido: '',
+    telefono: '',
+    direccion: '',
+    id_tipo_documento: '',
+    abreviatura: '',
+    estado: '',
+    modo_conexion: '',
+    version_app: '',
+    fecha_clasificacion: '',
+    calificacion: '',
+    mensaje_calificacion: '',
+    documento: '',
+    fecha_expedicion: '',
+    correo: '',
+    id_pais: '',
+    pais_nombre: '',
+    PLAN_MECODEX: '',
+    observacion_cliente: '',
+    observacion_comercial: '',
+    observacion_soporte: '',
+    observacion_cuenta: '',
+    fecha_creacion: '',
+    id_usuario_sensei: '',
+    fecha_modificacion: '',
+  }
+
+
+  constructor(private usuariosService: UsuariosService, 
+    private paisServicioService: PaisServicioService) {}
 
   ngOnInit() { }
 
