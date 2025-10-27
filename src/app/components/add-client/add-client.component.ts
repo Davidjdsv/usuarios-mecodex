@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -16,6 +16,7 @@ import {
   IonButton,
 } from '@ionic/angular/standalone';
 import { UsuariosInterface } from 'src/app/models/usuarios-interface';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
   selector: 'app-add-client',
@@ -40,10 +41,24 @@ import { UsuariosInterface } from 'src/app/models/usuarios-interface';
   ],
 })
 export class AddClientComponent implements OnInit {
-  // Modelo para enlazar con el formulario usando ngModel
-  nuevoUsuario: Partial<UsuariosInterface> = {};
+  nuevoUsuario = <UsuariosInterface[]>[];
+  usuario = this.nuevoUsuario[0]
 
-  constructor() {}
+  constructor(private usuariosService: UsuariosService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.listarPaises()
+  }
+
+  listarPaises(){
+    this.usuariosService.getUsuarios().subscribe({
+      next: (respuesta: UsuariosInterface[]) => {
+        console.log(respuesta)
+        this.nuevoUsuario = respuesta
+      },
+      error: (err: any) => {
+        console.error(err)
+      }
+    })
+  }
 }

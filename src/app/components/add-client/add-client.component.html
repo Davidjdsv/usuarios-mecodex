@@ -14,7 +14,8 @@
         required="true"
         type="text"
         name="nombre"
-        [(ngModel)]="nuevoUsuario.nombre"
+        [(ngModel)]="nuevoUsuario"
+        name="nombre"
         label="Primer nombre"
         label-placement="floating"
         fill="inline"
@@ -31,7 +32,8 @@
         required="true"
         type="text"
         name="segundo_nombre"
-        [(ngModel)]="nuevoUsuario.segundo_nombre"
+        [(ngModel)]="nuevoUsuario"
+        name="segundo_nombre"
         label="Segundo nombre"
         label-placement="floating"
         fill="inline"
@@ -48,7 +50,8 @@
         required="true"
         type="text"
         name="apellido"
-        [(ngModel)]="nuevoUsuario.apellido"
+        [(ngModel)]="nuevoUsuario"
+        name="apellido" 
         label="Primer apellido"
         label-placement="floating"
         fill="inline"
@@ -66,7 +69,8 @@
         required="true"
         type="text"
         name="segundo_apellido"
-        [(ngModel)]="nuevoUsuario.segundo_apellido"
+        [(ngModel)]="nuevoUsuario"
+        name="segundo_apellido"
         label="Segundo apellido"
         label-placement="floating"
         fill="inline"
@@ -86,7 +90,8 @@
         required="true"
         interface="popover"
         name="id_tipo_documento"
-        [(ngModel)]="nuevoUsuario.id_tipo_documento"
+        [(ngModel)]="nuevoUsuario"
+        name="id_tipo_documento"
         placeholder="Seleccione"
       >
         <ion-select-option [value]="1">sin asignar (N/A)</ion-select-option>
@@ -111,7 +116,8 @@
       <ion-input
         type="text"
         name="documento"
-        [(ngModel)]="nuevoUsuario.documento"
+        [(ngModel)]="nuevoUsuario"
+        name="documento"
       ></ion-input>
     </ion-item>
 
@@ -120,7 +126,8 @@
       <ion-input
         type="date"
         name="fecha_expedicion"
-        [(ngModel)]="nuevoUsuario.fecha_expedicion"
+        [(ngModel)]="nuevoUsuario"
+        name="fecha_expedicion"
       ></ion-input>
     </ion-item>
 
@@ -130,7 +137,8 @@
       <ion-input
         type="tel"
         name="telefono"
-        [(ngModel)]="nuevoUsuario.telefono"
+        [(ngModel)]="nuevoUsuario"
+        name="telefono"
       ></ion-input>
     </ion-item>
 
@@ -139,7 +147,8 @@
       <ion-input
         type="email"
         name="correo"
-        [(ngModel)]="nuevoUsuario.correo"
+        [(ngModel)]="nuevoUsuario"
+        name="correo"
       ></ion-input>
     </ion-item>
 
@@ -148,7 +157,8 @@
       <ion-input
         type="text"
         name="direccion"
-        [(ngModel)]="nuevoUsuario.direccion"
+        [(ngModel)]="nuevoUsuario"
+        name="direccion"
       ></ion-input>
     </ion-item>
 
@@ -158,18 +168,18 @@
       <ion-select
         interface="popover"
         name="id_pais"
-        [(ngModel)]="nuevoUsuario.id_pais"
+        [(ngModel)]="nuevoUsuario"
         placeholder="Seleccione"
       >
-        <ion-select-option [value]="1">Colombia</ion-select-option>
-        <ion-select-option [value]="2">Ecuador</ion-select-option>
-        <ion-select-option [value]="3">Perú</ion-select-option>
+      @for(pais of nuevoUsuario; track pais.id_pais; let i = $index){
+        <ion-select-option [value]="pais.id_pais"> {{ pais.pais_nombre }} </ion-select-option>
+      }
       </ion-select>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Nombre del país</ion-label>
-      <ion-input type="text" [(ngModel)]="nuevoUsuario.pais_nombre"></ion-input>
+      <ion-input type="text" [(ngModel)]="nuevoUsuario" name="pais_nombre"></ion-input>
     </ion-item>
 
     <!-- Plan -->
@@ -177,7 +187,8 @@
       <ion-label position="stacked">Plan MECODEX</ion-label>
       <ion-select
         interface="popover"
-        [(ngModel)]="nuevoUsuario.PLAN_MECODEX"
+        [(ngModel)]="nuevoUsuario"
+        name="plan_mecodex"
         placeholder="Seleccione"
       >
         <ion-select-option value="LITE">LITE</ion-select-option>
@@ -191,7 +202,8 @@
       <ion-label position="stacked">Fecha de creación</ion-label>
       <ion-input
         type="date"
-        [(ngModel)]="nuevoUsuario.fecha_creacion"
+        [(ngModel)]="nuevoUsuario"
+        name="fecha_creacion"
       ></ion-input>
     </ion-item>
 
@@ -200,7 +212,8 @@
       <ion-label position="stacked">Observación cliente</ion-label>
       <ion-textarea
         auto-grow="true"
-        [(ngModel)]="nuevoUsuario.observacion_cliente"
+        [(ngModel)]="nuevoUsuario"
+        name="observacion_cliente"
       ></ion-textarea>
     </ion-item>
 
@@ -208,7 +221,8 @@
       <ion-label position="stacked">Observación comercial</ion-label>
       <ion-textarea
         auto-grow="true"
-        [(ngModel)]="nuevoUsuario.observacion_comercial"
+        [(ngModel)]="nuevoUsuario"
+        name="observacion_comercial"
       ></ion-textarea>
     </ion-item>
 
@@ -216,7 +230,8 @@
       <ion-label position="stacked">Observación soporte</ion-label>
       <ion-textarea
         auto-grow="true"
-        [(ngModel)]="nuevoUsuario.observacion_soporte"
+        [(ngModel)]="nuevoUsuario"
+        name="observacion_soporte"
       ></ion-textarea>
     </ion-item>
 
@@ -224,7 +239,8 @@
       <ion-label position="stacked">Observación cuenta</ion-label>
       <ion-textarea
         auto-grow="true"
-        [(ngModel)]="nuevoUsuario.observacion_cuenta"
+        [(ngModel)]="nuevoUsuario"
+        name="observacion_cuenta"
       ></ion-textarea>
     </ion-item>
 
