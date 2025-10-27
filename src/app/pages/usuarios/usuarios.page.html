@@ -30,7 +30,7 @@
   <!-- Verifica si el array de usuarios está vacío -->
   @if (usuarios().length === 0) {
     <div class="card-not-found">
-      <app-not-found [title]="'clientes de Mecodex'" [firstValue]="searchUsers()"></app-not-found>
+      <app-not-found [message]="'No se pudo encontrar ningún cliente de Mecodex...'" [firstValue]="searchUsers()"></app-not-found>
     </div>
   } @else {
     <!-- Mostrar usuarios si los hay -->

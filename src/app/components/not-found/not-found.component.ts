@@ -10,7 +10,7 @@ import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonText, IonImg }
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotFoundComponent  implements OnInit {
-  @Input() title?: string // * Porque se puede pasar como párametro no solo para usuarios sino para otros componentes que lo necesiten
+  @Input() message?: string // * Porque se puede pasar como párametro no solo para usuarios sino para otros componentes que lo necesiten
   @Input() firstValue?: string // * Porque se puede pasar como párametro no solo para usuarios sino para otros componentes que lo necesiten
 
   constructor() { }
