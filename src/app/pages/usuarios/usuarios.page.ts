@@ -78,13 +78,10 @@ export class UsuariosPage implements OnInit {
   // * Se utiliza para almacenar el texto de búsqueda ingresado por el usuario en el buscador que es enviada por [(ngModel)]="searchUsers".
   searchUsers = signal<string>('')
 
-  // * Variable para controlar cuántos usuarios se han cargado (máximo 20)
-  usuariosLimitados = signal<UsuariosInterface[]>([])
-
   // * Índice para controlar desde dónde cargar más usuarios
   indiceActual = signal<number>(0)
 
-  // * Límite máximo de usuarios a mostrar
+  // * Límite máximo de usuarios a mostrar por scroll del ion-infinite-scroll
   LIMITE_USUARIOS = 10
 
   cont_usuarios_pro_plus = signal<number>(0)
@@ -94,7 +91,7 @@ export class UsuariosPage implements OnInit {
 
   cont_usuarios_totales = signal<number>(0)
 
-  // Se puede injectar las dependencias o en el controlador (Clásico)
+  // Se puede injectar las dependencias en el constructor (Clásico)
   constructor(private mdlController: ModalController, 
     private alertController: AlertController) {}
 
@@ -119,7 +116,7 @@ export class UsuariosPage implements OnInit {
       })
   }
 
-  // * Método para cargar los primeros usuarios al iniciar
+  // * Método para cargar los primeros usuarios al iniciar (Según la cantidad LIMITE_USUARIOS)
   cargarUsuariosInicial() {
     const usuariosInicial = this.usuariosOriginales().slice(0, this.LIMITE_USUARIOS)
     this.usuarios.set(usuariosInicial)
