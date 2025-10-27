@@ -2,7 +2,6 @@
   <ion-toolbar color="primary">
     <ion-title>Agregar nuevo cliente</ion-title>
     <!-- Botón para cerrar el modal -->
-
   </ion-toolbar>
 </ion-header>
 
@@ -46,7 +45,7 @@
         type="text"
         name="apellido"
         [(ngModel)]="dataUsuario.apellido"
-        name="apellido" 
+        name="apellido"
         label="Primer apellido"
         label-placement="floating"
         fill="inline"
@@ -77,6 +76,7 @@
     <ion-item>
       <ion-label position="stacked">Tipo de documento</ion-label>
       <ion-select
+        (click)="listarDocumentos()"
         required
         interface="popover"
         name="id_tipo_documento"
@@ -84,20 +84,11 @@
         name="id_tipo_documento"
         placeholder="Seleccione"
       >
-        <ion-select-option [value]="1">sin asignar (N/A)</ion-select-option>
-        <ion-select-option [value]="2">Cedula de Ciudadania (CC)</ion-select-option>
-        <ion-select-option [value]="3">Cedula Extranjería (CE)</ion-select-option>
-        <ion-select-option [value]="4">Documento de identificación extranjero (DIE)</ion-select-option>
-        <ion-select-option [value]="5">Número de Identificación Tributaria (NIT)</ion-select-option>
-        <ion-select-option [value]="6">NIT de otro país (NIT-EXT)</ion-select-option>
-        <ion-select-option [value]="7">Número Único de Identificación Personal (NUIP)</ion-select-option>
-        <ion-select-option [value]="8">Otro Documento (OTRO)</ion-select-option>
-        <ion-select-option [value]="9">Permiso Especial de Permanencia (PEP)</ion-select-option>
-        <ion-select-option [value]="10">Pasaporte (PP)</ion-select-option>
-        <ion-select-option [value]="11">Permiso protección Temporal (PPT)</ion-select-option>
-        <ion-select-option [value]="12">Registro Civil (RC)</ion-select-option>
-        <ion-select-option [value]="13">Tarjeta de Extranjería (TE)</ion-select-option>
-        <ion-select-option [value]="14">Tarjeta de Identidad (TI)</ion-select-option>
+        @for(documento of documentos(); track documento.id; let i = $index){
+        <ion-select-option [value]="documento.id">
+          {{ documento.abreviatura }} - {{ documento.nombre_documento }}
+        </ion-select-option>
+        }
       </ion-select>
     </ion-item>
 
@@ -169,9 +160,11 @@
         [(ngModel)]="dataUsuario.id_pais"
         placeholder="Seleccione"
       >
-      @for(pais of paises(); track pais.id; let i = $index){
-        <ion-select-option [value]="pais.id"> {{ pais.nombre }} </ion-select-option>
-      }
+        @for(pais of paises(); track pais.id; let i = $index){
+        <ion-select-option [value]="pais.id">
+          {{ pais.nombre }}
+        </ion-select-option>
+        }
       </ion-select>
     </ion-item>
 

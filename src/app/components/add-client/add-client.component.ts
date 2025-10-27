@@ -16,10 +16,15 @@ import {
   IonButton,
   IonIcon,
 } from '@ionic/angular/standalone';
+
 import { UsuariosInterface } from 'src/app/models/usuarios-interface';
 import { UsuariosService } from 'src/app/services/usuarios.service';
+
 import { PaisesInterface } from 'src/app/models/paises-interface';
 import { PaisServicioService } from 'src/app/services/pais-servicio.service';
+
+import { DocumentosInterface } from 'src/app/models/documentos-interface';
+import { DocumentosService } from 'src/app/services/documentos.service';
 
 @Component({
   selector: 'app-add-client',
@@ -46,6 +51,7 @@ import { PaisServicioService } from 'src/app/services/pais-servicio.service';
 })
 export class AddClientComponent implements OnInit {
   paises = signal<PaisesInterface[]>([]);
+  documentos = signal<DocumentosInterface[]>([]);
   
   nuevoUsuario = <UsuariosInterface[]>[];
 
@@ -81,7 +87,9 @@ export class AddClientComponent implements OnInit {
 
 
   constructor(private usuariosService: UsuariosService, 
-    private paisServicioService: PaisServicioService) {}
+    private paisServicioService: PaisServicioService,
+    private documentosService: DocumentosService,
+  ) {}
 
   ngOnInit() { }
 
@@ -93,6 +101,15 @@ export class AddClientComponent implements OnInit {
       },
       error: (err: any) => {
         console.error(err)
+      }
+    })
+  }
+
+  listarDocumentos(){
+    this.documentosService.getDocuments().subscribe({
+      next: (res: DocumentosInterface[]) => {
+        console.log(res)
+        this.documentos.set(res)
       }
     })
   }
