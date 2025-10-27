@@ -11,7 +11,7 @@
     <!-- Identificación y nombres -->
     <ion-item class="ion-margin-vertical">
       <ion-input
-        required="true"
+        required
         type="text"
         name="nombre"
         [(ngModel)]="dataUsuario.nombre"
@@ -21,15 +21,12 @@
         fill="inline"
         color="primary"
         maxlength="20"
-        max=20
         minlength="5"
-        min=5
       ></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-input
-        required="true"
         type="text"
         name="segundo_nombre"
         [(ngModel)]="dataUsuario.segundo_nombre"
@@ -39,15 +36,13 @@
         fill="inline"
         color="primary"
         maxlength="20"
-        max=20
         minlength="5"
-        min=5
       ></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-input
-        required="true"
+        required
         type="text"
         name="apellido"
         [(ngModel)]="dataUsuario.apellido"
@@ -58,15 +53,12 @@
         placeholder="Doe"
         color="primary"
         maxlength="20"
-        max=20
         minlength="5"
-        min=5
       ></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-input
-        required="true"
         type="text"
         name="segundo_apellido"
         [(ngModel)]="dataUsuario.segundo_apellido"
@@ -77,9 +69,7 @@
         placeholder="Doe"
         color="primary"
         maxlength="20"
-        max=20
         minlength="5"
-        min=5
       ></ion-input>
     </ion-item>
 
@@ -87,7 +77,7 @@
     <ion-item>
       <ion-label position="stacked">Tipo de documento</ion-label>
       <ion-select
-        required="true"
+        required
         interface="popover"
         name="id_tipo_documento"
         [(ngModel)]="dataUsuario.id_tipo_documento"
@@ -118,6 +108,8 @@
         name="documento"
         [(ngModel)]="dataUsuario.documento"
         name="documento"
+        maxlength="20"
+        minlength="5"
       ></ion-input>
     </ion-item>
 
@@ -139,6 +131,8 @@
         name="telefono"
         [(ngModel)]="dataUsuario.telefono"
         name="telefono"
+        [max]="20"
+        maxlength="20"
       ></ion-input>
     </ion-item>
 
@@ -149,6 +143,7 @@
         name="correo"
         [(ngModel)]="dataUsuario.correo"
         name="correo"
+        maxlength="50"
       ></ion-input>
     </ion-item>
 
@@ -159,6 +154,7 @@
         name="direccion"
         [(ngModel)]="dataUsuario.direccion"
         name="direccion"
+        maxlength="50"
       ></ion-input>
     </ion-item>
 
@@ -211,6 +207,7 @@
         auto-grow="true"
         [(ngModel)]="dataUsuario.observacion_cliente"
         name="observacion_cliente"
+        maxlength="255"
       ></ion-textarea>
     </ion-item>
 
@@ -220,6 +217,7 @@
         auto-grow="true"
         [(ngModel)]="dataUsuario.observacion_comercial"
         name="observacion_comercial"
+        maxlength="255"
       ></ion-textarea>
     </ion-item>
 
@@ -229,6 +227,7 @@
         auto-grow="true"
         [(ngModel)]="dataUsuario.observacion_soporte"
         name="observacion_soporte"
+        maxlength="255"
       ></ion-textarea>
     </ion-item>
 
@@ -238,6 +237,7 @@
         auto-grow="true"
         [(ngModel)]="dataUsuario.observacion_cuenta"
         name="observacion_cuenta"
+        maxlength="255"
       ></ion-textarea>
     </ion-item>
 
