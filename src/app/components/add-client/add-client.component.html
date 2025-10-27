@@ -165,21 +165,18 @@
     <!-- País -->
     <ion-item>
       <ion-label position="stacked">País</ion-label>
+      <ion-icon slot="start" name="location-sharp"></ion-icon>
       <ion-select
+        (click)="listarPaises()"
         interface="popover"
         name="id_pais"
         [(ngModel)]="nuevoUsuario"
         placeholder="Seleccione"
       >
-      @for(pais of nuevoUsuario; track pais.id_pais; let i = $index){
-        <ion-select-option [value]="pais.id_pais"> {{ pais.pais_nombre }} </ion-select-option>
+      @for(pais of paises(); track pais.id; let i = $index){
+        <ion-select-option [value]="pais.id"> {{ pais.nombre }} </ion-select-option>
       }
       </ion-select>
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="stacked">Nombre del país</ion-label>
-      <ion-input type="text" [(ngModel)]="nuevoUsuario" name="pais_nombre"></ion-input>
     </ion-item>
 
     <!-- Plan -->

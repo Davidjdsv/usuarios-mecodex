@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  api_db: "http://localhost/backend-mecodex/cliente.php"
+  api_db: "http://localhost/backend-mecodex/cliente.php",
+  api_paises: "http://localhost/backend-mecodex/paises.php"
 };
 
 /*

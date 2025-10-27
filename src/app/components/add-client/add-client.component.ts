@@ -14,9 +14,12 @@ import {
   IonSelect,
   IonSelectOption,
   IonButton,
+  IonIcon,
 } from '@ionic/angular/standalone';
 import { UsuariosInterface } from 'src/app/models/usuarios-interface';
 import { UsuariosService } from 'src/app/services/usuarios.service';
+import { PaisesInterface } from 'src/app/models/paises-interface';
+import { PaisServicioService } from 'src/app/services/pais-servicio.service';
 
 @Component({
   selector: 'app-add-client',
@@ -38,23 +41,23 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
     IonSelect,
     IonSelectOption,
     IonButton,
+    IonIcon,
   ],
 })
 export class AddClientComponent implements OnInit {
   nuevoUsuario = <UsuariosInterface[]>[];
+  paises = signal<PaisesInterface[]>([]);
   usuario = this.nuevoUsuario[0]
 
-  constructor(private usuariosService: UsuariosService) {}
+  constructor(private usuariosService: UsuariosService, private paisServicioService: PaisServicioService) {}
 
-  ngOnInit() {
-    this.listarPaises()
-  }
+  ngOnInit() { }
 
   listarPaises(){
-    this.usuariosService.getUsuarios().subscribe({
-      next: (respuesta: UsuariosInterface[]) => {
+    this.paisServicioService.getPaises().subscribe({
+      next: (respuesta: PaisesInterface[]) => {
         console.log(respuesta)
-        this.nuevoUsuario = respuesta
+        this.paises.set(respuesta)
       },
       error: (err: any) => {
         console.error(err)
