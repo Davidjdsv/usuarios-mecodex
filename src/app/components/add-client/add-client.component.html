@@ -17,11 +17,11 @@
         name="nombre"
         label="Primer nombre"
         label-placement="floating"
-        fill="inline"
         color="primary"
         maxlength="20"
         minlength="5"
-      ></ion-input>
+        >
+      </ion-input>
     </ion-item>
 
     <ion-item>
@@ -152,7 +152,6 @@
     <!-- País -->
     <ion-item>
       <ion-label position="stacked">País</ion-label>
-      <ion-icon slot="start" name="location-sharp"></ion-icon>
       <ion-select
         (click)="listarPaises()"
         interface="popover"
@@ -235,8 +234,17 @@
     </ion-item>
 
     <!-- Acciones -->
-    <ion-item lines="none" class="ion-margin-top">
-      <ion-button expand="block">Guardar</ion-button>
-    </ion-item>
+    
   </ion-list>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+
+      <ion-button expand="block" color="medium" (click)="cancelar()">Cancelar</ion-button>
+      <ion-button expand="block" color="primary" (click)="guardar()">Guardar</ion-button>
+
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

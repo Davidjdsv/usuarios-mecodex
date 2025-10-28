@@ -233,45 +233,38 @@ export class UsuariosPage implements OnInit {
   }
 
   async addClient(){
-    // Paso 1: Abrir el modal que contiene el formulario para crear un nuevo usuario (AddClientComponent).
-    // Objetivo: permitir que el usuario ingrese los datos del nuevo cliente.
     const modal = await this.mdlController.create({
       component: AddClientComponent
     })
 
-    // Paso 2: Presentar el modal para que el usuario pueda interactuar con el formulario.
     await modal.present()
 
-    // Paso 3 (dentro de AddClientComponent): Construir el formulario con todos los campos necesarios.
-    // - Definir los controles (p. ej.: nombres, apellidos, correo, teléfono, tipo y número de documento, etc.).
-    // - Establecer validaciones (requerido, formatos, longitudes, tipos).
-    // - Inicializar el modelo (dataUsuario) y vincular los controles (ngModel o formularios reactivos).
-    // - Controlar la interfaz (placeholder, mensajes de error, deshabilitar/enables según estado).
-    // - Al pulsar "Guardar", cerrar el modal devolviendo los datos capturados.
-    // - Al pulsar "Cancelar", cerrar el modal sin devolver datos.
+    const { data, role } = await modal.onWillDismiss()
+    console.log("datos recibidos de la moda: ", data, role)
 
-    // Paso 4: Esperar el cierre del modal y recibir la información resultante.
-    // Qué hacer aquí:
-    // - Comprobar si el usuario confirmó el guardado o canceló la operación.
-    // - Si confirmó, tomar los datos del formulario para crear el usuario.
-
-    // Paso 5: Invocar al servicio de usuarios para registrar el nuevo usuario en el backend.
-    // - Mostrar un indicador de carga mientras se realiza la solicitud.
-    // - Enviar la data recopilada al endpoint correspondiente (crear/guardar usuario).
-    // - Manejar la respuesta: si es exitosa, continuar; si falla, mostrar el error.
-
-    // Paso 6: Actualizar el estado local de la página tras la creación.
-    // - Agregar el nuevo usuario a la lista (usuariosOriginales y usuarios mostrados).
-    // - Reiniciar/actualizar el índice para el infinite scroll si aplica.
-    // - Recalcular contadores por tipo de usuario (si corresponde).
-    // - Limpiar filtros de búsqueda si es necesario.
-
-    // Paso 7: Retroalimentación al usuario.
-    // - Mostrar un toast/alert indicando éxito o error.
-    // - Cerrar el modal (si aún está abierto) y/o navegar si se requiere.
-
-    // Paso 8: Auditoría y calidad.
-    // - Registrar logs o eventos analíticos si es útil.
-    // - Escribir pruebas (unitarias/integración) del flujo de creación de usuarios.
+    if(role === "guardar"){
+      this.usuariosServices.createUser(data).subscribe({
+        next: async (_res: any) => {
+          // Tras crear el cliente, recargamos la lista desde el backend para reflejar los cambios.
+          this.usuariosServices.getUsuarios().subscribe({
+            next: (lista: UsuariosInterface[]) => {
+              this.usuariosOriginales.set(lista)
+              // Reinicia la carga inicial y actualiza contadores
+              this.cargarUsuariosInicial()
+              this.contarUsuariosPorTipo()
+            },
+            error: (err) => {
+              console.log("Error al refrescar la lista de usuarios: ", err)
+            }
+          })
+        },
+        error: (err) => {
+          console.log("Error al crear el usuario: ", err)
+          if (err?.error) {
+            console.log("Detalle del backend: ", err.error)
+          }
+        }
+      })
+    }
   }
 }

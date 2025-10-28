@@ -14,7 +14,10 @@ import {
   IonSelect,
   IonSelectOption,
   IonButton,
-  IonIcon,
+  IonFooter,
+  IonButtons,
+  IonText,
+  ModalController
 } from '@ionic/angular/standalone';
 
 import { UsuariosInterface } from 'src/app/models/usuarios-interface';
@@ -46,7 +49,9 @@ import { DocumentosService } from 'src/app/services/documentos.service';
     IonSelect,
     IonSelectOption,
     IonButton,
-    IonIcon,
+    IonFooter,
+    IonButtons,
+    IonText
   ],
 })
 export class AddClientComponent implements OnInit {
@@ -86,7 +91,8 @@ export class AddClientComponent implements OnInit {
   }
 
 
-  constructor(private usuariosService: UsuariosService, 
+  constructor(private mdlController: ModalController,
+    private usuariosService: UsuariosService, 
     private paisServicioService: PaisServicioService,
     private documentosService: DocumentosService,
   ) {}
@@ -112,5 +118,13 @@ export class AddClientComponent implements OnInit {
         this.documentos.set(res)
       }
     })
+  }
+
+  cancelar(){
+    return this.mdlController.dismiss(null, "cancelar")
+  }
+
+  guardar(){
+    return this.mdlController.dismiss(this.dataUsuario, "guardar")
   }
 }
