@@ -16,8 +16,8 @@ import {
   IonButton,
   IonFooter,
   IonButtons,
-  IonText,
-  ModalController
+  ModalController,
+  IonText 
 } from '@ionic/angular/standalone';
 
 import { UsuariosInterface } from 'src/app/models/usuarios-interface';
@@ -60,7 +60,7 @@ export class AddClientComponent implements OnInit {
   
   nuevoUsuario = <UsuariosInterface[]>[];
 
-  dataUsuario = {
+  datacliente = {
     nombre: '',
     segundo_nombre: '',
     apellido: '',
@@ -68,25 +68,16 @@ export class AddClientComponent implements OnInit {
     telefono: '',
     direccion: '',
     id_tipo_documento: '',
-    abreviatura: '',
-    estado: '',
-    modo_conexion: '',
-    version_app: '',
-    fecha_clasificacion: '',
-    calificacion: '',
-    mensaje_calificacion: '',
     documento: '',
     fecha_expedicion: '',
     correo: '',
     id_pais: '',
-    pais_nombre: '',
-    PLAN_MECODEX: '',
-    observacion_cliente: '',
-    observacion_comercial: '',
-    observacion_soporte: '',
-    observacion_cuenta: '',
+    observacion_cliente: '' || null,
+    observacion_comercial: '' || null,
+    observacion_soporte: '' || null,
+    observacion_cuenta: '' || null,
     fecha_creacion: '',
-    id_usuario_sensei: '',
+    id_usuario_sensei: '' || null,
     fecha_modificacion: '',
   }
 
@@ -125,6 +116,6 @@ export class AddClientComponent implements OnInit {
   }
 
   guardar(){
-    return this.mdlController.dismiss(this.dataUsuario, "guardar")
+    return this.mdlController.dismiss(this.datacliente, "guardar")
   }
 }

@@ -10,25 +10,25 @@
     <!-- Identificación y nombres -->
     <ion-item class="ion-margin-vertical">
       <ion-input
-        required
-        type="text"
-        name="nombre"
-        [(ngModel)]="dataUsuario.nombre"
-        name="nombre"
-        label="Primer nombre"
-        label-placement="floating"
-        color="primary"
-        maxlength="20"
-        minlength="5"
-        >
-      </ion-input>
+      required
+      type="text"
+      name="nombre"
+      [(ngModel)]="datacliente.nombre"
+      name="nombre"
+      label="Primer nombre"
+      label-placement="floating"
+      color="primary"
+      maxlength="20"
+      minlength="5"
+      >
+    </ion-input>
     </ion-item>
 
     <ion-item>
       <ion-input
         type="text"
         name="segundo_nombre"
-        [(ngModel)]="dataUsuario.segundo_nombre"
+        [(ngModel)]="datacliente.segundo_nombre"
         name="segundo_nombre"
         label="Segundo nombre"
         label-placement="floating"
@@ -44,7 +44,7 @@
         required
         type="text"
         name="apellido"
-        [(ngModel)]="dataUsuario.apellido"
+        [(ngModel)]="datacliente.apellido"
         name="apellido"
         label="Primer apellido"
         label-placement="floating"
@@ -60,7 +60,7 @@
       <ion-input
         type="text"
         name="segundo_apellido"
-        [(ngModel)]="dataUsuario.segundo_apellido"
+        [(ngModel)]="datacliente.segundo_apellido"
         name="segundo_apellido"
         label="Segundo apellido"
         label-placement="floating"
@@ -80,7 +80,7 @@
         required
         interface="popover"
         name="id_tipo_documento"
-        [(ngModel)]="dataUsuario.id_tipo_documento"
+        [(ngModel)]="datacliente.id_tipo_documento"
         name="id_tipo_documento"
         placeholder="Seleccione"
       >
@@ -97,7 +97,7 @@
       <ion-input
         type="text"
         name="documento"
-        [(ngModel)]="dataUsuario.documento"
+        [(ngModel)]="datacliente.documento"
         name="documento"
         maxlength="20"
         minlength="5"
@@ -109,7 +109,7 @@
       <ion-input
         type="date"
         name="fecha_expedicion"
-        [(ngModel)]="dataUsuario.fecha_expedicion"
+        [(ngModel)]="datacliente.fecha_expedicion"
         name="fecha_expedicion"
       ></ion-input>
     </ion-item>
@@ -120,7 +120,7 @@
       <ion-input
         type="tel"
         name="telefono"
-        [(ngModel)]="dataUsuario.telefono"
+        [(ngModel)]="datacliente.telefono"
         name="telefono"
         [max]="20"
         maxlength="20"
@@ -132,7 +132,7 @@
       <ion-input
         type="email"
         name="correo"
-        [(ngModel)]="dataUsuario.correo"
+        [(ngModel)]="datacliente.correo"
         name="correo"
         maxlength="50"
       ></ion-input>
@@ -143,7 +143,7 @@
       <ion-input
         type="text"
         name="direccion"
-        [(ngModel)]="dataUsuario.direccion"
+        [(ngModel)]="datacliente.direccion"
         name="direccion"
         maxlength="50"
       ></ion-input>
@@ -156,7 +156,7 @@
         (click)="listarPaises()"
         interface="popover"
         name="id_pais"
-        [(ngModel)]="dataUsuario.id_pais"
+        [(ngModel)]="datacliente.id_pais"
         placeholder="Seleccione"
       >
         @for(pais of paises(); track pais.id; let i = $index){
@@ -167,67 +167,52 @@
       </ion-select>
     </ion-item>
 
-    <!-- Plan -->
-    <ion-item>
-      <ion-label position="stacked">Plan MECODEX</ion-label>
-      <ion-select
-        interface="popover"
-        [(ngModel)]="dataUsuario.PLAN_MECODEX"
-        name="plan_mecodex"
-        placeholder="Seleccione"
-      >
-        <ion-select-option value="LITE">LITE</ion-select-option>
-        <ion-select-option value="PRO">PRO</ion-select-option>
-        <ion-select-option value="PRO PLUS">PRO PLUS</ion-select-option>
-      </ion-select>
-    </ion-item>
-
     <!-- Fechas -->
-    <ion-item>
+    <!-- <ion-item>
       <ion-label position="stacked">Fecha de creación</ion-label>
       <ion-input
         type="date"
-        [(ngModel)]="dataUsuario.fecha_creacion"
+        [(ngModel)]="datacliente.fecha_creacion"
         name="fecha_creacion"
       ></ion-input>
-    </ion-item>
+    </ion-item> -->
 
     <!-- Observaciones -->
     <ion-item>
-      <ion-label position="stacked">Observación cliente</ion-label>
+      <ion-label position="stacked">Observación cliente <ion-text color="medium">(Opcional)</ion-text></ion-label>
       <ion-textarea
         auto-grow="true"
-        [(ngModel)]="dataUsuario.observacion_cliente"
+        [(ngModel)]="datacliente.observacion_cliente"
         name="observacion_cliente"
         maxlength="255"
       ></ion-textarea>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Observación comercial</ion-label>
+      <ion-label position="stacked">Observación comercial <ion-text color="medium">(Opcional)</ion-text></ion-label>
       <ion-textarea
         auto-grow="true"
-        [(ngModel)]="dataUsuario.observacion_comercial"
+        [(ngModel)]="datacliente.observacion_comercial"
         name="observacion_comercial"
         maxlength="255"
       ></ion-textarea>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Observación soporte</ion-label>
+      <ion-label position="stacked">Observación soporte <ion-text color="medium">(Opcional)</ion-text></ion-label>
       <ion-textarea
         auto-grow="true"
-        [(ngModel)]="dataUsuario.observacion_soporte"
+        [(ngModel)]="datacliente.observacion_soporte"
         name="observacion_soporte"
         maxlength="255"
       ></ion-textarea>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Observación cuenta</ion-label>
+      <ion-label position="stacked">Observación cuenta <ion-text color="medium">(Opcional)</ion-text></ion-label>
       <ion-textarea
         auto-grow="true"
-        [(ngModel)]="dataUsuario.observacion_cuenta"
+        [(ngModel)]="datacliente.observacion_cuenta"
         name="observacion_cuenta"
         maxlength="255"
       ></ion-textarea>

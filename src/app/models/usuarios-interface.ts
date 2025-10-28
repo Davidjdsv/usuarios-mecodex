@@ -1,3 +1,6 @@
+// * ESTA INTERFAZ ES LA QUE HACE JOIN DE TODOS LOS DATOS RELACIONADOS DEL CLIENTE/USUARIO EN UNA SOLA INTERFAZ
+// * PARA EVITAR HACER VARIAS LLAMADAS A LA API Y UNIRLAS EN UNA SOLA INTERFAZ
+
 export interface UsuariosInterface {
     // Datos de la tabla cliente
     id: number;
@@ -8,12 +11,12 @@ export interface UsuariosInterface {
     telefono: string;
     direccion: string;
     id_tipo_documento: number; // ID de la tabla tipo_documento... Debería de ser un objeto del tipo tipo_documento?
-    abreviatura: string;
+    abreviatura?: string;
     documento: string;
     fecha_expedicion: string;
     correo: string;
     id_pais: number;
-    pais_nombre: string; // ID de la tabla paises... Debería de ser un objeto del tipo país?
+    pais_nombre?: string; // ID de la tabla paises... Debería de ser un objeto del tipo país?
     observacion_cliente: string | null;
     observacion_comercial: string | null;
     observacion_soporte: string | null;
