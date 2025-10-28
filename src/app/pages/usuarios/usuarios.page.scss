@@ -1,11 +1,14 @@
 .main-text-container{
     padding: 20px;
     margin: 20px 0;
-    text-align: start;
     display: flex;
     gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .main-text-container{
     flex-direction: column;
-    align-items: flex-start;
+  }
 }
 
 // Imagen a tamaño completo del contenedor
@@ -18,8 +21,8 @@
 
 .thumb-cover {
   // Hace que el ion-thumbnail ocupe todo el ancho (y alto si está definido)
-  width: 100%;
-  height: 100%;
+  width: 75%;
+  height: 75%;
   overflow: hidden;
   // En Ionic, ion-thumbnail usa la variable --size para ancho/alto.
   // Al poner 100% se vuelve cuadrado del ancho disponible.
@@ -30,7 +33,7 @@
   // La imagen ocupa todo el espacio del thumbnail
   width: 100%;
   height: 100%;
-  object-fit: cover; // Rellena completamente el contenedor (puede recortar)
+  object-fit: contain; // Rellena completamente el contenedor (puede recortar)
   display: block;
 }
 

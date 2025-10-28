@@ -60,10 +60,10 @@ ion-thumbnail > img{
     margin-inline: auto;
 
     img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        display: block;
+        width: 50%;
+        height: 50%;
+        object-fit: cover;
+        display:contents;
     }
 }
 
@@ -80,10 +80,14 @@ ion-thumbnail > img{
 
 // Card hover
 
+ion-infinite-scroll-content{
+    min-height: 12px;
+}
+
 .card-hover {
     top: 0px;
     border-radius: 4px;
-    padding: 32px 24px;
+    padding: 16px 12px;
     margin: 12px;
     text-decoration: none;
     z-index: 0;
