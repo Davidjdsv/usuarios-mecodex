@@ -43,6 +43,7 @@ import {
   cardSharp,
   globeOutline,
   globeSharp,
+  caretForwardOutline
 } from 'ionicons/icons';
 
 @Component({
@@ -103,6 +104,7 @@ export class AppComponent {
       cardSharp,
       globeOutline,
       globeSharp,
+      caretForwardOutline
     });
   }
 }
