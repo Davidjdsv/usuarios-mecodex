@@ -232,6 +232,30 @@ export class UsuariosPage implements OnInit {
     event.target.complete()
   }
 
+  // * Modales de alerta
+
+  private async showSuccesAlert(nombre?: string): Promise<void>{
+    const alert = await this.alertController.create({
+      header: "Cliente agregado",
+      message: `El cliente ${nombre || ""} ha sido registrado con éxito.`,
+      buttons: ["OK"],
+      animated: true
+    })
+    await alert.present()
+  }
+
+  private async showErrorAlert(): Promise<void>{
+    const alert = await this.alertController.create({
+      header: "Error al agregar cliente",
+      message: "Ups! Ocurrió un error al registrar el cliente",
+      buttons: ["OK"],
+      animated: true
+    })
+    await alert.present()
+  }
+
+  // * Fin de modales de alerta
+
   async addClient(){
     const modal = await this.mdlController.create({
       component: AddClientComponent
@@ -247,14 +271,19 @@ export class UsuariosPage implements OnInit {
         next: async (_res: any) => {
           // Tras crear el cliente, recargamos la lista desde el backend para reflejar los cambios.
           this.usuariosServices.getUsuarios().subscribe({
-            next: (lista: UsuariosInterface[]) => {
+            next: async (lista: UsuariosInterface[]) => {
               this.usuariosOriginales.set(lista)
+              
+              // Mostrar alerta de éxito
+              await this.showSuccesAlert(data.nombre)
+              
               // Reinicia la carga inicial y actualiza contadores
               this.cargarUsuariosInicial()
               this.contarUsuariosPorTipo()
             },
-            error: (err) => {
+            error: async (err) => {
               console.log("Error al refrescar la lista de usuarios: ", err)
+              await this.showErrorAlert()
             }
           })
         },

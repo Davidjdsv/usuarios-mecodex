@@ -65,10 +65,10 @@ export class AddClientComponent implements OnInit {
     fecha_expedicion: '',
     correo: '',
     id_pais: '',
-    observacion_cliente: '',
-    observacion_comercial: '',
-    observacion_soporte: '',
-    observacion_cuenta: '',
+    observacion_cliente: 'N/A',
+    observacion_comercial: 'N/A',
+    observacion_soporte: 'N/A',
+    observacion_cuenta: 'N/A',
     fecha_creacion: '',
     id_usuario_sensei: '',
     fecha_modificacion: '',
@@ -85,7 +85,6 @@ export class AddClientComponent implements OnInit {
   listarPaises(){
     this.paisServicioService.getPaises().subscribe({
       next: (respuesta: PaisesInterface[]) => {
-        console.log(respuesta)
         this.paises.set(respuesta)
       },
       error: (err: any) => {
@@ -97,7 +96,6 @@ export class AddClientComponent implements OnInit {
   listarDocumentos(){
     this.documentosService.getDocuments().subscribe({
       next: (res: DocumentosInterface[]) => {
-        console.log(res)
         this.documentos.set(res)
       }
     })
