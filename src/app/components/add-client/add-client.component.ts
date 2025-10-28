@@ -43,7 +43,6 @@ import { DocumentosService } from 'src/app/services/documentos.service';
     IonContent,
     IonList,
     IonItem,
-    IonLabel,
     IonInput,
     IonTextarea,
     IonSelect,
@@ -51,7 +50,6 @@ import { DocumentosService } from 'src/app/services/documentos.service';
     IonButton,
     IonFooter,
     IonButtons,
-    IonText
   ],
 })
 export class AddClientComponent implements OnInit {
@@ -72,12 +70,12 @@ export class AddClientComponent implements OnInit {
     fecha_expedicion: '',
     correo: '',
     id_pais: '',
-    observacion_cliente: '' || null,
-    observacion_comercial: '' || null,
-    observacion_soporte: '' || null,
-    observacion_cuenta: '' || null,
+    observacion_cliente: '',
+    observacion_comercial: '',
+    observacion_soporte: '',
+    observacion_cuenta: '',
     fecha_creacion: '',
-    id_usuario_sensei: '' || null,
+    id_usuario_sensei: '',
     fecha_modificacion: '',
   }
 

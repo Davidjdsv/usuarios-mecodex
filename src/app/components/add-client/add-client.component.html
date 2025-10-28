@@ -49,7 +49,6 @@
         label="Primer apellido"
         label-placement="floating"
         fill="inline"
-        placeholder="Doe"
         color="primary"
         maxlength="20"
         minlength="5"
@@ -65,7 +64,6 @@
         label="Segundo apellido"
         label-placement="floating"
         fill="inline"
-        placeholder="Doe"
         color="primary"
         maxlength="20"
         minlength="5"
@@ -74,11 +72,11 @@
 
     <!-- Documento -->
     <ion-item>
-      <ion-label position="stacked">Tipo de documento</ion-label>
       <ion-select
         (click)="listarDocumentos()"
         required
         interface="popover"
+        label="Tipo de documento"
         name="id_tipo_documento"
         [(ngModel)]="datacliente.id_tipo_documento"
         name="id_tipo_documento"
@@ -93,10 +91,11 @@
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Documento</ion-label>
       <ion-input
         type="text"
         name="documento"
+        label="Documento"
+        label-placement="floating"
         [(ngModel)]="datacliente.documento"
         name="documento"
         maxlength="20"
@@ -105,10 +104,11 @@
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Fecha de expedición</ion-label>
       <ion-input
         type="date"
         name="fecha_expedicion"
+        label="Fecha de expedición"
+        label-placement="floating"
         [(ngModel)]="datacliente.fecha_expedicion"
         name="fecha_expedicion"
       ></ion-input>
@@ -116,10 +116,11 @@
 
     <!-- Contacto y dirección -->
     <ion-item>
-      <ion-label position="stacked">Teléfono</ion-label>
       <ion-input
         type="tel"
         name="telefono"
+        label="Teléfono"
+        label-placement="floating"
         [(ngModel)]="datacliente.telefono"
         name="telefono"
         [max]="20"
@@ -128,10 +129,11 @@
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Correo</ion-label>
       <ion-input
         type="email"
         name="correo"
+        label="Correo"
+        label-placement="floating"
         [(ngModel)]="datacliente.correo"
         name="correo"
         maxlength="50"
@@ -139,10 +141,11 @@
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Dirección</ion-label>
       <ion-input
         type="text"
         name="direccion"
+        label="Dirección"
+        label-placement="floating"
         [(ngModel)]="datacliente.direccion"
         name="direccion"
         maxlength="50"
@@ -151,11 +154,12 @@
 
     <!-- País -->
     <ion-item>
-      <ion-label position="stacked">País</ion-label>
       <ion-select
         (click)="listarPaises()"
         interface="popover"
         name="id_pais"
+        label="País"
+        label-placement="floating"
         [(ngModel)]="datacliente.id_pais"
         placeholder="Seleccione"
       >
@@ -179,9 +183,10 @@
 
     <!-- Observaciones -->
     <ion-item>
-      <ion-label position="stacked">Observación cliente <ion-text color="medium">(Opcional)</ion-text></ion-label>
       <ion-textarea
         auto-grow="true"
+        label="Observación cliente (Opcional)"
+        label-placement="floating"
         [(ngModel)]="datacliente.observacion_cliente"
         name="observacion_cliente"
         maxlength="255"
@@ -189,9 +194,10 @@
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Observación comercial <ion-text color="medium">(Opcional)</ion-text></ion-label>
       <ion-textarea
         auto-grow="true"
+        label="Observación comercial (Opcional)"
+        label-placement="floating"
         [(ngModel)]="datacliente.observacion_comercial"
         name="observacion_comercial"
         maxlength="255"
@@ -199,9 +205,10 @@
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Observación soporte <ion-text color="medium">(Opcional)</ion-text></ion-label>
       <ion-textarea
         auto-grow="true"
+        label="Observación soporte (Opcional)"
+        label-placement="floating"
         [(ngModel)]="datacliente.observacion_soporte"
         name="observacion_soporte"
         maxlength="255"
@@ -209,9 +216,10 @@
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Observación cuenta <ion-text color="medium">(Opcional)</ion-text></ion-label>
       <ion-textarea
         auto-grow="true"
+        label="Observación cuenta (Opcional)"
+        label-placement="floating"
         [(ngModel)]="datacliente.observacion_cuenta"
         name="observacion_cuenta"
         maxlength="255"
