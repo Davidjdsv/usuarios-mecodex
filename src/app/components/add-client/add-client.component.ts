@@ -1,6 +1,6 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import {
   IonHeader,
   IonToolbar,
@@ -8,20 +8,16 @@ import {
   IonContent,
   IonList,
   IonItem,
-  IonLabel,
   IonInput,
   IonTextarea,
   IonSelect,
   IonSelectOption,
   IonButton,
-  IonFooter,
   IonButtons,
   ModalController,
-  IonText 
 } from '@ionic/angular/standalone';
 
 import { UsuariosInterface } from 'src/app/models/usuarios-interface';
-import { UsuariosService } from 'src/app/services/usuarios.service';
 
 import { PaisesInterface } from 'src/app/models/paises-interface';
 import { PaisServicioService } from 'src/app/services/pais-servicio.service';
@@ -48,7 +44,6 @@ import { DocumentosService } from 'src/app/services/documentos.service';
     IonSelect,
     IonSelectOption,
     IonButton,
-    IonFooter,
     IonButtons,
   ],
 })
@@ -81,7 +76,6 @@ export class AddClientComponent implements OnInit {
 
 
   constructor(private mdlController: ModalController,
-    private usuariosService: UsuariosService, 
     private paisServicioService: PaisServicioService,
     private documentosService: DocumentosService,
   ) {}
@@ -115,5 +109,14 @@ export class AddClientComponent implements OnInit {
 
   guardar(){
     return this.mdlController.dismiss(this.datacliente, "guardar")
+  }
+
+  onSubmit(form: NgForm){
+    if(form.valid){
+      this.guardar()
+    }else{
+      // Marca los controles como tocados para que se muestren estados de error si agregas mensajes
+      Object.values(form.controls).forEach(c => c.markAsTouched())
+    }
   }
 }
