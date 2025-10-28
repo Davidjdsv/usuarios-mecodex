@@ -56,4 +56,11 @@ export class UsuariosService {
   createUser(usuario: UsuariosInterface): Observable<UsuariosInterface[]> {
     return this.http.post<UsuariosInterface[]>(this.api(), usuario);
   }
+
+  updateUser(usuario: UsuariosInterface): Observable<UsuariosInterface[]>{
+    const url = new URL(this.api());
+    url.searchParams.append('id', usuario.id.toString());
+    
+    return this.http.put<UsuariosInterface[]>(url.toString(),usuario);
+  }
 }
