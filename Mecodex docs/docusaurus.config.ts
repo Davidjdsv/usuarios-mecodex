@@ -16,12 +16,12 @@ const config: Config = {
   },
 
   // Set the production url of your site here
-  // url: 'https://your-docusaurus-site.example.com',
-  url: 'https://davidjdsv.github.io',
+  url: 'https://your-docusaurus-site.example.com',
+  // url: 'https://davidjdsv.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  // baseUrl: '/',
-  baseUrl: '/usuarios-mecodex/',
+  baseUrl: '/',
+  // baseUrl: '/usuarios-mecodex/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -83,18 +83,18 @@ const config: Config = {
       title: 'Docs Mecodex',
       logo: {
         alt: 'Docs Mecodex Logo',
-        src: 'img/logo.svg',
+        src: 'img/logo_mecodex.svg',
       },
       items: [
         {
           type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
+          sidebarId: 'Sidebar',
           position: 'left',
-          label: 'Tutorial',
+          label: 'Docs',
         },
         {to: '/blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/facebook/docusaurus',
+          href: 'https://github.com/Davidjdsv/usuarios-mecodex',
           label: 'GitHub',
           position: 'right',
         },
@@ -107,25 +107,29 @@ const config: Config = {
           title: 'Docs',
           items: [
             {
-              label: 'Tutorial',
-              to: '/docs/intro',
+              label: 'Funcionalidades Mecodex',
+              to: '/docs/Soporte Mecodex/funcionalidades-mecodex',
+            },
+            {
+              label: 'Manual de soporte',
+              to: '/docs/Soporte Mecodex/manual-soporte',
             },
           ],
         },
         {
-          title: 'Community',
+          title: 'Nuestras redes sociales',
           items: [
             {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+              label: 'Página web',
+              href: 'https://webcloster.com/',
             },
             {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
+              label: 'Instagram',
+              href: 'https://www.instagram.com/webcloster/',
             },
             {
-              label: 'X',
-              href: 'https://x.com/docusaurus',
+              label: 'Facebook',
+              href: 'https://www.facebook.com/webcloster/',
             },
           ],
         },
@@ -138,12 +142,12 @@ const config: Config = {
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              href: 'https://github.com/Davidjdsv/usuarios-mecodex',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} My Project by Davidjdsv, Built with Docusaurus and love ❤️.`,
     },
     prism: {
       theme: prismThemes.github,

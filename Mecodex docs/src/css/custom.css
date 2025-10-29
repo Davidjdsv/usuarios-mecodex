@@ -3,28 +3,30 @@
  * bundles Infima by default. Infima is a CSS framework designed to
  * work well for content-centric websites.
  */
-
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
+  /* Paleta personalizada (tema claro) usando los colores provistos:
+     #357ff8 (azul principal), #29b6f6 (azul claro) y #00b1ce (cian) */
+  --ifm-color-primary: #357ff8; /* Color primario base */
+  --ifm-color-primary-dark: #00b1ce; /* Variante "oscura" basada en el cian provisto */
+  --ifm-color-primary-darker: #00b1ce; /* Reutilizamos el cian por consistencia */
+  --ifm-color-primary-darkest: #00b1ce; /* Reutilizamos el cian por consistencia */
+  --ifm-color-primary-light: #29b6f6; /* Tonos claros del primario */
+  --ifm-color-primary-lighter: #29b6f6; /* Reutilizamos el azul claro */
+  --ifm-color-primary-lightest: #29b6f6; /* Reutilizamos el azul claro */
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
+  /* Paleta para modo oscuro: se prioriza un tono más claro para mejor legibilidad */
+  --ifm-color-primary: #00b1ce; /* Usamos el cian como primario en dark mode */
+  --ifm-color-primary-dark: #357ff8; /* Azul como variante "oscura" */
+  --ifm-color-primary-darker: #357ff8; /* Reutilizamos el azul por consistencia */
+  --ifm-color-primary-darkest: #357ff8; /* Reutilizamos el azul por consistencia */
+  --ifm-color-primary-light: #29b6f6; /* Azul claro como variante luminosa */
+  --ifm-color-primary-lighter: #29b6f6; /* Reutilizamos el azul claro */
+  --ifm-color-primary-lightest: #29b6f6; /* Reutilizamos el azul claro */
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
