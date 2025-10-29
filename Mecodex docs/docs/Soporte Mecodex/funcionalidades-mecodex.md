@@ -147,6 +147,16 @@ De esta forma, **Mecodex realiza los cálculos fiscales automáticamente y manti
 
 ---
 
-✅ **Mecodex integra todas estas funciones para que administres tu negocio de forma profesional, organizada y eficiente, desde un solo lugar.**
+## 17. Conversiones de productos 💱
+
+Mecodex permite **convertir productos de materia prima a productos finales** de forma rápida y sencilla. Esto es útil cuando tu negocio opera principalmente con productos de materia prima que se pueden convertir a otro producto final.
+
+Por ejemplo:
+
+- Convertir cuero en zapatos
+- Convertir productos de una receta (pan, carne hamburguesa, queso, tomate, cebolla) a un plato final (Hamburguesa 🍔)
+- Convertir la materia prima que se necesita para elaborar un pantalón, etc.
 
 ---
+
+## ✅ **Mecodex integra todas estas funciones para que administres tu negocio de forma profesional, organizada y eficiente, desde un solo lugar.**

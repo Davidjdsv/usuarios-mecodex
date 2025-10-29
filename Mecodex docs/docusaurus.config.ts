@@ -7,7 +7,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'Docs Mecodex',
   tagline: 'Documentación del dashboard de Mecodex e información para el encargado del área de soporte',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/logo_mecodex.ico',
   deploymentBranch: 'gh-pages',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -38,7 +38,6 @@ const config: Config = {
     defaultLocale: 'en',
     locales: ['en', 'es'],
   },
-
 
   presets: [
     [
