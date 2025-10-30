@@ -7,7 +7,9 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'Docs Mecodex',
   tagline: 'Documentación del dashboard de Mecodex e información para el encargado del área de soporte',
+  // Favicon debe existir en static/img. Usamos el que ya está presente.
   favicon: 'img/logo_mecodex.ico',
+  // Rama de despliegue para GitHub Pages (Deploy from a branch)
   deploymentBranch: 'gh-pages',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -16,12 +18,13 @@ const config: Config = {
   },
 
   // Set the production url of your site here
-  // url: 'https://your-docusaurus-site.example.com',
-  url: 'https://davidjdsv.github.io',
+  url: 'https://your-docusaurus-site.example.com',
+  // url: 'https://davidjdsv.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  // baseUrl: '/',
-  baseUrl: '/usuarios-mecodex/',
+  baseUrl: '/',
+  // baseUrl: 'usuarios-mecodex',
+  // onBrokenAnchors: 'ignore',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -29,14 +32,14 @@ const config: Config = {
   projectName: 'usuarios-mecodex', // Usually your repo name.
 
   onBrokenLinks: 'throw',
-  trailingSlash: false,
+  trailingSlash: true,
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
   // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
-    locales: ['en', 'es'],
+    locales: ['en'],
   },
 
   presets: [
@@ -45,26 +48,16 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
+          // En modo "solo docs", hacemos que la raíz del sitio ('/') sea la documentación
+          // Esto reemplaza la ruta base por defecto '/docs' y sirve los docs directamente en '/'
+          routeBasePath: '/',
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
             'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         },
-        blog: {
-          showReadingTime: true,
-          feedOptions: {
-            type: ['rss', 'atom'],
-            xslt: true,
-          },
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
-          // Useful options to enforce blogging best practices
-          onInlineTags: 'warn',
-          onInlineAuthors: 'warn',
-          onUntruncatedBlogPosts: 'warn',
-        },
+        // Desactivamos el blog para un sitio centrado exclusivamente en documentación
+        blog: false,
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -89,9 +82,9 @@ const config: Config = {
           type: 'docSidebar',
           sidebarId: 'Sidebar',
           position: 'left',
-          label: 'Docs',
+          // Etiqueta del ítem de navegación que lleva a la documentación
+          label: 'Docs Mecodex',
         },
-        {to: '/blog', label: 'Blog', position: 'left'},
         {
           href: 'https://github.com/Davidjdsv/usuarios-mecodex',
           label: 'GitHub',
@@ -104,6 +97,7 @@ const config: Config = {
       links: [
         {
           title: 'Docs',
+          
           items: [
             {
               label: 'Funcionalidades Mecodex',
@@ -135,10 +129,6 @@ const config: Config = {
         {
           title: 'More',
           items: [
-            {
-              label: 'Blog',
-              to: '/blog',
-            },
             {
               label: 'GitHub',
               href: 'https://github.com/Davidjdsv/usuarios-mecodex',
