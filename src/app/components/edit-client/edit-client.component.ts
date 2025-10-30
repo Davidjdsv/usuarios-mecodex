@@ -11,10 +11,14 @@ import {
   IonInput,
   IonTextarea,
   IonSelect,
+  IonLabel,
   IonSelectOption,
   IonButton,
   IonButtons,
   ModalController,
+  IonDatetime,
+  IonDatetimeButton,
+  IonModal
 } from '@ionic/angular/standalone';
 import { PaisServicioService } from 'src/app/services/pais-servicio.service';
 import { PaisesInterface } from 'src/app/models/paises-interface';
@@ -40,10 +44,14 @@ import { DocumentosService } from 'src/app/services/documentos.service';
     IonItem,
     IonInput,
     IonTextarea,
+    IonLabel,
     IonSelect,
     IonSelectOption,
     IonButton,
     IonButtons,
+    IonDatetime,
+    IonDatetimeButton,
+    IonModal
   ],
 })
 export class EditClientComponent  implements OnInit {
