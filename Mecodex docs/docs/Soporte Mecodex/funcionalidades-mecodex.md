@@ -1,3 +1,8 @@
+---
+title: "Funcionalidades de Mecodex"
+description: "Guía detallada de las funcionalidades disponibles en Mecodex."
+---
+
 # Funcionalidades de Mecodex
 
 ## 1. Módulo de entradas y salidas 💰📊

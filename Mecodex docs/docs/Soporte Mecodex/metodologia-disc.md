@@ -1,3 +1,8 @@
+---
+title: "Metodología DISC: Guía Completa para la Comunicación Efectiva"
+description: "Aprende a utilizar la metodología DISC para mejorar la comunicación y el trabajo en equipo."
+---
+
 # Metodología DISC: Guía Completa para la Comunicación Efectiva
 
 ## ¿Qué es la Metodología DISC?

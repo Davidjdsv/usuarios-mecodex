@@ -1,3 +1,8 @@
+---
+title: "Manual de funciones del área de soporte de Mecodex"
+description: "Guía de funciones, objetivos y responsabilidades del área de soporte técnico de Mecodex."
+---
+
 # Manual de funciones del área de soporte de Mecodex
 
 # WEBCLOSTER S.A.S
