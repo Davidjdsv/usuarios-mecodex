@@ -63,4 +63,11 @@ export class UsuariosService {
     
     return this.http.put<UsuariosInterface[]>(url.toString(),usuario);
   }
+
+  deleteUser(id: number): Observable<UsuariosInterface[]> {
+    const url = new URL(this.api());
+    url.searchParams.append('id', id.toString());
+    
+    return this.http.delete<UsuariosInterface[]>(url.toString());
+  }
 }

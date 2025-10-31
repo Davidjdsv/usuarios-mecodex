@@ -31,16 +31,15 @@ import {
   IonInfiniteScroll,
   AlertController,
   ModalController,
-  IonInfiniteScrollContent,
-  IonDatetime,
-  IonDatetimeButton,
-  IonModal
+  IonInfiniteScrollContent
 } from '@ionic/angular/standalone';
+
 import { UsuariosInterface } from 'src/app/models/usuarios-interface';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { NotFoundComponent } from 'src/app/components/not-found/not-found.component';
 import { AddClientComponent } from 'src/app/components/add-client/add-client.component';
 import { EditClientComponent } from 'src/app/components/edit-client/edit-client.component';
+import { DeleteClientComponent } from 'src/app/components/delete-client/delete-client.component';
 
 @Component({
   selector: 'app-usuarios',
@@ -279,7 +278,27 @@ export class UsuariosPage implements OnInit {
   private async showEditErrorAlert(nombre?: string): Promise<void> {
     const alert = await this.alertController.create({
       header: 'Error al editar cliente',
-      message: `El cliente ${nombre || ''} no ha sido editado con éxito.`,
+      message: `El cliente ${nombre || ''} no ha sido editado.`,
+      buttons: ['OK'],
+      animated: true,
+    });
+    await alert.present();
+  }
+
+  private async showDeleteSuccesAlert(): Promise<void> {
+    const alert = await this.alertController.create({
+      header: 'Cliente eliminado',
+      message: "El cliente ha sido eliminado con éxito.",
+      buttons: ['OK'],
+      animated: true,
+    });
+    await alert.present();
+  }
+
+  private async showDeleteErrorAlert(): Promise<void> {
+    const alert = await this.alertController.create({
+      header: 'Error al eliminar cliente',
+      message: "Ocurrió un error al realizar esta acción",
       buttons: ['OK'],
       animated: true,
     });
@@ -339,8 +358,43 @@ export class UsuariosPage implements OnInit {
     }
   }
 
-  deleteClient(usuario: UsuariosInterface){
-    
+  async deleteClient(usuario: UsuariosInterface){
+    const modal = await this.mdlController.create({
+      component: DeleteClientComponent,
+      componentProps: {
+        dataCliente: usuario
+      }
+    })
+    await modal.present()
+
+    console.log(usuario)
+
+    const { role } = await modal.onWillDismiss();
+
+    if(role === "confirmar"){
+      this.usuariosServices.deleteUser(usuario.id).subscribe({
+        next: async (_res) => {
+          console.log("Datos del usuario: ", _res)
+          // Tras eliminar el cliente, recargamos la lista desde el backend para reflejar los cambios.
+          this.usuariosServices.getUsuarios().subscribe({
+            next: async (lista: UsuariosInterface[]) => {
+              this.usuariosOriginales.set(lista);
+
+              // Mostrar alerta de éxito
+              await this.showDeleteSuccesAlert();
+
+              // Reinicia la carga inicial y actualiza contadores
+              this.cargarUsuariosInicial();
+              this.contarUsuariosPorTipo();
+            },
+            error: async (err) => {
+              console.log('Error al refrescar la lista de usuarios: ', err);
+              await this.showDeleteErrorAlert();
+            },
+          });
+        },
+      })
+    }
   }
 
   async editClient(usuario: UsuariosInterface) {
@@ -375,8 +429,9 @@ export class UsuariosPage implements OnInit {
             },
           });
         },
-        error: (err) => {
+        error: async (err) => {
           console.log('Error al actualizar el usuario: ', err);
+            await this.showEditErrorAlert(data.nombre);
           if (err?.error) {
             console.log('Detalle del backend: ', err.error);
           }
