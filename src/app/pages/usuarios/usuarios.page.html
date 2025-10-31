@@ -61,10 +61,10 @@
   } @else {
   <!-- Mostrar usuarios si los hay -->
   @for (usuario of usuarios(); track usuario.id; let i = $index) {
-  <ion-card class="ion-margin-top card-hover user-card">
-    <ion-card-content class="ion-padding">
+  <ion-card class="ion-margin-top card-hover user-card ion-no-padding">
+    <ion-card-content class="ion-no-padding">
       <ion-grid [fixed]="true">
-        <ion-row class="">
+        <ion-row class="ion-justify-content-between">
           <!-- Col 1: Imagen -->
           <ion-col
             size="12"
@@ -204,19 +204,26 @@
       <ion-grid [fixed]="true">
 
         <ion-row class="ion-justify-content-evenly">
-          <ion-col size="12" size-md="4">
-            <ion-buttons>
+          <ion-col size="12" size-md="4" >
+
+            <ion-buttons class="ion-justify-content-center ion-margin-horizontal">
               <ion-button (click)="editClient(usuario)" color="primary" class="ion-margin-end">
                 <ion-icon name="create-outline" slot="start"></ion-icon>
                 Editar
               </ion-button>
+              
+            <ion-button
+              color="primary"
+              [routerLink]="['/usuario', usuario.id]">
+              <ion-icon name="caret-forward-outline" slot="start"></ion-icon>
+              Más detalles
+            </ion-button>
+            
+            <ion-button (click)="deleteClient(usuario)" color="danger" class="ion-margin-end">
+              <ion-icon name="trash-outline" slot="start"></ion-icon>
+              Eliminar
+            </ion-button>
 
-              <ion-button
-                color="primary"
-                [routerLink]="['/usuario', usuario.id]">
-                <ion-icon name="caret-forward-outline" slot="start"></ion-icon>
-                Ir a más detalles
-              </ion-button>
             </ion-buttons>
           </ion-col>
         </ion-row>

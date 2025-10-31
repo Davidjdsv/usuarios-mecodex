@@ -32,6 +32,9 @@ import {
   AlertController,
   ModalController,
   IonInfiniteScrollContent,
+  IonDatetime,
+  IonDatetimeButton,
+  IonModal
 } from '@ionic/angular/standalone';
 import { UsuariosInterface } from 'src/app/models/usuarios-interface';
 import { UsuariosService } from 'src/app/services/usuarios.service';
@@ -334,6 +337,10 @@ export class UsuariosPage implements OnInit {
         },
       });
     }
+  }
+
+  deleteClient(usuario: UsuariosInterface){
+    
   }
 
   async editClient(usuario: UsuariosInterface) {
