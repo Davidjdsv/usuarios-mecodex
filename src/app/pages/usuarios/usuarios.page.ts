@@ -362,7 +362,7 @@ export class UsuariosPage implements OnInit {
     const modal = await this.mdlController.create({
       component: DeleteClientComponent,
       componentProps: {
-        dataCliente: usuario
+        userData: usuario
       }
     })
     await modal.present()

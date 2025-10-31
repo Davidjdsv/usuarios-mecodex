@@ -9,6 +9,8 @@ import {
   IonText,
   IonButton,
   IonIcon,
+  IonFooter,
+  IonButtons
 } from '@ionic/angular/standalone';
 
 @Component({
@@ -24,6 +26,8 @@ import {
     IonText,
     IonButton,
     IonIcon,
+    IonFooter,
+    IonButtons
   ]
 })
 export class DeleteClientComponent implements OnInit {

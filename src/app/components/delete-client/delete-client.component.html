@@ -1,41 +1,43 @@
-<!-- delete-user-modal.component.html -->
-
-<!-- 👇 Header del modal -->
 <ion-header>
   <ion-toolbar color="danger">
     <ion-title>Confirmar eliminación</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<!-- 👇 Contenido del modal -->
-<ion-content class="ion-padding">
-  <ion-text>
-    <h2>¿Estás seguro?</h2>
-    <p>
-      Estás a punto de eliminar al usuario:
-      <strong>{{ userData.nombre }} {{ userData.apellido }}</strong>
-    </p>
-    <p>
-      <strong>Documento:</strong> {{ userData.id_tipo_documento }} -
-      {{ userData.documento }}
-    </p>
-    <p class="ion-text-wrap">
+<ion-content class="ion-padding compact-content">
+  <div>
+    <ion-icon name="warning-outline" color="danger" size="large" slot="end"></ion-icon>
+    <div>
+      <h2 class="ion-text-center">¿Estás seguro?</h2>
+      <p>
+        Estás a punto de eliminar al cliente
+        <strong>
+          {{ userData.nombre }}
+          {{ userData.segundo_nombre }}
+          {{ userData.apellido }}
+          {{ userData.segundo_apellido }}
+        </strong>
+      </p>
       <ion-text color="danger">
         <small>Esta acción no se puede deshacer.</small>
       </ion-text>
-    </p>
-  </ion-text>
-
-  <!-- 👇 Botones de acción -->
-  <div class="ion-margin-top">
-    <ion-button expand="block" color="medium" (click)="cancel()">
-      <ion-icon slot="start" name="close-outline"></ion-icon>
-      Cancelar
-    </ion-button>
-
-    <ion-button expand="block" color="danger" (click)="confirm()">
-      <ion-icon slot="start" name="trash-outline"></ion-icon>
-      Eliminar usuario
-    </ion-button>
+    </div>
   </div>
 </ion-content>
+<ion-footer translucent="true">
+  <ion-toolbar class="ion-flex-row">
+    <ion-buttons slot="start">
+      <ion-button color="medium" (click)="cancel()">
+        <ion-icon slot="start" name="close-outline"></ion-icon>
+        Cancelar
+      </ion-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button color="danger" (click)="confirm()">
+        <ion-icon slot="start" name="trash-outline"></ion-icon>
+        Eliminar usuario
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
