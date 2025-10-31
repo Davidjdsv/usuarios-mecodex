@@ -1,0 +1,10 @@
+{
+    "label": "Documentación software Mecodex",
+    "position": 3,
+    "link": {
+        "type": "generated-index",
+        "title": "Documentación software Mecodex",
+        "description": "Documentación técnica del software de Mecodex, objetivo general, especificos, casos de uso y todas sus funcionalidades para un mejor entendimiento al técnico o desarrollador de software de Mecodex.",
+        "slug": "/category/documentacion-mecodex"
+    }
+}

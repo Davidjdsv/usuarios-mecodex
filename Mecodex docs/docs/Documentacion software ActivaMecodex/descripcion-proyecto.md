@@ -1,6 +1,9 @@
+---
+title: "ActivaMecodex"
+description: "Aplicación Ionic + Angular para visualizar y gestionar usuarios de Mecodex. Utiliza componentes standalone de Angular y señales (signals) para el estado reactivo, con consumo de datos desde un servicio HTTP (UsuariosService) configurado mediante variables de entorno."
+---
 
-
-# Documentación del Proyecto: usuarios mecodex
+# Documentación del Proyecto: ActivaMecodex
 
 ## Descripción General
 
