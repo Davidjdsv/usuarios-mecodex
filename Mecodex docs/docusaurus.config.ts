@@ -54,7 +54,7 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/Davidjdsv/usuarios-mecodex/tree/main/Mecodex%20docs/docs/',
         },
         // Desactivamos el blog para un sitio centrado exclusivamente en documentación
         blog: false,
