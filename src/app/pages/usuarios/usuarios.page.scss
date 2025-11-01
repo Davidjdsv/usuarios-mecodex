@@ -38,4 +38,13 @@
 }
 
 
+.delete-icon {
+  /*
+   * Forzamos el color del icono de eliminar para que no sea afectado por el estilo global de ion-icon.
+   * Usamos el color de contraste del botón "danger" para que el icono coincida con el texto del botón.
+   */
+  color: var(--ion-color-danger);
+}
+
+
 

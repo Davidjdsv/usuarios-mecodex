@@ -41,16 +41,12 @@ import { DocumentosService } from 'src/app/services/documentos.service';
     IonTitle,
     IonContent,
     IonList,
-    IonItem,
     IonInput,
     IonTextarea,
     IonSelect,
     IonSelectOption,
     IonButton,
     IonButtons,
-    IonDatetime,
-    IonDatetimeButton,
-    IonModal
   ],
 })
 export class EditClientComponent  implements OnInit {
