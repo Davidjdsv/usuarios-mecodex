@@ -56,6 +56,10 @@ ion-icon{
     color: var(--color-primary);
 }
 
+ion-button, ion-icon{
+    color: var(--color-white);
+}
+
 body{
     scrollbar-color: #357ff8 #f2f8f9;
     scrollbar-width: thin;

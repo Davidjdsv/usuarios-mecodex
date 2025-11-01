@@ -15,7 +15,10 @@ import {
   IonGrid,
   IonRow,
   IonCol,
-  IonImg
+  IonImg,
+  IonItem,
+  IonLabel,
+  IonIcon,
 } from '@ionic/angular/standalone';
 
 @Component({
@@ -39,7 +42,7 @@ import {
     IonGrid,
     IonRow,
     IonCol,
-    IonImg
+    IonImg,
   ],
 })
 export class LoginPage implements OnInit {
