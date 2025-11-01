@@ -74,6 +74,7 @@ export class AppComponent {
   public appPages = [
     { title: 'Inicio', url: '/inicio', icon: 'home' },
     { title: 'Clientes Mecodex', url: '/usuarios', icon: 'people' },
+    { title: "login", url: "/login", icon: "log-in" },
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   constructor() {
