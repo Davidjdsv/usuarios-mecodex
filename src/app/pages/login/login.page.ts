@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import {
   IonContent,
   IonHeader,
@@ -20,6 +21,7 @@ import {
   IonLabel,
   IonIcon,
 } from '@ionic/angular/standalone';
+import { AuthService } from '../../core/services/auth-service/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -46,7 +48,15 @@ import {
   ],
 })
 export class LoginPage implements OnInit {
-  constructor() {}
+  // Variables para el formulario
+  usuario: string = '';
+  clave: string = '';
+  loading: boolean = false;
+
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit() {}
 }

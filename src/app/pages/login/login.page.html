@@ -30,7 +30,9 @@
                     label-placement="floating"
                     fill="outline"
                     clearInput="true"
-                    type="email"
+                    type="text"
+                    [(ngModel)]="usuario"
+                    name="usuario"
                     required
                   ></ion-input>
                   <ion-input
@@ -40,9 +42,17 @@
                     fill="outline"
                     type="password"
                     clearInput="true"
+                    [(ngModel)]="clave"
+                    name="clave"
                     required
                   ></ion-input>
-                  <ion-button type="submit" expand="block">Login</ion-button>
+                  <ion-button 
+                    type="submit" 
+                    expand="block"
+                    [disabled]="loading"
+                  >
+                    {{ loading ? 'Cargando...' : 'Login' }}
+                  </ion-button>
                 </ion-col>
                 <ion-col size="12" size-md="6">
                   <ion-img src="assets/img/fondo_login.png" alt="fondo_login">
