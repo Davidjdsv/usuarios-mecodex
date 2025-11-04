@@ -22,7 +22,7 @@ import {
   IonAccordion
 } from '@ionic/angular/standalone';
 import { ActivatedRoute } from '@angular/router';
-import { UsuariosService } from 'src/app/services/usuarios.service';
+import { UsuariosService } from 'src/app/core/services/usuarios.service';
 import { UsuariosInterface } from 'src/app/models/usuarios-interface';
 
 @Component({

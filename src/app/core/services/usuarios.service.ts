@@ -5,7 +5,7 @@ import { Observable, map } from 'rxjs';
 import {
   UsuariosInterface,
   UsuariosResponseInterface,
-} from '../models/usuarios-interface';
+} from '../../models/usuarios-interface';
 
 @Injectable({
   providedIn: 'root',

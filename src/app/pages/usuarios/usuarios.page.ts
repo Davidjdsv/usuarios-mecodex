@@ -35,7 +35,7 @@ import {
 } from '@ionic/angular/standalone';
 
 import { UsuariosInterface } from 'src/app/models/usuarios-interface';
-import { UsuariosService } from 'src/app/services/usuarios.service';
+import { UsuariosService } from 'src/app/core/services/usuarios.service';
 import { NotFoundComponent } from 'src/app/components/not-found/not-found.component';
 import { AddClientComponent } from 'src/app/components/add-client/add-client.component';
 import { EditClientComponent } from 'src/app/components/edit-client/edit-client.component';

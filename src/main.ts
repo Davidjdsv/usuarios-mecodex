@@ -2,7 +2,7 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { RouteReuseStrategy, provideRouter, withPreloading, PreloadAllModules } from '@angular/router';
 import { provideZonelessChangeDetection } from '@angular/core'; // Zoneless
 import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 
 
@@ -14,7 +14,7 @@ bootstrapApplication(AppComponent, {
     provideZonelessChangeDetection(), // Zoneless
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular(),
-    provideHttpClient(),
+    provideHttpClient(withFetch()),
     provideRouter(routes, withPreloading(PreloadAllModules)),
   ],
 });

@@ -19,10 +19,10 @@ import {
 import { UsuariosInterface } from 'src/app/models/usuarios-interface';
 
 import { PaisesInterface } from 'src/app/models/paises-interface';
-import { PaisServicioService } from 'src/app/services/pais-servicio.service';
+import { PaisServicioService } from 'src/app/core/services/pais-servicio.service';
 
 import { DocumentosInterface } from 'src/app/models/documentos-interface';
-import { DocumentosService } from 'src/app/services/documentos.service';
+import { DocumentosService } from 'src/app/core/services/documentos.service';
 
 @Component({
   selector: 'app-add-client',
