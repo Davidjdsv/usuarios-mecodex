@@ -8,3 +8,9 @@ export interface UsuariosWebClosterInterface {
     nombre_usuario: string;
     contrasena: string;
 }
+
+export interface UsuariosWebClosterResponseInterface{
+    success: boolean;
+    data: UsuariosWebClosterInterface[];
+    total: number;
+}
