@@ -50,6 +50,7 @@
                     type="submit" 
                     expand="block"
                     [disabled]="loading"
+                    (click)="loginUsuario(usuario, clave)"
                   >
                     {{ loading ? 'Cargando...' : 'Login' }}
                   </ion-button>

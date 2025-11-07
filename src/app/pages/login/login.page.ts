@@ -59,4 +59,8 @@ export class LoginPage implements OnInit {
   ) {}
 
   ngOnInit() {}
+
+  loginUsuario(usuario: string, clave: string){
+    this.authService
+  }
 }
