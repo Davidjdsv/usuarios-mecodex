@@ -11,17 +11,17 @@ import { UsuariosWebClosterInterface } from 'src/app/models/usuarios-web-closter
 export class AuthService {
   private isLoggedIn = signal(false); // Bandera en primer estado falso para verificar si el usuario está autenticado
 
-  private apiLoginURL = signal(environment.api_login);
+  private apiLoginURL = signal(environment.api_usuarios_web_closter); // Será tanto para las tareas del CRUD como para obtener token
   // private apiLoginUWCURL = signal(environment.api_login_uwc);
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  // loginUsuarioService(usuario: string, clave: string): Observable<boolean>{
-  //   // const url = new URL(this.apiLoginUWCURL());
-  //   // url.searchParams.append('usuario', usuario);
-  //   // url.searchParams.append('clave', clave);
-  //   // return this.http.get<UsuariosWebClosterInterface>(url.toString());
-  // }
+  loginUsuarioService(nombre_usuario: string, contrasena: string): Observable<UsuariosWebClosterInterface>{
+    const url = new URL(`${this.apiLoginURL()}?login`);
+    url.searchParams.append('nombre_usuario', nombre_usuario);
+    url.searchParams.append('contrasena', contrasena);
+    return this.http.get<UsuariosWebClosterInterface>(url.toString());
+  }
   // /**
   //  * Enviar credenciales al backend y recibir token
   //  * @param usuario - Nombre de usuario o email
