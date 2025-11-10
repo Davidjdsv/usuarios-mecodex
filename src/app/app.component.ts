@@ -83,10 +83,8 @@ export class AppComponent {
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   constructor(
-    private router: Router,
     private menuCtrl: MenuController,
     private autSerivce: AuthService,
-    private alertController: AlertController
   ) {
     addIcons({
       mailOutline,
@@ -121,7 +119,7 @@ export class AppComponent {
     });
   }
 
-  async logout(): Promise<void> {
+  async logOut(): Promise<void> {
     // Cierra el menú lateral por UX
     try {
       await this.menuCtrl.close();
