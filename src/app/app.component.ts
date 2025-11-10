@@ -14,8 +14,10 @@ import {
   IonLabel,
   IonRouterOutlet,
   IonRouterLink,
+  AlertController
 } from '@ionic/angular/standalone';
 import { MenuController } from '@ionic/angular';
+import { AuthService } from './core/services/auth-service/auth.service';
 import { addIcons } from 'ionicons';
 import {
   mailOutline,
@@ -83,6 +85,8 @@ export class AppComponent {
   constructor(
     private router: Router,
     private menuCtrl: MenuController,
+    private autSerivce: AuthService,
+    private alertController: AlertController
   ) {
     addIcons({
       mailOutline,
@@ -130,5 +134,35 @@ export class AppComponent {
       await this.menuCtrl.close();
     } catch {}
 
+  }
+
+  private async showSuccesLoginMessage(): Promise<void>{
+    const alert = await this.alertController.create({
+      header: 'Inicio de sesión exitoso',
+      message: 'Has iniciado sesión correctamente.',
+      buttons: ['OK'],
+      animated: true,
+    });
+    await alert.present();
+  }
+
+  private async showErrorLoginMessage(): Promise<void>{
+    const alert = await this.alertController.create({
+      header: 'Error en el inicio de sesión',
+      message: 'El usuario o la contrasela son incorrectos.',
+      buttons: ['OK'],
+      animated: true,
+    });
+    await alert.present();
+  }
+
+  private async showSuccesLogOutMessage(): Promise<void>{
+    const alert = await this.alertController.create({
+      header: 'Cierre de sesión exitoso',
+      message: 'Has cerrado sesión correctamente.',
+      buttons: ['OK'],
+      animated: true,
+    });
+    await alert.present();
   }
 }
