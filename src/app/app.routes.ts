@@ -23,6 +23,11 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/usuario/usuario.page').then( m => m.UsuarioPage)
   },
   {
+    path: 'usuarios-web-closter',
+    canActivate: [authLoginGuard],
+    loadComponent: () => import('./pages/usuarios-web-closter/usuarios-web-closter.page').then( m => m.UsuariosWebClosterPage)
+  },
+  {
     path: 'login',
     loadComponent: () => import('./pages/login/login.page').then( m => m.LoginPage)
   },

@@ -48,7 +48,10 @@ import {
   globeSharp,
   caretForwardOutline,
   logOutOutline, 
-  logOutSharp
+  logOutSharp,
+  cloudyOutline,
+  cloudySharp,
+  cloud
 } from 'ionicons/icons';
 
 @Component({
@@ -79,6 +82,7 @@ export class AppComponent {
   public appPages = [
     { title: 'Inicio', url: '/inicio', icon: 'home' },
     { title: 'Clientes Mecodex', url: '/usuarios', icon: 'people' },
+    { title: 'Usuarios webcloster', url: '/usuarios-web-closter', icon: 'cloudy' },
     { title: "login", url: "/login", icon: "log-in" },
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
@@ -115,7 +119,10 @@ export class AppComponent {
       globeSharp,
       caretForwardOutline,
       logOutOutline,
-      logOutSharp
+      logOutSharp,
+      cloudyOutline,
+      cloudySharp,
+      cloud
     });
   }
 
