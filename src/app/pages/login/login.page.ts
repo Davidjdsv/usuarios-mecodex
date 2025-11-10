@@ -61,6 +61,21 @@ export class LoginPage implements OnInit {
   ngOnInit() {}
 
   loginUsuario(usuario: string, clave: string){
-    this.authService
+    this.authService.loginUsuarioService(usuario, clave).subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.router.navigate(['/home']);
+        } else {
+          console.error('Error de autenticación:', response.message);
+        }
+      },
+      error: (error) => {
+        console.error('Error en la solicitud:', error);
+      }
+    });
+  }
+
+  logOut(){
+    this.authService.logOut()
   }
 }
