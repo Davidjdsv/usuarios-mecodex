@@ -121,48 +121,12 @@ export class AppComponent {
     });
   }
 
-  /**
-   * Cierra la sesión del usuario y navega a la página de login.
-   * Parámetros: ninguno
-   * Retorno: void
-   * Excepciones: no lanza; si falla el cierre del menú o la navegación, se ignora silenciosamente.
-   */
   async logout(): Promise<void> {
-
     // Cierra el menú lateral por UX
     try {
       await this.menuCtrl.close();
+      this.autSerivce.logOut()
     } catch {}
 
-  }
-
-  private async showSuccesLoginMessage(): Promise<void>{
-    const alert = await this.alertController.create({
-      header: 'Inicio de sesión exitoso',
-      message: 'Has iniciado sesión correctamente.',
-      buttons: ['OK'],
-      animated: true,
-    });
-    await alert.present();
-  }
-
-  private async showErrorLoginMessage(): Promise<void>{
-    const alert = await this.alertController.create({
-      header: 'Error en el inicio de sesión',
-      message: 'El usuario o la contrasela son incorrectos.',
-      buttons: ['OK'],
-      animated: true,
-    });
-    await alert.present();
-  }
-
-  private async showSuccesLogOutMessage(): Promise<void>{
-    const alert = await this.alertController.create({
-      header: 'Cierre de sesión exitoso',
-      message: 'Has cerrado sesión correctamente.',
-      buttons: ['OK'],
-      animated: true,
-    });
-    await alert.present();
   }
 }
