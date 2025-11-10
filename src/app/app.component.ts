@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import {
   IonApp,
   IonSplitPane,
@@ -15,6 +15,7 @@ import {
   IonRouterOutlet,
   IonRouterLink,
 } from '@ionic/angular/standalone';
+import { MenuController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import {
   mailOutline,
@@ -43,7 +44,9 @@ import {
   cardSharp,
   globeOutline,
   globeSharp,
-  caretForwardOutline
+  caretForwardOutline,
+  logOutOutline, 
+  logOutSharp
 } from 'ionicons/icons';
 
 @Component({
@@ -77,7 +80,10 @@ export class AppComponent {
     { title: "login", url: "/login", icon: "log-in" },
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-  constructor() {
+  constructor(
+    private router: Router,
+    private menuCtrl: MenuController,
+  ) {
     addIcons({
       mailOutline,
       mailSharp,
@@ -105,7 +111,24 @@ export class AppComponent {
       cardSharp,
       globeOutline,
       globeSharp,
-      caretForwardOutline
+      caretForwardOutline,
+      logOutOutline,
+      logOutSharp
     });
+  }
+
+  /**
+   * Cierra la sesión del usuario y navega a la página de login.
+   * Parámetros: ninguno
+   * Retorno: void
+   * Excepciones: no lanza; si falla el cierre del menú o la navegación, se ignora silenciosamente.
+   */
+  async logout(): Promise<void> {
+
+    // Cierra el menú lateral por UX
+    try {
+      await this.menuCtrl.close();
+    } catch {}
+
   }
 }

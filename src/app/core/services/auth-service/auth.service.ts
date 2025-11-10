@@ -12,7 +12,7 @@ export class AuthService {
   private isLoggedIn = signal(false); // Bandera en primer estado falso para verificar si el usuario está autenticado
 
   private apiLoginURL = signal(environment.api_usuarios_web_closter); // Será tanto para las tareas del CRUD como para obtener token
-  private tokeKey: string = "authToken";
+  private tokenKey: string = "authToken";
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -32,11 +32,11 @@ export class AuthService {
   }
 
   private getToken(): string | null{
-    return localStorage.getItem(this.tokeKey);
+    return localStorage.getItem(this.tokenKey);
   }
 
   private setToken(token: string): void {
-    localStorage.setItem(this.tokeKey, token);
+    localStorage.setItem(this.tokenKey, token);
   }
 
   isAutenthicate(): boolean {
@@ -51,7 +51,7 @@ export class AuthService {
   }
 
   logOut(): void {
-    localStorage.removeItem(this.tokeKey)
+    localStorage.removeItem(this.tokenKey)
     this.isLoggedIn.set(false);
     this.router.navigate(['/login']);
   }
