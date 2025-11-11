@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   IonContent,
@@ -22,6 +22,8 @@ import {
   IonInfiniteScroll,
   IonInfiniteScrollContent
 } from '@ionic/angular/standalone';
+import { UsuariosWebClosterService } from 'src/app/core/services/usuarios-webcloster.service';
+import { UsuariosWebClosterInterface } from 'src/app/models/usuarios-web-closter-interface';
 
 @Component({
   selector: 'app-usuarios-web-closter',
@@ -50,27 +52,25 @@ import {
     IonCardContent,
     IonInfiniteScroll,
     IonInfiniteScrollContent
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UsuariosWebClosterPage implements OnInit {
-  /**
-   * Componente de página para visualizar la estructura de usuarios de Mecodex.
-   * No contiene lógica ni variables dinámicas; solo replica la estructura HTML
-   * con componentes de Ionic necesarios para la vista.
-   *
-   * Parámetros: ninguno.
-   * Retorno: void.
-   * Excepciones: no aplica.
-   */
-  constructor() {}
+  folder = signal('Usuarios web closter')
+  usuariosWc = signal(<UsuariosWebClosterInterface[]>([]))
 
-  /**
-   * Ciclo de vida de inicialización del componente.
-   * Actualmente no realiza ninguna acción ya que la página es estática.
-   *
-   * Parámetros: ninguno.
-   * Retorno: void.
-   * Excepciones: no aplica.
-   */
-  ngOnInit(): void {}
+  constructor(private usuariosWebClosterService: UsuariosWebClosterService) {}
+
+  ngOnInit(): void {
+    this.getUsuariosWebCloster()
+  }
+
+  getUsuariosWebCloster(){
+    this.usuariosWebClosterService.getUsuariosWebCloster().subscribe({
+      next: (res: UsuariosWebClosterInterface[]) => {
+        console.log(res)
+        this.usuariosWc.set(res)
+      }
+    })
+  }
 }

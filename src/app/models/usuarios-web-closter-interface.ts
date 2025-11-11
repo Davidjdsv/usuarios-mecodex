@@ -8,6 +8,7 @@ export interface UsuariosWebClosterInterface {
     id_rol_usuario: number;
     nombre_usuario: string;
     contrasena: string;
+    abreviatura: string;
 }
 
 // Para LOGIN (un solo usuario)
