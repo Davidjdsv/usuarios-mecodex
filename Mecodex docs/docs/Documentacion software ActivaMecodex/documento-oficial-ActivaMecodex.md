@@ -85,6 +85,13 @@ A continuación se detallan las tecnologías y herramientas identificadas en la 
   - RxJS 7.8 para programación reactiva
   - Soporte SSR opcional mediante `@ionic/angular-server`
 
+- **Backend**
+  - PHP 8.2 para lógica del servidor y APIs
+
+- **Base de datos**
+  - Gestor de base de datos en PHPMyAdmin 5.2 para administración de bases de datos MySQL
+  - MySQL 8.0 para almacenamiento de datos relacionales
+
 - **Integración nativa (aplicaciones híbridas)**
   - Capacitor 7: `@capacitor/app`, `@capacitor/core`, `@capacitor/haptics`, `@capacitor/keyboard`, `@capacitor/status-bar`
 
@@ -93,7 +100,6 @@ A continuación se detallan las tecnologías y herramientas identificadas en la 
   - Ionic CLI 7.2.1 para gestión de proyectos Ionic y generación de componentes
   - `@ionic/angular-toolkit` para integración de Ionic con Angular
   - Uso de señales *(Signals)* para estado reactivo y actualización eficiente de la interfaz
-  - Configuración de compatibilidad de navegadores mediante `.browserslistrc`
   - Gestión de proyecto y scripts a través de `package.json`
 
 - **Linting y calidad de código**
@@ -113,13 +119,38 @@ A continuación se detallan las tecnologías y herramientas identificadas en la 
   - npm como gestor de paquetes
   - Node.js (>= 20) requerido por el sitio de documentación *(Versión actual de node: **24.7.0**)*
 
-## Casos de Uso
+## Lista de requerimientos
+
+| Código | Requisito | Descripción |
+|--------|-----------|-------------|
+| RFC001 | Registro de clientes | Captura y validación de información de nuevos clientes de Mecodex |
+| RFC002 | Listado de clientes | Visualización de todos los clientes registrados en Mecodex, con sus datos básicos y suscripciones |
+| RFC003 | Acciones sobre clientes | Permite activar, editar, desactivar, suspender o eliminar clientes de Mecodex |
+| RFC004 | Seguimiento de suscripciones | Monitoreo en tiempo real de fechas de pago, renovaciones y vencimientos próximos |
+| RFC005 | Reportes automáticos | Generación de reportes detallados sobre clientes activos, clientes con planes vencidos, historial de pagos y análisis de renovaciones |
+| RFC006 | Historial completo | Registro auditable de cada usuario, transacción y cambio de estado para trazabilidad total |
+| RFC007 | Buscador de clientes | Permite buscar clientes por nombre, correo electrónico, plan que maneja o número de teléfono |
+| RFC008 | Detalles del cliente | Visualización detallada de la información del cliente a un solo click, proporcionando más información al respecto. Modo de conexión, versión de la aplicación que usa, si ya está pago, calificación de la app, etc. |
+| RFUWC001 | Inicio de sesión | Permite a los usuarios registrados en ActivaMecodex, realizar el inicio de sesión en la aplicación para acceder a sus funcionalidades. |
+| RFUWC002 | Registro de usuarios | Permite registrar usuarios para el uso de la aplicación, haciendo uso de sus datos básicos, y teniendo acceso a tráves de correo/usuario y contraseña |
+| RFUWC003 | Permisos del sistema | Según los permisos que tengan los usuarios en ActivaMecodex, acceder a funcionalidades específicas basadas en su rol y permisos asignados. |
+| RFUWC004 | Inicio de sesión | Permite a los usuarios registrados en ActivaMecodex, realizar el inicio de sesión en la aplicación para acceder a sus funcionalidades. |
+
+## Diagramas UML
 
 <!-- Escenarios de interacción entre usuarios y el sistema -->
+### Diagrama de Casos de Uso
+
+![Diagrama de Casos de Uso](./img/diagrama_casos_de_uso.jpeg)
 
 ## Diseño de Base de Datos
 
 <!-- Modelo de datos, esquemas y relaciones -->
+A continuación, se presenta el Modelo Entidad Relación (MER) de la base de datos de Mecodex:
+
+![Modelo Entidad Relación (MER) de la base de datos de Mecodex](./img/mer_mecodex.png)
+
+Para mas detalle al respecto y mejor visualización, puede consultar el siguiente link: [Modelo Entidad Relación (MER) de la base de datos de Mecodex](https://dbdiagram.io/d/mer_mecodex-6905190d6735e11170b84c4d)
 
 ## API y Endpoints
 
