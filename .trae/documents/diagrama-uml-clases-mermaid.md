@@ -1,0 +1,117 @@
+## Diagrama UML de Clases (Mermaid)
+
+```Liquid
+classDiagram
+  direction LR
+
+  class UsuariosInterface {
+    +number id
+    +string nombre
+    +string segundo_nombre
+    +string apellido
+    +string segundo_apellido
+    +string telefono
+    +string direccion
+    +string documento
+    +string fecha_expedicion
+    +string correo
+    +string fecha_creacion
+    +string fecha_modificacion
+    +number id_pais
+    +string pais_nombre
+    +string pais_iso
+    +number id_tipo_documento
+    +string tipo_documento_nombre
+    +string tipo_documento_abreviatura
+    +string abreviatura
+    +number id_licencia
+    +string PLAN_MECODEX
+    +string estado
+    +string modo_conexion
+    +string version_app
+    +string fecha_calificacion
+    +string mensaje_calificacion
+    +number calificacion
+    +string observacion_cliente
+    +string observacion_comercial
+    +string observacion_soporte
+    +string observacion_cuenta
+    +number id_usuario_sensei
+    +string usuario_sensei_nombre
+  }
+
+  class PaisesInterface {
+    +number id
+    +string nombre
+    +string iso
+  }
+
+  class DocumentosInterface {
+    +number id
+    +string nombre_documento
+    +string abreviatura
+  }
+
+  class UsuariosWebClosterInterface {
+    +number id_usuario_wc
+    +string nombre_completo
+    +string documento
+    +string contacto
+    +string correo
+    +number id_rol_usuario
+    +string nombre_usuario
+    +string contrasena
+    +string abreviatura
+  }
+
+  class LoginResponseInterface {
+    +boolean success
+    +string message
+    +string token
+    +UsuariosWebClosterInterface data
+  }
+
+  class UsuariosWebClosterResponseInterface {
+    +boolean success
+    +string message
+    +string token
+    +UsuariosWebClosterInterface[] data
+    +number total
+  }
+
+  class UsuariosService {
+    +getUsuarios() UsuariosInterface[]
+    +createUser(usuario: UsuariosInterface) UsuariosInterface[]
+    +updateUser(usuario: UsuariosInterface) UsuariosInterface[]
+    +deleteUser(id: number) UsuariosInterface[]
+  }
+
+  class AuthService {
+    +loginUsuarioService(usuario: string, contrasena: string) LoginResponseInterface
+    +isAutenthicate() boolean
+    +logOut() void
+  }
+
+  class UsuariosWebClosterService {
+    +getUsuariosWebCloster() UsuariosWebClosterInterface[]
+  }
+
+  class PaisServicioService {
+    +getPaises() PaisesInterface[]
+  }
+
+  class DocumentosService {
+    +getDocuments() DocumentosInterface[]
+  }
+
+  UsuariosService ..> UsuariosInterface : CRUD
+  PaisServicioService ..> PaisesInterface : lista
+  DocumentosService ..> DocumentosInterface : lista
+  AuthService ..> LoginResponseInterface : login
+  LoginResponseInterface *-- UsuariosWebClosterInterface : data
+  UsuariosWebClosterService ..> UsuariosWebClosterInterface : lista
+
+  UsuariosInterface ..> PaisesInterface : id_pais
+  UsuariosInterface ..> DocumentosInterface : id_tipo_documento
+```
+

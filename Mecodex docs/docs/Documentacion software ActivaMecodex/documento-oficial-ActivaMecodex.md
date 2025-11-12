@@ -121,20 +121,173 @@ A continuación se detallan las tecnologías y herramientas identificadas en la 
 
 ## Lista de requerimientos
 
+<!-- Requerimiento funcional usuario webcloster (RFUWC) -->
+
 | Código | Requisito | Descripción |
 |--------|-----------|-------------|
-| RFC001 | Registro de clientes | Captura y validación de información de nuevos clientes de Mecodex |
-| RFC002 | Listado de clientes | Visualización de todos los clientes registrados en Mecodex, con sus datos básicos y suscripciones |
-| RFC003 | Acciones sobre clientes | Permite activar, editar, desactivar, suspender o eliminar clientes de Mecodex |
-| RFC004 | Seguimiento de suscripciones | Monitoreo en tiempo real de fechas de pago, renovaciones y vencimientos próximos |
-| RFC005 | Reportes automáticos | Generación de reportes detallados sobre clientes activos, clientes con planes vencidos, historial de pagos y análisis de renovaciones |
-| RFC006 | Historial completo | Registro auditable de cada usuario, transacción y cambio de estado para trazabilidad total |
-| RFC007 | Buscador de clientes | Permite buscar clientes por nombre, correo electrónico, plan que maneja o número de teléfono |
-| RFC008 | Detalles del cliente | Visualización detallada de la información del cliente a un solo click, proporcionando más información al respecto. Modo de conexión, versión de la aplicación que usa, si ya está pago, calificación de la app, etc. |
 | RFUWC001 | Inicio de sesión | Permite a los usuarios registrados en ActivaMecodex, realizar el inicio de sesión en la aplicación para acceder a sus funcionalidades. |
 | RFUWC002 | Registro de usuarios | Permite registrar usuarios para el uso de la aplicación, haciendo uso de sus datos básicos, y teniendo acceso a tráves de correo/usuario y contraseña |
 | RFUWC003 | Permisos del sistema | Según los permisos que tengan los usuarios en ActivaMecodex, acceder a funcionalidades específicas basadas en su rol y permisos asignados. |
-| RFUWC004 | Inicio de sesión | Permite a los usuarios registrados en ActivaMecodex, realizar el inicio de sesión en la aplicación para acceder a sus funcionalidades. |
+| RFUWC004 | Acciones en clientes | Permite a los usuarios del sistema realizar acciones sobre los clientes, como registrar, editar, desactivar, suspender o eliminar clientes de Mecodex según sus permisos otorgados. |
+| RFUWC005 | Activación de cuentas | Permite a los usuarios del sistema activar las cuentas de los clientes con los planes que adquieran |
+| RFUWC006 | Buscador de clientes | Permite buscar clientes por nombre, correo electrónico, plan que maneja o número de teléfono |
+| RFUWC007 | Seguimiento de suscripciones | Monitoreo en tiempo real de fechas de pago, renovaciones y vencimientos próximos |
+| RFUWC008 | Detalles del cliente | Visualización detallada de la información del cliente a un solo click, proporcionando más información al respecto. Modo de conexión, versión de la aplicación que usa, si ya está pago, calificación de la app, etc. |
+| RFUWC009 | Eliminación de usuarios de ActivaMecodex | Permite a los usuarios administradores eliminar usuarios de ActivaMecodex, teniendo en cuenta que se debe eliminar también sus datos de la base de datos. |
+
+
+## Caracterización de procesos
+
+**Caracterización de proceso**: RFUWC001: Inicio de sesión
+
+**Descripción**: El usuario de la plataforma de ActivaMecodex ingresa sus credenciales de para iniciar sesión en el sistema y poder ingresar
+
+- **Actores**:
+  - Administrador
+  - Soporte técnico
+  - Ejecutivo comercial
+
+**Requisitos**
+
+Estar registrado en la plataforma de ActivaMecodex para el ingreso.
+
+**Postcondiciones**
+
+- El usuario ha ingresado correctamente a la plataforma de ActivaMecodex.
+- El usuario tiene acceso a las funcionalidades y recursos disponibles para su rol.
+
+**Flujo alternativo**
+
+- Si el usuario no está registrado, se le redirige al registro.
+
+---
+
+**Caracterización de proceso**: RFUWC002: Registro de usuarios
+
+**Descripción**: El usuario administrador de la plataforma de ActivaMecodex ingresa los datos básicos del nuevo usuario para registrarlo en el sistema y poder acceder a sus funcionalidades según los permisos que le otorgue.
+
+- **Actores**:
+  - Administrador
+  - Soporte técnico
+  - Ejecutivo comercial
+
+**Requisitos**
+
+- El usuario debe proporcionar información básica como nombre, correo electrónico, número de teléfono y contraseña.
+- El correo electrónico debe ser único y no puede estar registrado previamente.
+
+**Postcondiciones**
+
+- El usuario ha sido registrado exitosamente en la plataforma de ActivaMecodex.
+- El usuario puede iniciar sesión utilizando sus credenciales de registro.
+
+**Flujo alternativo**
+
+- Si el usuario ya tiene una cuenta, se le redirige al inicio de sesión.
+
+---
+
+**Caracterización de proceso**: RFUWC003: Permisos del sistema
+
+**Descripción**: El usuario administrador de la plataforma de ActivaMecodex asigna permisos específicos a los usuarios registrados en el sistema, basados en su rol y responsabilidades dentro de la organización.
+
+- **Actores**:
+  - Administrador
+  - Soporte técnico
+  - Ejecutivo comercial
+
+**Requisitos**
+
+- El administrador debe tener acceso a la funcionalidad de asignación de permisos.
+- El usuario a asignar permisos debe estar registrado previamente en la plataforma.
+
+**Postcondiciones**
+
+- El usuario ha sido asignado los permisos especificados por el administrador.
+- El usuario puede acceder a las funcionalidades y recursos disponibles para su rol.
+
+**Flujo alternativo**
+
+- Si el usuario no está registrado previamente, se le redirige al registro.
+
+---
+
+**Caracterización de proceso**: RFUWC004: Acciones en clientes
+
+**Descripción**: Según los permisos que tenga el usuario de la plataforma de ActivaMecodex puede realizar diversas acciones sobre los clientes, como registrar, editar, desactivar, suspender o eliminar clientes de Mecodex.
+
+- **Actores**:
+  - Administrador
+  - Soporte técnico
+  - Ejecutivo comercial
+
+**Requisitos**
+
+- El usuario debe tener acceso a la funcionalidad de acciones en clientes.
+- El usuario debe tener permisos suficientes para realizar la acción deseada sobre el cliente.
+
+**Postcondiciones**
+
+- La acción sobre el cliente ha sido realizada exitosamente.
+- El estado del cliente ha sido actualizado en la base de datos.
+
+**Flujo alternativo**
+
+- El usuario no cuenta con los permisos suficientes para realizar acciones sobre los clientes.
+- El usuario no está registrado y pasa a registrarse en el sistema.
+
+---
+
+**Caracterización de proceso**: RFUWC005: Activación de cuentas
+
+**Descripción**: Permite a los usuarios del sistema activar las cuentas de los clientes con los planes que adquieran.
+
+- **Actores**:
+  - Administrador
+  - Soporte técnico
+  - Ejecutivo comercial
+
+**Requisitos**
+
+- El usuario debe tener acceso a la funcionalidad de activación de cuentas.
+- El cliente ya canceló el pago por su suscripción y se procede a realizar la activación de su cuenta.
+
+**Postcondiciones**
+
+- La cuenta del cliente ha sido activada exitosamente.
+
+**Flujo alternativo**
+
+- El usuario no tiene permisos para activar cuentas.
+- El cliente no ha realizado el pago de su suscripción todavía.
+
+---
+
+**Caracterización de proceso**: RFUWC006: Gestión de planes
+
+**Descripción**: Permite a los usuarios del sistema gestionar los planes de suscripción que han adquirido, como cambiar, cancelar o extender los planes.
+
+- **Actores**:
+  - Administrador
+  - Soporte técnico
+  - Ejecutivo comercial
+
+**Requisitos**
+
+- El usuario debe tener acceso a la funcionalidad de gestión de planes.
+- El usuario debe tener una cuenta activa con un plan suscrito.
+
+**Postcondiciones**
+
+- El plan del usuario ha sido actualizado exitosamente.
+- El usuario puede acceder a las funcionalidades y recursos disponibles para su plan.
+
+**Flujo alternativo**
+
+- El usuario no tiene una cuenta activa con un plan suscrito.
+- El usuario no está registrado y pasa a registrarse en el sistema.
+
+---
 
 ## Diagramas UML
 
@@ -142,6 +295,12 @@ A continuación se detallan las tecnologías y herramientas identificadas en la 
 ### Diagrama de Casos de Uso
 
 ![Diagrama de Casos de Uso](./img/diagrama_casos_de_uso.jpeg)
+
+### Diagrama de Casos de secuencia
+
+
+![Diagrama de Secuencia](./img/diagrama_de_secuencia.jpeg)
+
 
 ## Diseño de Base de Datos
 
