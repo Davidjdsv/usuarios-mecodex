@@ -19,6 +19,7 @@ export class UsuariosWebClosterService {
         return res.data.map((usuario: UsuariosWebClosterInterface) => ({
           id_usuario_wc: usuario.id_usuario_wc,
           nombre_completo: usuario.nombre_completo,
+          id_tipo_documento: usuario.id_tipo_documento,
           abreviatura: usuario.abreviatura,
           documento: usuario.documento,
           contacto: usuario.contacto,
