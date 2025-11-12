@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../environments/environment';
 import { Observable, map } from 'rxjs';
 import { UsuariosWebClosterInterface } from 'src/app/models/usuarios-web-closter-interface';
 import { UsuariosWebClosterResponseInterface } from 'src/app/models/usuarios-web-closter-interface';

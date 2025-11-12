@@ -37,9 +37,9 @@ import {
 import { UsuariosInterface } from 'src/app/models/usuarios-interface';
 import { UsuariosService } from 'src/app/core/services/usuarios.service';
 import { NotFoundComponent } from 'src/app/components/not-found/not-found.component';
-import { AddClientComponent } from 'src/app/components/add-client/add-client.component';
-import { EditClientComponent } from 'src/app/components/edit-client/edit-client.component';
-import { DeleteClientComponent } from 'src/app/components/delete-client/delete-client.component';
+import { AddClientComponent } from 'src/app/components/clientes/add-client/add-client.component';
+import { EditClientComponent } from 'src/app/components/clientes/edit-client/edit-client.component';
+import { DeleteClientComponent } from 'src/app/components/clientes/delete-client/delete-client.component';
 
 @Component({
   selector: 'app-usuarios',
