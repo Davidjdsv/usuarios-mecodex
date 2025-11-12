@@ -138,7 +138,7 @@ A continuación se detallan las tecnologías y herramientas identificadas en la 
 
 ## Caracterización de procesos
 
-**Caracterización de proceso**: RFUWC001: Inicio de sesión
+### **Caracterización de proceso**: RFUWC001: Inicio de sesión
 
 **Descripción**: El usuario de la plataforma de ActivaMecodex ingresa sus credenciales de para iniciar sesión en el sistema y poder ingresar
 
@@ -162,7 +162,7 @@ Estar registrado en la plataforma de ActivaMecodex para el ingreso.
 
 ---
 
-**Caracterización de proceso**: RFUWC002: Registro de usuarios
+### **Caracterización de proceso**: RFUWC002: Registro de usuarios
 
 **Descripción**: El usuario administrador de la plataforma de ActivaMecodex ingresa los datos básicos del nuevo usuario para registrarlo en el sistema y poder acceder a sus funcionalidades según los permisos que le otorgue.
 
@@ -187,7 +187,7 @@ Estar registrado en la plataforma de ActivaMecodex para el ingreso.
 
 ---
 
-**Caracterización de proceso**: RFUWC003: Permisos del sistema
+### **Caracterización de proceso**: RFUWC003: Permisos del sistema
 
 **Descripción**: El usuario administrador de la plataforma de ActivaMecodex asigna permisos específicos a los usuarios registrados en el sistema, basados en su rol y responsabilidades dentro de la organización.
 
@@ -212,7 +212,7 @@ Estar registrado en la plataforma de ActivaMecodex para el ingreso.
 
 ---
 
-**Caracterización de proceso**: RFUWC004: Acciones en clientes
+### **Caracterización de proceso**: RFUWC004: Acciones en clientes
 
 **Descripción**: Según los permisos que tenga el usuario de la plataforma de ActivaMecodex puede realizar diversas acciones sobre los clientes, como registrar, editar, desactivar, suspender o eliminar clientes de Mecodex.
 
@@ -238,7 +238,7 @@ Estar registrado en la plataforma de ActivaMecodex para el ingreso.
 
 ---
 
-**Caracterización de proceso**: RFUWC005: Activación de cuentas
+### **Caracterización de proceso**: RFUWC005: Activación de cuentas
 
 **Descripción**: Permite a los usuarios del sistema activar las cuentas de los clientes con los planes que adquieran.
 
@@ -263,7 +263,7 @@ Estar registrado en la plataforma de ActivaMecodex para el ingreso.
 
 ---
 
-**Caracterización de proceso**: RFUWC006: Gestión de planes
+### **Caracterización de proceso**: RFUWC006: Gestión de planes
 
 **Descripción**: Permite a los usuarios del sistema gestionar los planes de suscripción que han adquirido, como cambiar, cancelar o extender los planes.
 
@@ -286,6 +286,53 @@ Estar registrado en la plataforma de ActivaMecodex para el ingreso.
 
 - El usuario no tiene una cuenta activa con un plan suscrito.
 - El usuario no está registrado y pasa a registrarse en el sistema.
+
+---
+
+### **Caracterización de proceso**: RFUWC007: Seguimiento de suscripciones
+
+**Descripción**: Monitoreo en tiempo real de fechas de pago, renovaciones y vencimientos próximos para los planes de suscripción de los clientes.
+
+- **Actores**:
+  - Administrador
+  - Soporte técnico
+  - Ejecutivo comercial
+
+**Requisitos**
+
+- El usuario debe tener acceso a la funcionalidad de seguimiento de suscripciones.
+- El cliente debe tener una cuenta activa con un plan suscrito.
+
+**Postcondiciones**
+
+- El usuario puede ver en tiempo real la información sobre sus suscripciones, como fechas de pago, renovaciones y vencimientos próximos.
+
+**Flujo alternativo**
+
+- El usuario no está registrado en el sistema.
+
+---
+
+### **Caracterización de proceso**: RFUWC008: Eliminación de usuarios de ActivaMecodex
+
+**Descripción**: Permite a los usuarios administradores eliminar usuarios de ActivaMecodex, teniendo en cuenta que se debe eliminar también sus datos de la base de datos.
+
+- **Actores**:
+  - Administrador
+
+**Requisitos**
+
+- El usuario administrador debe tener acceso a la funcionalidad de eliminación de usuarios.
+
+**Postcondiciones**
+
+- El usuario ha sido eliminado exitosamente de ActivaMecodex.
+- Los datos del usuario eliminado han sido eliminados de la base de datos.
+
+**Flujo alternativo**
+
+- El usuario no tiene permisos suficientes para eliminar usuarios.
+- El usuario no está registrado en el sistema.
 
 ---
 
