@@ -1,0 +1,43 @@
+flowchart LR
+  subgraph ActivaMecodex
+    UC_Login([Iniciar sesion]);
+    UC_Logout([Cerrar sesion]);
+
+    UC_GestionClientes([Gestionar clientes]);
+    UC_Listar([Listar clientes]);
+    UC_Detalle([Ver detalle de cliente]);
+    UC_Crear([Crear cliente]);
+    UC_Editar([Editar cliente]);
+    UC_Eliminar([Eliminar cliente]);
+
+    UC_UsuariosInternos([Listar usuarios internos]);
+
+    UC_ConsultarEstados([Consultar clientes y estados]);
+    UC_ConsultarPlanes([Consultar planes]);
+    UC_ReferenciarGuias([Referenciar guias de soporte]);
+
+    UC_Supervisar([Supervisar estados y planes]);
+    UC_Coordinar([Coordinar usuarios internos]);
+
+    UC_GestionClientes -. include .-> UC_Listar;
+    UC_GestionClientes -. include .-> UC_Detalle;
+    UC_GestionClientes -. include .-> UC_Crear;
+    UC_GestionClientes -. include .-> UC_Editar;
+    UC_GestionClientes -. include .-> UC_Eliminar;
+  end
+
+  Admin[Administrador interno - WebCloster];
+  Soporte[Soporte tecnico];
+  Lider[Lider de desarrollo];
+
+  Admin --> UC_Login;
+  Admin --> UC_Logout;
+  Admin --> UC_GestionClientes;
+  Admin --> UC_UsuariosInternos;
+
+  Soporte --> UC_ConsultarEstados;
+  Soporte --> UC_ConsultarPlanes;
+  Soporte --> UC_ReferenciarGuias;
+
+  Lider --> UC_Supervisar;
+  Lider --> UC_Coordinar;

@@ -17,9 +17,7 @@ import {
   IonRow,
   IonCol,
   IonImg,
-  IonItem,
-  IonLabel,
-  IonIcon,
+  ToastController
 } from '@ionic/angular/standalone';
 import { AuthService } from '../../core/services/auth-service/auth.service';
 
@@ -47,7 +45,7 @@ import { AuthService } from '../../core/services/auth-service/auth.service';
     IonImg,
   ],
 })
-export class LoginPage implements OnInit {
+export class LoginPage {
   // Variables para el formulario
   usuario: string = '';
   clave: string = '';
@@ -55,12 +53,43 @@ export class LoginPage implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private toastController: ToastController,
   ) {}
 
-  ngOnInit() {}
 
-  loginUsuario(usuario: string, clave: string){
-    this.authService
+  async loginUsuario(usuario: string, clave: string){
+    this.loading = true;
+    this.authService.loginUsuarioService(usuario, clave).subscribe({
+      next: async (response) => {
+        this.loading = false;
+        if (response.success) {
+          this.router.navigate(['/home']);
+          
+          const toast = await this.toastController.create({
+            message: "Inicio de sesión exitoso",
+            duration: 2000,
+            color: "medium",
+          })
+          await toast.present();
+
+        } else {
+          console.error('Error de autenticación:', response.message);
+        }
+      },
+      error: async (error) => {
+        console.error('Error en la solicitud:', error);
+        const toast = await this.toastController.create({
+          message: "Usuario o contraseña incorrectos",
+          duration: 2000,
+          color: "danger",
+        })
+        await toast.present();
+      }
+    });
+  }
+
+  logOut(){
+    this.authService.logOut()
   }
 }
