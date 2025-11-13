@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>Agregar nuevo cliente</ion-title>
+    <ion-title>Agregar nuevo Usuario</ion-title>
     <!-- Botón para cerrar el modal -->
   </ion-toolbar>
 </ion-header>
@@ -8,28 +8,27 @@
 <ion-content class="ion-padding">
   <form #form="ngForm" (ngSubmit)="onSubmit(form)">
     <ion-list>
-      <!-- Identificación y nombres -->
       <ion-input
         required
         type="text"
-        name="nombre"
+        name="nombre_completo"
         [(ngModel)]="dataUsuarioWc.nombre_completo"
-        label="Primer nombre"
+        label="Nombre completo"
         label-placement="floating"
-        maxlength="20"
+        maxlength="50"
         minlength="5"
         fill="outline"
       >
       </ion-input>
 
       <ion-input
+        type="number"
         required
-        type="text"
-        name="documento"
-        [(ngModel)]="dataUsuarioWc.documento"
-        label="Número de documento"
+        name="contacto"
+        label="Número de contacto"
         label-placement="floating"
         fill="outline"
+        [(ngModel)]="dataUsuarioWc.contacto"
         maxlength="20"
         minlength="5"
       ></ion-input>
@@ -41,6 +40,8 @@
         [(ngModel)]="dataUsuarioWc.correo"
         label="Correo electrónico"
         label-placement="floating"
+        helperText="Ingrese un correo valido"
+        errorText="Correo invalido"
         fill="outline"
         maxlength="20"
         minlength="5"
@@ -65,14 +66,13 @@
       </ion-select>
 
       <ion-input
-        type="number"
         required
-        name="contacto"
-        label="Número de contacto"
+        type="text"
+        name="documento"
+        [(ngModel)]="dataUsuarioWc.documento"
+        label="Número de documento"
         label-placement="floating"
         fill="outline"
-        [(ngModel)]="dataUsuarioWc.contacto"
-        required
         maxlength="20"
         minlength="5"
       ></ion-input>

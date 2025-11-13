@@ -1,7 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { Observable, map } from 'rxjs';
+import { Observable, catchError, map, throwError } from 'rxjs';
 import { UsuariosWebClosterInterface } from 'src/app/models/usuarios-web-closter-interface';
 import { UsuariosWebClosterResponseInterface } from 'src/app/models/usuarios-web-closter-interface';
 
@@ -28,6 +28,16 @@ export class UsuariosWebClosterService {
           nombre_usuario: usuario.nombre_usuario,
           contrasena: usuario.contrasena,
         }))
+      })
+    )
+  }
+
+  createUsuariosWebCloster(usuario: UsuariosWebClosterInterface): Observable<UsuariosWebClosterInterface[]>{
+    const url = this.apiWebCloster()
+    return this.http.post<UsuariosWebClosterInterface[]>(url, usuario).pipe(
+      catchError((error) => {
+        console.error("Error al crear un nuevo usuario: ", error.message)
+        return throwError(() => new Error(error.message))
       })
     )
   }

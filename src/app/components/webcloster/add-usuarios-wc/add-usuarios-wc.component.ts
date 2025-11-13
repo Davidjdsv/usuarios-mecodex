@@ -8,8 +8,10 @@ import {
   IonToolbar,
   IonButtons,
   IonButton,
+  IonInput,
   IonList,
   IonSelectOption,
+  IonSelect,
   ModalController
 } from '@ionic/angular/standalone';
 import { UsuariosWebClosterService } from 'src/app/core/services/usuarios-webcloster.service';
@@ -33,8 +35,10 @@ import { DocumentosService } from 'src/app/core/services/documentos.service';
     IonToolbar,
     IonButtons,
     IonButton,
+    IonInput,
     IonList,
     IonSelectOption,
+    IonSelect
   ]
 })
 export class AddUsuariosWcComponent  implements OnInit {
