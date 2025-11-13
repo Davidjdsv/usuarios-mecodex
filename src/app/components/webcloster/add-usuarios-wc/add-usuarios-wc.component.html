@@ -43,7 +43,7 @@
         helperText="Ingrese un correo valido"
         errorText="Correo invalido"
         fill="outline"
-        maxlength="20"
+        maxlength="70"
         minlength="5"
       ></ion-input>
 
@@ -76,6 +76,23 @@
         maxlength="20"
         minlength="5"
       ></ion-input>
+
+      <ion-select
+        (click)="listarRoles()"
+        required
+        interface="popover"
+        label="Rol a asignar"
+        name="id_rol_usuario"
+        [(ngModel)]="dataUsuarioWc.id_rol_usuario"
+        placeholder="Seleccione"
+        fill="outline"
+      >
+        @for(rol of roles(); track rol.id_rol; let i = $index){
+        <ion-select-option [value]="rol.id_rol">
+          {{ rol.nombre_rol }}
+        </ion-select-option>
+        }
+      </ion-select>
 
       <ion-input
         type="text"
