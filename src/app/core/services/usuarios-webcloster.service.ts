@@ -41,4 +41,15 @@ export class UsuariosWebClosterService {
       })
     )
   }
+
+  updateUsuariosWebCloster(usuario: UsuariosWebClosterInterface): Observable<UsuariosWebClosterInterface[]>{
+    const url = new URL(this.apiWebCloster())
+    url.searchParams.append("id_usuario_wc", usuario.id_usuario_wc.toString())
+    return this.http.put<UsuariosWebClosterInterface[]>(url.toString(), usuario).pipe(
+      catchError((error) => {
+        console.error("Error al editar un usuario: ", error.message)
+        return throwError(() => new Error(error.message))
+      })
+    )
+  }
 }

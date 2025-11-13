@@ -7,18 +7,13 @@ import {
   IonTitle,
   IonContent,
   IonList,
-  IonItem,
   IonInput,
   IonTextarea,
   IonSelect,
-  IonLabel,
   IonSelectOption,
   IonButton,
   IonButtons,
   ModalController,
-  IonDatetime,
-  IonDatetimeButton,
-  IonModal
 } from '@ionic/angular/standalone';
 import { PaisServicioService } from 'src/app/core/services/pais-servicio.service';
 import { PaisesInterface } from 'src/app/models/paises-interface';
