@@ -16,17 +16,18 @@
 
   <ion-searchbar
     placeholder="Buscar usuario por nombre, correo o número de teléfono"
+    (ionInput)="onSearch($event)"
   ></ion-searchbar>
 
   <div class="main-text-container ion-justify-content-between ion-align-items-center">
-    <ion-button class="ion-margin-vertical" color="primary">
+    <ion-button (click)="addUsuarioWebCloster()" class="ion-margin-vertical" color="primary">
       <ion-icon name="person-add-outline" slot="start"></ion-icon>
       Agregar usuario
     </ion-button>
   </div>
 
   <!-- Tarjeta de usuario estática para mantener la estructura -->
-  @for (usuario of usuariosWc(); track usuario.id_rol_usuario; let i = $index){
+  @for (usuario of visibleUsuariosWc(); track usuario.id_usuario_wc; let i = $index){
     <ion-card class="ion-margin-top card-hover user-card ion-no-padding">
       <ion-card-content class="ion-no-padding">
         <ion-grid [fixed]="true">
@@ -127,7 +128,7 @@
           <ion-row class="ion-justify-content-evenly">
             <ion-col size="12" size-md="4">
               <ion-buttons class="ion-justify-content-center ion-margin-horizontal">
-                <ion-button color="primary" class="ion-margin-end">
+                <ion-button (click)="editUsuario(usuario)" color="primary" class="ion-margin-end">
                   <ion-icon name="create-outline" slot="start"></ion-icon>
                   Editar
                 </ion-button>
@@ -151,7 +152,7 @@
     </ion-card>
   }
 
-  <ion-infinite-scroll threshold="10%">
+  <ion-infinite-scroll threshold="10%" (ionInfinite)="loadMore($event)" [disabled]="!hasMore()">
     <ion-infinite-scroll-content
       loading-text="Cargando más usuarios..."
       loadingSpinner="crescent"

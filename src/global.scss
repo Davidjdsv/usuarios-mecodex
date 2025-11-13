@@ -185,4 +185,16 @@ ion-badge.plan-pro-plus{
     --background: linear-gradient(90deg, #f6ce69, #f8c552); 
 }
 
+// remover de inputs tipo number el incrementar y decrementar numeros
+input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 
