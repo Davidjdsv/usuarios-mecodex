@@ -16,6 +16,7 @@
 
   <ion-searchbar
     placeholder="Buscar usuario por nombre, correo o número de teléfono"
+    (ionInput)="onSearch($event)"
   ></ion-searchbar>
 
   <div class="main-text-container ion-justify-content-between ion-align-items-center">
@@ -26,7 +27,7 @@
   </div>
 
   <!-- Tarjeta de usuario estática para mantener la estructura -->
-  @for (usuario of usuariosWc(); track usuario.id_rol_usuario; let i = $index){
+  @for (usuario of visibleUsuariosWc(); track usuario.id_usuario_wc; let i = $index){
     <ion-card class="ion-margin-top card-hover user-card ion-no-padding">
       <ion-card-content class="ion-no-padding">
         <ion-grid [fixed]="true">
@@ -151,7 +152,7 @@
     </ion-card>
   }
 
-  <ion-infinite-scroll threshold="10%">
+  <ion-infinite-scroll threshold="10%" (ionInfinite)="loadMore($event)" [disabled]="!hasMore()">
     <ion-infinite-scroll-content
       loading-text="Cargando más usuarios..."
       loadingSpinner="crescent"
