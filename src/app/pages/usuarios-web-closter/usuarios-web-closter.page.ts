@@ -30,6 +30,7 @@ import {
   ModalController,
   AlertController,
 } from '@ionic/angular/standalone';
+import { RouterLink } from '@angular/router';
 import { UsuariosWebClosterService } from 'src/app/core/services/usuarios-webcloster.service';
 import { UsuariosWebClosterInterface } from 'src/app/models/usuarios-web-closter-interface';
 import { AddUsuariosWcComponent } from 'src/app/components/webcloster/add-usuarios-wc/add-usuarios-wc.component';
@@ -63,6 +64,7 @@ import { EditUsuariosWcComponent } from 'src/app/components/webcloster/edit-usua
     IonCardContent,
     IonInfiniteScroll,
     IonInfiniteScrollContent,
+    RouterLink
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -90,7 +92,6 @@ export class UsuariosWebClosterPage implements OnInit {
   getUsuariosWebCloster() {
     this.usuariosWebClosterService.getUsuariosWebCloster().subscribe({
       next: (res: UsuariosWebClosterInterface[]) => {
-        console.log(res);
         this.usuariosWc.set(res);
         this.applyFiltersAndPaging();
       },
