@@ -22,7 +22,6 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { UsuariosWebClosterInterface } from 'src/app/models/usuarios-web-closter-interface';
 import { UsuariosWebClosterService } from 'src/app/core/services/usuarios-webcloster.service';
-import { find, map } from 'rxjs';
 
 @Component({
   selector: 'app-usuario-web-closter',
