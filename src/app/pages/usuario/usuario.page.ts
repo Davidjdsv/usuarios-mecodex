@@ -17,6 +17,8 @@ import {
   IonGrid,
   IonRow,
   IonCol,
+  IonSelect,
+  IonSelectOption,
   IonButton,
   IonAccordionGroup,
   IonAccordion
@@ -45,6 +47,8 @@ import { UsuariosInterface } from 'src/app/models/usuarios-interface';
     IonGrid,
     IonRow,
     IonCol,
+    IonSelect,
+    IonSelectOption,
     CommonModule,
     FormsModule,
     RouterLink,
@@ -136,4 +140,6 @@ export class UsuarioPage implements OnInit {
       },
     });
   }
+
+  
 }

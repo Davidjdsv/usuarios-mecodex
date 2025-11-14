@@ -91,36 +91,13 @@
                 name="card-outline"
                 aria-hidden="true"
               ></ion-icon>
-              <ion-label>
-                @if (PLAN_MECODEX() === "LITE"){
-                <ion-label>
-                  <ion-text>
-                    <strong>Plan:</strong>
-                    <ion-badge class="plan-badge plan-lite"
-                      >{{ PLAN_MECODEX() }}</ion-badge
-                    >
-                  </ion-text>
-                </ion-label>
-                } @else if (PLAN_MECODEX() === "PRO"){
-                <ion-label>
-                  <ion-text>
-                    <strong>Plan:</strong>
-                    <ion-badge class="plan-badge plan-pro"
-                      >{{ PLAN_MECODEX() }}</ion-badge
-                    >
-                  </ion-text>
-                </ion-label>
-                } @else if (PLAN_MECODEX() === "PRO PLUS"){
-                <ion-label>
-                  <ion-text>
-                    <strong>Plan:</strong>
-                    <ion-badge class="plan-badge plan-pro-plus"
-                      >{{ PLAN_MECODEX() }}</ion-badge
-                    >
-                  </ion-text>
-                </ion-label>
-                }
-              </ion-label>
+              <ion-select label="Plan">
+                <ion-select-option>
+                  <ion-text
+                    >{{ PLAN_MECODEX() }}</ion-text
+                  >
+                </ion-select-option>
+              </ion-select>
             </ion-item>
 
             <ion-item lines="none" aria-label="favorite">
