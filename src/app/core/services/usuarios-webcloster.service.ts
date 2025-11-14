@@ -52,4 +52,16 @@ export class UsuariosWebClosterService {
       })
     )
   }
+
+  deleteUsuarioWebCloster(id: number): Observable<UsuariosWebClosterInterface[]>{
+    const url = new URL(this.apiWebCloster())
+    url.searchParams.append("id_usuario_wc", id.toString())
+
+    return this.http.delete<UsuariosWebClosterInterface[]>(url.toString()).pipe(
+      catchError((error) => {
+        console.error("Error al eliminar un usuario: ", error.message)
+        return throwError(() => new Error(error.message))
+      })
+    )
+  }
 }
