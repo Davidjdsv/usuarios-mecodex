@@ -32,6 +32,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/login/login.page').then( m => m.LoginPage)
   },
   {
+    path: 'usuario-web-closter/:id_usuario_wc',
+    loadComponent: () => import('./pages/usuario-web-closter/usuario-web-closter.page').then( m => m.UsuarioWebClosterPage)
+  },
+  {
     path: '**',
     redirectTo: 'inicio',
   },

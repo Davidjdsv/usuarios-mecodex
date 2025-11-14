@@ -22,10 +22,9 @@
         <ion-row class="ion-align-items-stretch ion-justify-content-between">
           <!-- Col 1: Imagen -->
 
-
           <!-- Col 2: Nombre / Contacto / Email -->
           <ion-col size="12" size-md="4" class="meta">
-            <ion-item lines="none" aria-label="favorite" >
+            <ion-item lines="none" aria-label="favorite">
               <!-- Icono de persona antes del nombre - usar el nombre del icono directamente -->
               <ion-icon
                 slot="start"
@@ -228,8 +227,8 @@
               ></ion-icon>
               <ion-label>
                 <ion-text
-                  ><strong>Fecha Calificación</strong> {{
-                  fecha_calificacion() || "N/A"}}</ion-text
+                  ><strong>Fecha Calificación</strong> {{ fecha_calificacion()
+                  || "N/A"}}</ion-text
                 >
               </ion-label>
             </ion-item>
@@ -260,8 +259,7 @@
               ></ion-icon>
               <ion-label>
                 <ion-text
-                  ><strong>Calificación:</strong> {{ calificacion()
-                  }}</ion-text
+                  ><strong>Calificación:</strong> {{ calificacion() }}</ion-text
                 >
               </ion-label>
             </ion-item>
