@@ -91,12 +91,20 @@
                 name="card-outline"
                 aria-hidden="true"
               ></ion-icon>
-              <ion-select label="Plan">
-                <ion-select-option>
-                  <ion-text
-                    >{{ PLAN_MECODEX() }}</ion-text
-                  >
+              <ion-select
+                (click)="getLicencias()"
+                (ionChange)="manejarEvento($event)"
+                (ionDismiss)="handleDismiss()"
+                label="Plan Mecodex"
+                name="id"
+                placeholder="Seleccione"
+                fill="outline"
+              >
+                @for(licencia of licencias(); track licencia.id; let i = $index){
+                <ion-select-option [value]="licencia.id">
+                  {{ licencia.nombre }}
                 </ion-select-option>
+                }
               </ion-select>
             </ion-item>
 
