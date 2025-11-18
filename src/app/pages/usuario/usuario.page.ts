@@ -30,10 +30,19 @@ import {
   IonAccordion,
 } from '@ionic/angular/standalone';
 import { ActivatedRoute } from '@angular/router';
+
 import { UsuariosService } from 'src/app/core/services/usuarios.service';
 import { UsuariosInterface } from 'src/app/models/usuarios-interface';
+
 import { LicenciaService } from 'src/app/core/services/licencia.service';
 import { LicenciaInterface } from 'src/app/models/licencia';
+
+import { CuentaService } from 'src/app/core/services/cuenta.service';
+import { CuentaInterface } from 'src/app/models/cuenta-interface';
+
+import { CuentaLicenciaService } from 'src/app/core/services/cuenta-licencia.service';
+
+
 
 @Component({
   selector: 'app-usuario',
@@ -69,12 +78,15 @@ export class UsuarioPage implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private usuariosService: UsuariosService,
-    private licenciaService: LicenciaService
+    private licenciaService: LicenciaService,
+    private cuentaService: CuentaService,
+    private cuentaLicenciaService: CuentaLicenciaService,
   ) {}
 
   licencias = signal<LicenciaInterface[]>([]);
 
   usuarios: UsuariosInterface[] = [];
+  cuentaUsuario: CuentaInterface[] = [];
 
   usuarioActual: UsuariosInterface | undefined = undefined;
 
@@ -185,6 +197,17 @@ export class UsuarioPage implements OnInit {
     });
   }
 
+  getCuentaUsuario(){
+    this.cuentaService.getCuenta().subscribe({
+      next: (res) => {
+        this.cuentaUsuario = res
+      },
+      error(err: any) {
+        console.error('Error al obtener la cuenta:', err);
+      },
+    });
+  }
+
   idLicencia = signal<number | null>(null);
   showIdlicencia = computed(() => this.idLicencia());
 
@@ -193,22 +216,19 @@ export class UsuarioPage implements OnInit {
     return this.idLicencia.set(event.detail.value);
   }
 
-  handleDismiss() {
-    console.log(
-      'El valor seleccionado por el usuario es de: ',
-      this.showIdlicencia()
-    );
+  actualizarPlan() {
+    console.log('El valor seleccionado por el usuario es de: ', this.showIdlicencia());
     const nuevaLicencia = this.showIdlicencia();
-    if (this.usuarioActual && nuevaLicencia !== null) {
-      this.usuarioActual.id_licencia = nuevaLicencia;
-      this.usuariosService.updateUser(this.usuarioActual).subscribe({
-        next: (res) => {
-          console.log(res);
-        },
-        error(err: any) {
-          console.error('Error al actualizar el usuario:', err);
-        },
-      });
+    if (nuevaLicencia !== null && this.usuarioActual) {
+      this.cuentaLicenciaService.updateCuentaLicencia(nuevaLicencia, this.usuarioActual.id)
+        .subscribe({
+          next: (res) => {
+            console.log('Licencia actualizada con éxito:', res);
+          },
+          error: (err: any) => {
+            console.error('Error al actualizar la licencia:', err);
+          },
+        });
     }
   }
 }
