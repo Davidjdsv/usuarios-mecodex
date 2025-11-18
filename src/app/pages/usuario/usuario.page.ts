@@ -19,6 +19,10 @@ import {
   IonItem,
   IonLabel,
   IonText,
+  IonSegment,
+  IonSegmentButton,
+  IonSegmentView,
+  IonSegmentContent,
   IonGrid,
   IonRow,
   IonCol,
@@ -57,6 +61,10 @@ import { CuentaInterface } from 'src/app/models/cuenta-interface';
     IonItem,
     IonLabel,
     IonText,
+    IonSegment,
+    IonSegmentButton,
+    IonSegmentView,
+    IonSegmentContent,
     IonGrid,
     IonRow,
     IonCol,
@@ -115,6 +123,17 @@ export class UsuarioPage implements OnInit {
   fecha_creacion = signal<string | null>(null);
   id_usuario_sensei = signal<number | null>(null);
   fecha_modificacion = signal<string | null>(null);
+
+  cuenta_correo = signal<string | null>(null);
+  cuenta_estado = signal<string | null>(null);
+  cuenta_version_app = signal<string | null>(null);
+  cuenta_modo_conexion = signal<string | null>(null);
+  cuenta_fecha_calificacion = signal<string | null>(null);
+  cuenta_mensaje_calificacion = signal<string | null>(null);
+  cuenta_calificacion = signal<number | null>(null);
+  cuenta_plan_mecodex = signal<string | null>(null);
+  cuenta_idapp_sta = signal<string | null>(null);
+  cuenta_idapp_din = signal<string | null>(null);
 
   ngOnInit() {
     // A esta actual ruta, tome el id
@@ -175,6 +194,7 @@ export class UsuarioPage implements OnInit {
             usuarioEncontrado.fecha_modificacion || null
           );
           console.log(this.usuarioActual);
+          this.getCuentaUsuario();
         }
       },
       error(err: any) {
@@ -198,6 +218,19 @@ export class UsuarioPage implements OnInit {
     this.cuentaService.getCuenta().subscribe({
       next: (res) => {
         this.cuentaUsuario = res
+        const cuenta = res.find(c => c.id_cliente === Number(this.id()));
+        if (cuenta) {
+          this.cuenta_correo.set(cuenta.correo || null);
+          this.cuenta_estado.set(cuenta.estado || null);
+          this.cuenta_version_app.set(cuenta.version_app || null);
+          this.cuenta_modo_conexion.set(cuenta.modo_conexion || null);
+          this.cuenta_fecha_calificacion.set(cuenta.fecha_calificacion || null);
+          this.cuenta_mensaje_calificacion.set(cuenta.mensaje_calificacion || null);
+          this.cuenta_calificacion.set(cuenta.calificacion || null);
+          this.cuenta_plan_mecodex.set(cuenta.plan_mecodex || null);
+          this.cuenta_idapp_sta.set(cuenta.idapp_sta || null);
+          this.cuenta_idapp_din.set(cuenta.idapp_din || null);
+        }
       },
       error(err: any) {
         console.error('Error al obtener la cuenta:', err);
