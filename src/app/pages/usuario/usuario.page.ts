@@ -40,9 +40,6 @@ import { LicenciaInterface } from 'src/app/models/licencia';
 import { CuentaService } from 'src/app/core/services/cuenta.service';
 import { CuentaInterface } from 'src/app/models/cuenta-interface';
 
-import { CuentaLicenciaService } from 'src/app/core/services/cuenta-licencia.service';
-
-
 
 @Component({
   selector: 'app-usuario',
@@ -80,7 +77,6 @@ export class UsuarioPage implements OnInit {
     private usuariosService: UsuariosService,
     private licenciaService: LicenciaService,
     private cuentaService: CuentaService,
-    private cuentaLicenciaService: CuentaLicenciaService,
   ) {}
 
   licencias = signal<LicenciaInterface[]>([]);
@@ -220,8 +216,7 @@ export class UsuarioPage implements OnInit {
     console.log('El valor seleccionado por el usuario es de: ', this.showIdlicencia());
     const nuevaLicencia = this.showIdlicencia();
     if (nuevaLicencia !== null && this.usuarioActual) {
-      this.cuentaLicenciaService.updateCuentaLicencia(nuevaLicencia, this.usuarioActual.id)
-        .subscribe({
+      this.cuentaService.updateCuentaLicencia(nuevaLicencia, this.usuarioActual.id).subscribe({
           next: (res) => {
             console.log('Licencia actualizada con éxito:', res);
           },

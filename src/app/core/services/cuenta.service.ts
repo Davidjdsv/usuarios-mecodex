@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class CuentaService {
   ApiCuentas = signal(environment.api_cuentas);
+  ApiCuentaLicencia = signal(environment.api_cuenta_licencia);
 
   constructor(private http: HttpClient) { }
 
@@ -51,9 +52,12 @@ export class CuentaService {
     )
   }
 
-  updateCuenta(cuenta: CuentaInterface): Observable<CuentaInterface>{
-    const url = new URL(this.ApiCuentas());
-    url.searchParams.append("id", cuenta.id.toString());
-    return this.http.put<CuentaInterface>(url.toString(), cuenta);
+  updateCuentaLicencia(id_licencia: number, id_cliente: number): Observable<CuentaInterface>{
+    const url = new URL(this.ApiCuentaLicencia());
+    url.searchParams.append('id_cliente', id_cliente.toString());
+    url.searchParams.append('id_licencia', id_licencia.toString());
+    return this.http.put<CuentaInterface>(url.toString(), {});
   }
+
+
 }
