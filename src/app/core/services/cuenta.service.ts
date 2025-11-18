@@ -1,7 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CuentaInterface, CuentaResponseInterface } from 'src/app/models/cuenta-interface';
-import { Observable, map } from 'rxjs';
+import { Observable, catchError, map, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -56,7 +56,12 @@ export class CuentaService {
     const url = new URL(this.ApiCuentaLicencia());
     url.searchParams.append('id_cliente', id_cliente.toString());
     url.searchParams.append('id_licencia', id_licencia.toString());
-    return this.http.put<CuentaInterface>(url.toString(), {});
+
+    return this.http.put<CuentaInterface>(url.toString(), {}).pipe(
+      catchError((error) => {
+        return throwError(() => new Error(error.message))
+      })
+    )
   }
 
 
