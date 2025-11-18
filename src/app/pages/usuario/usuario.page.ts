@@ -16,7 +16,6 @@ import {
   IonCard,
   IonCardContent,
   IonIcon,
-  IonBadge,
   IonItem,
   IonLabel,
   IonText,
@@ -28,6 +27,7 @@ import {
   IonButton,
   IonAccordionGroup,
   IonAccordion,
+  AlertController
 } from '@ionic/angular/standalone';
 import { ActivatedRoute } from '@angular/router';
 
@@ -77,6 +77,7 @@ export class UsuarioPage implements OnInit {
     private usuariosService: UsuariosService,
     private licenciaService: LicenciaService,
     private cuentaService: CuentaService,
+    private alertController: AlertController
   ) {}
 
   licencias = signal<LicenciaInterface[]>([]);
@@ -212,6 +213,24 @@ export class UsuarioPage implements OnInit {
     return this.idLicencia.set(event.detail.value);
   }
 
+  private async actualizarPlanSuccess(): Promise<void>{
+    const modal = await this.alertController.create({
+      header: 'Plan actualizado',
+      message: 'El plan ha sido actualizado con éxito',
+      buttons: ['OK'],
+    });
+    await modal.present();
+  }
+
+  private async actualizarPLanFailure(): Promise<void>{
+    const modal = await this.alertController.create({
+      header: "Error",
+      message: "El plan seleccionado es el mismo plan actual de la cuenta del cliente",
+      buttons: ['OK'],
+    });
+    await modal.present();
+  }
+
   actualizarPlan() {
     console.log('El valor seleccionado por el usuario es de: ', this.showIdlicencia());
     const nuevaLicencia = this.showIdlicencia();
@@ -219,9 +238,11 @@ export class UsuarioPage implements OnInit {
       this.cuentaService.updateCuentaLicencia(nuevaLicencia, this.usuarioActual.id).subscribe({
           next: (res) => {
             console.log('Licencia actualizada con éxito:', res);
+            this.actualizarPlanSuccess();
           },
           error: (err: any) => {
             console.error('Error al actualizar la licencia:', err);
+            this.actualizarPLanFailure();
           },
         });
     }
