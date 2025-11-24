@@ -26,7 +26,7 @@ export interface CuentaInterface {
     id_licencia: number | null;
     plan_mecodex: string | null;
     id_usuario_sensei: number | null;
-    fecha_creacion: string | null; // En la BD es date, pero en el SELECT se puede formatear como string
+    fecha_creacion_cuenta: string | null; // En la BD es date, pero en el SELECT se puede formatear como string
     fecha_modificacion: string; // timestamp
 }
 

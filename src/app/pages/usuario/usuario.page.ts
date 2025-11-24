@@ -95,6 +95,7 @@ export class UsuarioPage implements OnInit {
 
   usuarioActual: UsuariosInterface | undefined = undefined;
 
+  // * Datos del cliente
   id = signal<number | null>(null);
   nombre = signal<string | null>(null);
   segundo_nombre = signal<string | null>(null);
@@ -124,6 +125,7 @@ export class UsuarioPage implements OnInit {
   id_usuario_sensei = signal<number | null>(null);
   fecha_modificacion = signal<string | null>(null);
 
+  // * Datos de la cuenta
   cuenta_correo = signal<string | null>(null);
   cuenta_estado = signal<string | null>(null);
   cuenta_version_app = signal<string | null>(null);
@@ -134,6 +136,11 @@ export class UsuarioPage implements OnInit {
   cuenta_plan_mecodex = signal<string | null>(null);
   cuenta_idapp_sta = signal<string | null>(null);
   cuenta_idapp_din = signal<string | null>(null);
+  cuenta_fecha_creacion_cuenta = signal<string | null>(null);
+  password = signal<string | null>(null);
+  fecha_actualizacion_modo_conexion = signal<string | null>(null);
+  sincronizacion_total = signal<string | null>(null);
+
 
   ngOnInit() {
     // A esta actual ruta, tome el id

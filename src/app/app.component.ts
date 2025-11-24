@@ -51,7 +51,9 @@ import {
   logOutSharp,
   cloudyOutline,
   cloudySharp,
-  cloud
+  cloud,
+  keyOutline,
+  syncOutline
 } from 'ionicons/icons';
 
 @Component({
@@ -122,7 +124,9 @@ export class AppComponent {
       logOutSharp,
       cloudyOutline,
       cloudySharp,
-      cloud
+      cloud,
+      keyOutline,
+      syncOutline
     });
   }
 

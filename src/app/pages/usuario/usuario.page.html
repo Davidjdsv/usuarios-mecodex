@@ -175,7 +175,7 @@
                   ></ion-icon>
                   <ion-label>
                     <ion-text
-                      ><strong>Fecha creación cliente:</strong> PENDIENTE </ion-text
+                      ><strong>Fecha creación cliente:</strong> {{ fecha_creacion() || "N/A" }} </ion-text
                     >
                   </ion-label>
                 </ion-item>
@@ -368,6 +368,20 @@
                   <ion-icon
                     slot="start"
                     color="primary"
+                    name="key-outline"
+                    aria-hidden="true"
+                  ></ion-icon>
+                  <ion-label>
+                    <ion-text
+                      ><strong>Contraseña:</strong> {{ password() || 'N/A' }}</ion-text
+                    >
+                  </ion-label>
+                </ion-item>
+
+                <ion-item lines="none" aria-label="favorite">
+                  <ion-icon
+                    slot="start"
+                    color="primary"
                     name="information-circle-outline"
                     aria-hidden="true"
                   ></ion-icon>
@@ -377,9 +391,52 @@
                     >
                   </ion-label>
                 </ion-item>
+
+                <ion-item lines="none" aria-label="favorite">
+                  <ion-icon
+                    slot="start"
+                    color="primary"
+                    name="sync-outline"
+                    aria-hidden="true"
+                  ></ion-icon>
+                  <ion-label>
+                    <ion-text
+                      ><strong>Sincronización total:</strong> {{ sincronizacion_total() || 'N/A' }}</ion-text
+                    >
+                  </ion-label>
+                </ion-item>
               </ion-col>
 
               <ion-col size="12" size-md="4" class="meta">
+
+                <ion-item lines="none" aria-label="favorite">
+                  <ion-icon
+                    slot="start"
+                    color="primary"
+                    name="calendar-outline"
+                    aria-hidden="true"
+                  ></ion-icon>
+                  <ion-label>
+                    <ion-text
+                      ><strong>Fecha actualización modo conexión:</strong> {{ fecha_actualizacion_modo_conexion() || 'N/A' }}</ion-text
+                    >
+                  </ion-label>
+                </ion-item>
+
+                <ion-item lines="none" aria-label="favorite">
+                  <ion-icon
+                    slot="start"
+                    color="primary"
+                    name="calendar-number"
+                    aria-hidden="true"
+                  ></ion-icon>
+                  <ion-label>
+                    <ion-text
+                      ><strong>Fecha creación cuenta:</strong> {{ cuenta_fecha_creacion_cuenta() || 'N/A' }}</ion-text
+                    >
+                  </ion-label>
+                </ion-item>
+
                 <ion-item lines="none" aria-label="favorite">
                   <ion-icon
                     slot="start"
@@ -394,6 +451,8 @@
                   </ion-label>
                 </ion-item>
               </ion-col>
+
+              
             </ion-row>
           </ion-grid>
 

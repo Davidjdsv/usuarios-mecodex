@@ -45,7 +45,7 @@ export class CuentaService {
           id_licencia: res.id_licencia,
           plan_mecodex: res.plan_mecodex,
           id_usuario_sensei: res.id_usuario_sensei,
-          fecha_creacion: res.fecha_creacion,
+          fecha_creacion_cuenta: res.fecha_creacion_cuenta,
           fecha_modificacion: res.fecha_modificacion,
         }))
       })
