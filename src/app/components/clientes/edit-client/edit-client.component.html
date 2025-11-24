@@ -8,7 +8,6 @@
 <ion-content class="ion-padding">
   <form #form="ngForm" (ngSubmit)="onSubmit(form)">
     <ion-list>
-      <!-- Identificación y nombres -->
         <ion-input
           [(ngModel)]="datacliente.nombre"
           type="text"
@@ -59,7 +58,6 @@
           minlength="5"
         ></ion-input>
 
-      <!-- Documento -->
         <ion-select
           (click)="listarDocumentos()"
           interface="popover"
@@ -88,17 +86,34 @@
           minlength="5"
         ></ion-input>
 
-      <!-- Fecha de expedición (solo fecha). Se usa ion-datetime con presentación "date" y binding por ngModel -->
-        <ion-input
-          type="date"
-          label="Fecha de expedición"
-          label-placement="floating"
-          fill="outline"
+  <ion-button expand="block" (click)="mostrarDatetime.set(true)">
+    <ion-icon slot="start" name="calendar-outline"></ion-icon>
+    Editar fecha expedición documento
+  </ion-button>
+
+  <ion-modal [canDismiss]="true" [isOpen]="mostrarDatetime()" (didDismiss)="mostrarDatetime.set(false)">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar [color]="'primary'">
+          <ion-title>Seleccionar una fecha</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="mostrarDatetime.set(false)">Cerrar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-datetime
+          size="cover"
+          locale="es-ES"
+          presentation="month-year"
           name="fecha_expedicion"
           [(ngModel)]="datacliente.fecha_expedicion"
-          [max]="20"
-          maxlength="20"
-        ></ion-input>
+          presentation="date"
+          (ionChange)="mostrarDatetime.set(false)"
+        ></ion-datetime>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 
       <!-- Contacto y dirección -->
         <ion-input

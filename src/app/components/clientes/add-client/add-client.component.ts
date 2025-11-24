@@ -54,7 +54,7 @@ import { DocumentosService } from 'src/app/core/services/documentos.service';
   ],
 })
 export class AddClientComponent implements OnInit {
-  mostrarDatetime = false;
+  mostrarDatetime = signal<boolean>(false);
   paises = signal<PaisesInterface[]>([]);
   documentos = signal<DocumentosInterface[]>([]);
   

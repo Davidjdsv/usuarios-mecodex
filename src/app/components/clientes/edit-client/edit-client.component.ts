@@ -11,6 +11,9 @@ import {
   IonTextarea,
   IonSelect,
   IonSelectOption,
+  IonIcon,
+  IonModal,
+  IonDatetime,
   IonButton,
   IonButtons,
   ModalController,
@@ -40,12 +43,15 @@ import { DocumentosService } from 'src/app/core/services/documentos.service';
     IonTextarea,
     IonSelect,
     IonSelectOption,
+    IonIcon,
+    IonModal,
+    IonDatetime,
     IonButton,
     IonButtons,
   ],
 })
 export class EditClientComponent  implements OnInit {
-
+  mostrarDatetime = signal<boolean>(false);
   paises = signal<PaisesInterface[]>([]);
   documentos = signal<DocumentosInterface[]>([]);
   @Input() datacliente: UsuariosInterface = {} as UsuariosInterface;

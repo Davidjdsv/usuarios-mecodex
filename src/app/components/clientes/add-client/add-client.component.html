@@ -86,18 +86,19 @@
         minlength="5"
       ></ion-input>
 
-  <ion-button expand="block" (click)="mostrarDatetime=true">
+
+  <ion-button expand="block" (click)="mostrarDatetime.set(true)">
     <ion-icon slot="start" name="calendar-outline"></ion-icon>
     Seleccionar fecha expedición documento
   </ion-button>
 
-  <ion-modal [canDismiss]="true" [isOpen]="mostrarDatetime" (didDismiss)="mostrarDatetime=false">
+  <ion-modal [canDismiss]="true" [isOpen]="mostrarDatetime()" (didDismiss)="mostrarDatetime.set(false)">
     <ng-template>
       <ion-header>
         <ion-toolbar [color]="'primary'">
           <ion-title>Seleccionar una fecha</ion-title>
           <ion-buttons slot="end">
-            <ion-button (click)="mostrarDatetime=false">Cerrar</ion-button>
+            <ion-button (click)="mostrarDatetime.set(false)">Cerrar</ion-button>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
@@ -109,7 +110,7 @@
           name="fecha_expedicion"
           [(ngModel)]="datacliente.fecha_expedicion"
           presentation="date"
-          (ionChange)="mostrarDatetime=false"
+          (ionChange)="mostrarDatetime.set(false)"
         ></ion-datetime>
       </ion-content>
     </ng-template>
