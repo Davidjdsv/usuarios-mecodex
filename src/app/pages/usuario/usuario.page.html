@@ -260,15 +260,12 @@
         </ion-segment-content>
 
         <!-- Contenido para el segmento "cuenta" -->
-        <!-- @if(!useCuenta()?.id_cliente){
-
-          <h1>El usuario no tiene cuenta</h1>
-        } @else{ -->
-          <ion-segment-content id="cuenta">
-            <div class="break-section" aria-label="sección-divisor">
-              <span class="break-section__text">Información general</span>
-            </div>
-  
+        <ion-segment-content id="cuenta">
+          @if(useCuenta()?.id_cliente){
+          <div class="break-section" aria-label="sección-divisor">
+            <span class="break-section__text">Información general</span>
+          </div>
+          
             <ion-grid [fixed]="true">
               <ion-row class="ion-align-items-stretch ion-justify-content-between">
                 <ion-col size="12" size-md="4" class="meta">
@@ -515,8 +512,10 @@
                 </ion-col>
               </ion-row>
             </ion-grid>
+          } @else{
+            
+          }
           </ion-segment-content>
-        <!-- } -->
 
       </ion-segment-view>
     </ion-card-content>
