@@ -21,3 +21,22 @@
   border-radius: 12px; /* esquinas ligeramente redondeadas */
   font-weight: 500; /* destaca el texto ligeramente */
 }
+
+.card-horizontal {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+
+.img-lateral {
+  width: 450px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.info-cuenta-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

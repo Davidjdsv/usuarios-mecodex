@@ -4,7 +4,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="false">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large" tabindex="-1">Más información</ion-title>
@@ -513,7 +513,30 @@
               </ion-row>
             </ion-grid>
           } @else{
-            
+            <ion-card class="ion-margin">
+              <ion-card-header>
+                <ion-card-title class="ion-text-center">
+                  El cliente no tiene cuenta asociada de Mecodex
+                </ion-card-title>
+              </ion-card-header>
+
+              <!-- Flex row -->
+              <ion-card-content class="card-horizontal">
+                <ion-img class="img-lateral" src="assets/img/creacion_cuenta.jpg"></ion-img>
+
+                <div class="info-cuenta-container">
+                  <ion-text>
+                    <p>
+                      ¿Solicita crear una cuenta? Haz click en el siguiente botón
+                    </p>
+                  </ion-text>
+                  <ion-button color="primary" (click)="crearCuenta()">
+                    <ion-icon name="add-circle-outline" slot="end"></ion-icon>
+                    Crear cuenta
+                  </ion-button>
+                </div>
+              </ion-card-content>
+            </ion-card>
           }
           </ion-segment-content>
 

@@ -15,7 +15,10 @@ import {
   IonToolbar,
   IonCard,
   IonCardContent,
+  IonCardHeader,
+  IonCardTitle,
   IonIcon,
+  IonImg,
   IonItem,
   IonLabel,
   IonText,
@@ -57,7 +60,10 @@ import { CuentaInterface } from 'src/app/models/cuenta-interface';
     IonToolbar,
     IonCard,
     IonCardContent,
+    IonCardHeader,
+    IonCardTitle,
     IonIcon,
+    IonImg,
     IonItem,
     IonLabel,
     IonText,
@@ -169,6 +175,10 @@ export class UsuarioPage implements OnInit {
           },
         });
     }
+  }
+
+  crearCuenta(){
+    alert("gola")
   }
 
   // * INICIO MODALES DE ALERTA
