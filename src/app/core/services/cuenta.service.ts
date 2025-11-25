@@ -52,7 +52,7 @@ export class CuentaService {
     )
   }
 
-  updateCuentaLicencia(id_licencia: number, id_cliente: number): Observable<CuentaInterface>{
+  updateCuentaLicencia(id_licencia: number, id_cliente: any): Observable<CuentaInterface>{
     const url = new URL(this.ApiCuentaLicencia());
     url.searchParams.append('id_cliente', id_cliente.toString());
     url.searchParams.append('id_licencia', id_licencia.toString());

@@ -95,7 +95,8 @@ export class UsuarioPage implements OnInit {
 
   cuentaUsuario = signal<CuentaInterface[]>([]);
 
-  usuarioActual: UsuariosInterface | undefined = undefined;
+  usuarioActual = signal<UsuariosInterface | undefined>(undefined);
+  idUsuario = computed(() => this.usuarioActual()?.id);
 
   // Variables para almacenar los datos del cliente y de la cuenta que son de tipo interface
   // * Datos del cliente
@@ -164,6 +165,7 @@ export class UsuarioPage implements OnInit {
         );
         // this.usuarioActual = usuarioEncontrado;
         this.useUsuario.set(usuarioEncontrado);
+        this.usuarioActual.set(usuarioEncontrado);
         // if (usuarioEncontrado) {
         //   this.nombre.set(usuarioEncontrado.nombre);
         //   this.segundo_nombre.set(usuarioEncontrado.segundo_nombre);
@@ -281,10 +283,11 @@ export class UsuarioPage implements OnInit {
   }
 
   actualizarPlan() {
-    console.log('El valor seleccionado por el usuario es de: ', this.showIdlicencia());
+    console.log('El valor seleccionado por el usuario es de: ', this.showIdlicencia(), "el id de usuario es: ", this.idUsuario());
     const nuevaLicencia = this.showIdlicencia();
-    if (nuevaLicencia !== null && this.usuarioActual) {
-      this.cuentaService.updateCuentaLicencia(nuevaLicencia, this.usuarioActual.id).subscribe({
+    const idUsuario = this.idUsuario();
+    if (nuevaLicencia !== null && idUsuario) {
+      this.cuentaService.updateCuentaLicencia(nuevaLicencia, idUsuario).subscribe({
           next: (res) => {
             console.log('Licencia actualizada con éxito:', res);
             this.actualizarPlanSuccess();
