@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authLoginGuard } from './core/guards/auth-login.guard';
+import { rolesGuard } from './core/guards/roles.guard';
 
 export const routes: Routes = [
   {
@@ -9,22 +10,34 @@ export const routes: Routes = [
   },
   {
     path: 'inicio',
-    canActivate: [authLoginGuard],
+    canActivate: [authLoginGuard, rolesGuard],
+    data: {
+      roles: [1, 2]
+    },
     loadComponent: () => import('./pages/inicio/inicio.page').then( m => m.InicioPage)
   },
   {
     path: 'usuarios',
-    canActivate: [authLoginGuard],
+    canActivate: [authLoginGuard, rolesGuard],
+    data: {
+      roles: [1, 2]
+    },
     loadComponent: () => import('./pages/usuarios/usuarios.page').then( m => m.UsuariosPage),
   },
   {
     path: 'usuario/:id',
-    canActivate: [authLoginGuard],
+    data: {
+      roles: [1, 2]
+    },
+    canActivate: [authLoginGuard, rolesGuard],
     loadComponent: () => import('./pages/usuario/usuario.page').then( m => m.UsuarioPage)
   },
   {
     path: 'usuarios-web-closter',
-    canActivate: [authLoginGuard],
+    data: {
+      roles: [1]
+    },
+    canActivate: [authLoginGuard, rolesGuard],
     loadComponent: () => import('./pages/usuarios-web-closter/usuarios-web-closter.page').then( m => m.UsuariosWebClosterPage)
   },
   {
@@ -33,6 +46,10 @@ export const routes: Routes = [
   },
   {
     path: 'usuario-web-closter/:id_usuario_wc',
+    data: {
+      roles: [1]
+    },
+    canActivate: [authLoginGuard, rolesGuard],
     loadComponent: () => import('./pages/usuario-web-closter/usuario-web-closter.page').then( m => m.UsuarioWebClosterPage)
   },
   {

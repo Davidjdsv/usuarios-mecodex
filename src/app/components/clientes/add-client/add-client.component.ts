@@ -9,12 +9,17 @@ import {
   IonList,
   IonInput,
   IonTextarea,
+  IonDatetime,
+  IonModal,
   IonSelect,
   IonSelectOption,
   IonButton,
   IonButtons,
+  IonIcon,
   ModalController,
 } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { calendarOutline } from 'ionicons/icons';
 
 import { UsuariosInterface } from 'src/app/models/usuarios-interface';
 
@@ -39,13 +44,17 @@ import { DocumentosService } from 'src/app/core/services/documentos.service';
     IonList,
     IonInput,
     IonTextarea,
+    IonDatetime,
+    IonModal,
     IonSelect,
     IonSelectOption,
     IonButton,
     IonButtons,
+    IonIcon,
   ],
 })
 export class AddClientComponent implements OnInit {
+  mostrarDatetime = signal<boolean>(false);
   paises = signal<PaisesInterface[]>([]);
   documentos = signal<DocumentosInterface[]>([]);
   
@@ -75,8 +84,9 @@ export class AddClientComponent implements OnInit {
 
   constructor(private mdlController: ModalController,
     private paisServicioService: PaisServicioService,
-    private documentosService: DocumentosService,
-  ) {}
+    private documentosService: DocumentosService) {
+    addIcons({ calendarOutline });
+  }
 
   ngOnInit() { }
 
