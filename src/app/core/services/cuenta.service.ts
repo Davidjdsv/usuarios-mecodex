@@ -52,6 +52,15 @@ export class CuentaService {
     )
   }
 
+  createCuenta(cuenta: CuentaInterface): Observable<CuentaInterface>{
+    const url = new URL(this.ApiCuentas());
+    return this.http.post<CuentaInterface>(url.toString(), cuenta).pipe(
+      catchError((error) => {
+        return throwError(() => new Error(error.message))
+      })
+    )
+  }
+
   updateCuentaLicencia(id_licencia: number, id_cliente: any): Observable<CuentaInterface>{
     const url = new URL(this.ApiCuentaLicencia());
     url.searchParams.append('id_cliente', id_cliente.toString());
