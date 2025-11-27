@@ -1,0 +1,98 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Crear cuenta al cliente</ion-title>
+    <!-- Botón para cerrar el modal -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+    <ion-list>
+      <ion-input
+        type="email"
+        name="correo"
+        label="Correo"
+        label-placement="floating"
+        fill="outline"
+        [(ngModel)]="dataCuenta.correo"
+        maxlength="50"
+        required
+      ></ion-input>
+
+      <!-- select -->
+      <ion-select
+        label="Seleccione el estado de la cuenta"
+        name="estado"
+        [(ngModel)]="dataCuenta.estado"
+        placeholder="Seleccione"
+        fill="outline"
+        required
+      >
+        <ion-select-option value="confirmed"> Activar </ion-select-option>
+        <ion-select-option value="wait"> En espera </ion-select-option>
+        <ion-select-option value="suspended"> Suspendida </ion-select-option>
+      </ion-select>
+
+      <ion-input
+        type="text"
+        name="password"
+        required
+        [(ngModel)]="dataCuenta.password"
+        label="Ingrese la contraseña"
+        label-placement="floating"
+        fill="outline"
+        maxlength="20"
+        minlength="4"
+      ></ion-input>
+
+      <ion-select
+        (click)="listarLicencias()"
+        label="Plan Mecodex"
+        name="id_licencia"
+        [(ngModel)]="dataCuenta.id_licencia"
+        placeholder="Seleccione"
+        fill="outline"
+        required
+      >
+        @for(licencia of licencias(); track licencia.id; let i = $index){
+        <ion-select-option [value]="licencia.id">
+          {{ licencia.nombre }}
+        </ion-select-option>
+        }
+      </ion-select>
+
+      <ion-select
+        (click)="listarPaises()"
+        interface="popover"
+        name="id_pais"
+        label="País"
+        label-placement="floating"
+        fill="outline"
+        required
+        [(ngModel)]="dataCuenta.id_pais"
+        placeholder="Seleccione"
+      >
+        @for(pais of paises(); track pais.id; let i = $index){
+        <ion-select-option [value]="pais.id">
+          {{ pais.nombre }}
+        </ion-select-option>
+        }
+      </ion-select>
+    </ion-list>
+
+    <ion-toolbar>
+      <ion-buttons slot="end">
+        <ion-button expand="block" color="medium" (click)="cancelar()"
+          >Cancelar</ion-button
+        >
+        <ion-button
+          expand="block"
+          color="primary"
+          type="submit"
+          [disabled]="form.invalid"
+          >Guardar</ion-button
+        >
+      </ion-buttons>
+    </ion-toolbar>
+  </form>
+</ion-content>

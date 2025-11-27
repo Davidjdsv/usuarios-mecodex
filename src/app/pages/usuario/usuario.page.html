@@ -4,7 +4,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="false">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large" tabindex="-1">Más información</ion-title>
@@ -260,15 +260,12 @@
         </ion-segment-content>
 
         <!-- Contenido para el segmento "cuenta" -->
-        <!-- @if(!useCuenta()?.id_cliente){
-
-          <h1>El usuario no tiene cuenta</h1>
-        } @else{ -->
-          <ion-segment-content id="cuenta">
-            <div class="break-section" aria-label="sección-divisor">
-              <span class="break-section__text">Información general</span>
-            </div>
-  
+        <ion-segment-content id="cuenta">
+          @if(useCuenta()?.id_cliente){
+          <div class="break-section" aria-label="sección-divisor">
+            <span class="break-section__text">Información general</span>
+          </div>
+          
             <ion-grid [fixed]="true">
               <ion-row class="ion-align-items-stretch ion-justify-content-between">
                 <ion-col size="12" size-md="4" class="meta">
@@ -515,8 +512,33 @@
                 </ion-col>
               </ion-row>
             </ion-grid>
+          } @else{
+            <ion-card class="ion-margin">
+              <ion-card-header>
+                <ion-card-title class="ion-text-center">
+                  El cliente no tiene cuenta asociada de Mecodex
+                </ion-card-title>
+              </ion-card-header>
+
+              <!-- Flex row -->
+              <ion-card-content class="card-horizontal">
+                <ion-img class="img-lateral" src="assets/img/creacion_cuenta.jpg"></ion-img>
+
+                <div class="info-cuenta-container">
+                  <ion-text>
+                    <p>
+                      ¿Solicita crear una cuenta? Haz click en el siguiente botón
+                    </p>
+                  </ion-text>
+                  <ion-button color="primary" (click)="crearCuenta()">
+                    <ion-icon name="add-circle-outline" slot="end"></ion-icon>
+                    Crear cuenta
+                  </ion-button>
+                </div>
+              </ion-card-content>
+            </ion-card>
+          }
           </ion-segment-content>
-        <!-- } -->
 
       </ion-segment-view>
     </ion-card-content>

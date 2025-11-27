@@ -10,6 +10,9 @@ import { environment } from 'src/environments/environment';
 export class CuentaService {
   ApiCuentas = signal(environment.api_cuentas);
   ApiCuentaLicencia = signal(environment.api_cuenta_licencia);
+  
+  // Signal para almacenar la licencia seleccionada
+  idLicenciaSeleccionada = signal<number | null>(null);
 
   constructor(private http: HttpClient) { }
 
@@ -48,6 +51,15 @@ export class CuentaService {
           fecha_creacion_cuenta: res.fecha_creacion_cuenta,
           fecha_modificacion: res.fecha_modificacion,
         }))
+      })
+    )
+  }
+
+  createCuenta(cuenta: CuentaInterface): Observable<CuentaInterface>{
+    const url = new URL(this.ApiCuentas());
+    return this.http.post<CuentaInterface>(url.toString(), cuenta).pipe(
+      catchError((error) => {
+        return throwError(() => new Error(error.message))
       })
     )
   }

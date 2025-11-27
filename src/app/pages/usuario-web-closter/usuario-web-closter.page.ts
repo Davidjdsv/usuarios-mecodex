@@ -59,6 +59,7 @@ export class UsuarioWebClosterPage implements OnInit {
   usuario_wc = signal<UsuariosWebClosterInterface | null>(null)
   // Señal para el parámetro de ruta capturado
   id_usuario_wc = signal<number>(0)
+  rolUsuario = signal<string>("")
 
   // Captura el id desde la URL y consulta el backend para obtener el detalle
   ngOnInit() {
@@ -74,6 +75,11 @@ export class UsuarioWebClosterPage implements OnInit {
     this.usuarioWebClosterService.getUsuariosWebCloster().subscribe({
       next: (usuarios: UsuariosWebClosterInterface[]) => {
         const usuario = usuarios.find((usarioWc) => usarioWc.id_usuario_wc === id)
+        if(usuario?.id_rol_usuario == 1){
+          this.rolUsuario.set("Administrador")
+        } else {
+          this.rolUsuario.set("Soporte")
+        }
         if (usuario) {
           this.usuario_wc.set(usuario)
         } else {
