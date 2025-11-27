@@ -106,6 +106,7 @@ export class UsuarioPage implements OnInit {
   useCuenta = signal<CuentaInterface | undefined>(undefined);
   // Variables para almacenar los datos del cliente y de la cuenta que son de tipo interface
   id = signal<number | null>(null);
+  plan = signal<string>("")
 
   ngOnInit() {
     this.id.set(Number(this.activatedRoute.snapshot.paramMap.get('id')));
@@ -194,10 +195,18 @@ export class UsuarioPage implements OnInit {
     console.log(data, role);
 
     if(role === "guardar"){
+      if(data.idLicencia == 1){
+        this.plan.set("LITE");
+      } else if(data.id_licencia == 2){
+        this.plan.set("PRO")
+      } else {
+        this.plan.set("PRO PLUS")
+      }
       this.cuentaService.createCuenta(data).subscribe({
         next: (res) => {
           console.log('Cuenta creada con éxito:', res);
-          this.cuentaCreadaSuccess(this.useUsuario()?.nombre, this.licencias().find(l => l.id === res.id_licencia)?.nombre);
+          this.cuentaCreadaSuccess(this.useUsuario()?.nombre, this.plan());
+          this.getCuentaUsuario();
         },
         error: (err: any) => {
           console.error('Error al crear la cuenta:', err);
