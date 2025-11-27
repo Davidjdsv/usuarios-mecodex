@@ -34,7 +34,8 @@ import {
   IonButton,
   IonAccordionGroup,
   IonAccordion,
-  AlertController
+  AlertController,
+  ModalController
 } from '@ionic/angular/standalone';
 import { ActivatedRoute } from '@angular/router';
 
@@ -46,6 +47,7 @@ import { LicenciaInterface } from 'src/app/models/licencia';
 
 import { CuentaService } from 'src/app/core/services/cuenta.service';
 import { CuentaInterface } from 'src/app/models/cuenta-interface';
+import { AddCuentaComponent } from 'src/app/components/cuenta-cliente/add-cuenta/add-cuenta.component';
 
 
 @Component({
@@ -91,7 +93,8 @@ export class UsuarioPage implements OnInit {
     private usuariosService: UsuariosService,
     private licenciaService: LicenciaService,
     private cuentaService: CuentaService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private modalController: ModalController
 ) {}
 
   // * INTERFACES 
@@ -177,11 +180,53 @@ export class UsuarioPage implements OnInit {
     }
   }
 
-  crearCuenta(){
-    alert("gola")
+  // * CREAR CUENTA DE UN CLIENTE CUANDO NO TIENE CUENTA ASOCIADA
+  async crearCuenta(){
+    const modal = await this.modalController.create({
+      component: AddCuentaComponent,
+      componentProps: {
+        id_cliente: Number(this.id()),
+      }
+    })
+    await modal.present();
+
+    const { data, role } = await modal.onWillDismiss();
+    console.log(data, role);
+
+    if(role === "guardar"){
+      this.cuentaService.createCuenta(data).subscribe({
+        next: (res) => {
+          console.log('Cuenta creada con éxito:', res);
+          this.cuentaCreadaSuccess(this.useUsuario()?.nombre, this.licencias().find(l => l.id === res.id_licencia)?.nombre);
+        },
+        error: (err: any) => {
+          console.error('Error al crear la cuenta:', err);
+          this.cuentaCreadaError(this.useUsuario()?.nombre);
+        },
+      })
+    }
   }
 
   // * INICIO MODALES DE ALERTA
+
+  private async cuentaCreadaSuccess(cliente?: string, plan?: string): Promise<void>{
+    const modal = await this.alertController.create({
+      header: 'Cuenta creada',
+      message: `La cuenta ha sido creada con éxito para el cliente ${cliente} con el plan ${plan}`,
+      buttons: ['OK'],
+    });
+    await modal.present();
+  }
+
+  private async cuentaCreadaError(cliente?: string): Promise<void>{
+    const modal = await this.alertController.create({
+      header: 'Error',
+      message: `Error al crear la cuenta para el cliente ${cliente}`,
+      buttons: ['OK'],
+    });
+    await modal.present();
+  }
+
   private async actualizarPlanSuccess(): Promise<void>{
     const modal = await this.alertController.create({
       header: 'Plan actualizado',

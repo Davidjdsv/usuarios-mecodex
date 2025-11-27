@@ -10,6 +10,9 @@ import { environment } from 'src/environments/environment';
 export class CuentaService {
   ApiCuentas = signal(environment.api_cuentas);
   ApiCuentaLicencia = signal(environment.api_cuenta_licencia);
+  
+  // Signal para almacenar la licencia seleccionada
+  idLicenciaSeleccionada = signal<number | null>(null);
 
   constructor(private http: HttpClient) { }
 
