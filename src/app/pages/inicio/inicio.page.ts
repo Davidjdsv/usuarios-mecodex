@@ -7,6 +7,14 @@ import {
   IonTitle,
   IonToolbar,
   IonButton,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardContent,
+  IonText
 } from '@ionic/angular/standalone';
 
 // 1️⃣ Importar el módulo de ApexCharts y los tipos necesarios
@@ -42,6 +50,14 @@ export type ChartOptions = {
     CommonModule,
     FormsModule,
     NgApexchartsModule,
+    IonGrid,
+    IonRow,
+    IonCol,
+    IonCard,
+    IonCardHeader,
+    IonCardTitle,
+    IonCardContent,
+    IonText
   ],
 })
 export class InicioPage implements OnInit {
