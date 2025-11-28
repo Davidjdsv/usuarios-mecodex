@@ -10,4 +10,35 @@
       <ion-title size="large">Inicio</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <!-- 
+    Contenedor del gráfico con padding para que no toque los bordes 
+  -->
+  <div class="ion-padding">
+    
+    <!-- 
+      Componente de ApexCharts 
+      - [series]: Los datos a graficar (conectado a chartOptions.series del .ts)
+      - [chart]: Configuración del tipo de gráfico y altura
+      - [xaxis]: Las categorías del eje X
+      - [title]: El título del gráfico
+      - #chart: Referencia local (conectada al @ViewChild en el .ts)
+    -->
+    <apx-chart
+      #chart
+      [series]="chartOptions.series!"
+      [chart]="chartOptions.chart!"
+      [xaxis]="chartOptions.xaxis!"
+      [title]="chartOptions.title!"
+    ></apx-chart>
+
+    <!-- 
+      Botón opcional para demostrar cómo actualizar los datos del gráfico 
+    -->
+    <ion-button expand="block" (click)="actualizarDatos()">
+      Actualizar Datos
+    </ion-button>
+
+  </div>
+
 </ion-content>
