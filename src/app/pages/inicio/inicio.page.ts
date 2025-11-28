@@ -14,7 +14,7 @@ import {
   IonCardHeader,
   IonCardTitle,
   IonCardContent,
-  IonText
+  IonText,
 } from '@ionic/angular/standalone';
 
 // 1️⃣ Importar el módulo de ApexCharts y los tipos necesarios
@@ -57,7 +57,7 @@ export type ChartOptions = {
     IonCardHeader,
     IonCardTitle,
     IonCardContent,
-    IonText
+    IonText,
   ],
 })
 export class InicioPage implements OnInit {
