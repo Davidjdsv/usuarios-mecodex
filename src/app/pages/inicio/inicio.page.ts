@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -61,6 +61,7 @@ export type ChartOptions = {
     IonText,
     ClientChartComponent,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InicioPage implements OnInit {
   // 4️⃣ ViewChild para obtener referencia al componente del chart (opcional, útil para manipularlo después)

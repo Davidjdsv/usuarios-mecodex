@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core'; // <- Agrega ChangeDetectorRef
+import { Component, OnInit, ViewChild, ChangeDetectorRef, signal, ChangeDetectionStrategy } from '@angular/core'; // <- Agrega ChangeDetectorRef
 import { CommonModule } from '@angular/common';
 import {
   NgApexchartsModule,
@@ -25,12 +25,13 @@ export type ChartOptions = {
   imports: [
     CommonModule,
     NgApexchartsModule,
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ClientChartComponent implements OnInit {
   @ViewChild('chart_client') chart_client!: ChartComponent;
 
-  public chartOptions!: Partial<ChartOptions>
+  public chartOptions = signal<Partial<ChartOptions>>({});
 
   constructor(
     private metricasService: MetricasService,
@@ -39,7 +40,7 @@ export class ClientChartComponent implements OnInit {
 
   ngOnInit() {
     console.log('ngOnInit ejecutado');
-    console.log('chartOptions antes de llamar getMetricas:', this.chartOptions);
+    console.log('chartOptions antes de llamar getMetricas:', this.chartOptions());
     this.getMetricas();
   }
 
@@ -52,7 +53,7 @@ export class ClientChartComponent implements OnInit {
         if(res.data) {
           console.log('Asignando chartOptions...');
           console.log('res.data.distribucion_clientes:', res.data.distribucion_clientes.clientes_con_cuenta);
-          this.chartOptions = {
+          this.chartOptions.set({
             series: [
               {
                 name: 'Clientes con cuenta',
@@ -73,7 +74,7 @@ export class ClientChartComponent implements OnInit {
             title: {
               text: 'Distribución de Clientes',
             },
-          };
+          });
           console.log('chartOptions DESPUÉS de asignar:', this.chartOptions);
           
           this.cdr.detectChanges();
