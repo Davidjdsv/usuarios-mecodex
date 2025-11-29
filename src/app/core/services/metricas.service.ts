@@ -23,14 +23,7 @@ export class MetricasService {
   getMetricasGenerales(): Observable<metricasGenerales> {
     const url = new URL(this.metricas());
     url.searchParams.append('tipo', 'general');
-    return this.http.get<metricasGenerales>(url.toString()).pipe(
-      map(res => {
-        return res.data.map(item => ({
-          total_clientes: item.total_clientes,
-          total_cuentas: item.total_cuentas
-        }))
-      })
-    )
+    return this.http.get<metricasGenerales>(url.toString());
   }
 
   // * Métricas planes

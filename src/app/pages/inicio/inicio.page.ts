@@ -26,6 +26,7 @@ import {
   ApexXAxis,
   ApexTitleSubtitle,
 } from 'ng-apexcharts';
+import { ClientChartComponent } from 'src/app/components/charts/client-chart/client-chart.component';
 
 // 2️⃣ Definir el tipo de opciones del chart (esto hace más fácil trabajar con TypeScript)
 export type ChartOptions = {
@@ -58,6 +59,7 @@ export type ChartOptions = {
     IonCardTitle,
     IonCardContent,
     IonText,
+    ClientChartComponent,
   ],
 })
 export class InicioPage implements OnInit {

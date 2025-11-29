@@ -1,22 +1,18 @@
 export interface metricasGenerales {
     success: true;
-    data: [
-        {
-            total_clientes: number;
-            total_cuentas: number;
-            estados_cuentas: [
-                {
-                    estado: string;
-                    total: number;
-                },
-            ],
-            distribucion_clientes: {
-                cliente_con_cuenta: number;
-                cliente_sin_cuenta: number;
-            },
-            promedio_cuentas_por_cliente: number;
-        }
-    ]
+    data: {
+        total_clientes: number;
+        total_cuentas: number;
+        estados_cuentas: {
+            estado: string;
+            total: number;
+        }[];
+        distribucion_clientes: {
+            clientes_con_cuenta: number;
+            clientes_sin_cuenta: number;
+        };
+        promedio_cuentas_por_cliente: number;
+    }
 }
 
 export interface metricasPlanes {

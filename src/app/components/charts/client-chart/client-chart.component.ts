@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core'; // <- Agrega ChangeDetectorRef
+import { CommonModule } from '@angular/common';
 import {
   NgApexchartsModule,
   ChartComponent,
@@ -7,12 +8,13 @@ import {
   ApexXAxis,
   ApexTitleSubtitle,
 } from 'ng-apexcharts';
+import { MetricasService } from 'src/app/core/services/metricas.service';
 
 export type ChartOptions = {
-  series: ApexAxisChartSeries; // Los datos que se van a mostrar
-  chart: ApexChart; // Configuración general del gráfico (tipo, altura, etc)
-  xaxis: ApexXAxis; // Configuración del eje X (categorías)
-  title: ApexTitleSubtitle; // Título del gráfico
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  xaxis: ApexXAxis;
+  title: ApexTitleSubtitle;
 };
 
 @Component({
@@ -21,15 +23,67 @@ export type ChartOptions = {
   styleUrls: ['./client-chart.component.scss'],
   standalone: true,
   imports: [
+    CommonModule,
     NgApexchartsModule,
   ]
 })
 export class ClientChartComponent implements OnInit {
-  @ViewChild('chart-client') chart_client!: ChartComponent;
+  @ViewChild('chart_client') chart_client!: ChartComponent;
 
   public chartOptions!: Partial<ChartOptions>
 
-  constructor() {}
+  constructor(
+    private metricasService: MetricasService,
+    private cdr: ChangeDetectorRef  // <- Inyecta esto
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log('ngOnInit ejecutado');
+    console.log('chartOptions antes de llamar getMetricas:', this.chartOptions);
+    this.getMetricas();
+  }
+
+  getMetricas(){
+    console.log('getMetricas llamado');
+    return this.metricasService.getMetricasGenerales().subscribe({
+      next: (res) => {
+        console.log('Respuesta del API:', res);
+        
+        if(res.data) {
+          console.log('Asignando chartOptions...');
+          console.log('res.data.distribucion_clientes:', res.data.distribucion_clientes.clientes_con_cuenta);
+          this.chartOptions = {
+            series: [
+              {
+                name: 'Clientes con cuenta',
+                data: [res.data.distribucion_clientes.clientes_con_cuenta],
+              },
+              {
+                name: 'Clientes sin cuenta',
+                data: [res.data.distribucion_clientes.clientes_sin_cuenta],
+              },
+            ],
+            chart: {
+              type: 'bar',
+              height: 350,
+            },
+            xaxis: {
+              categories: ['Clientes'],
+            },
+            title: {
+              text: 'Distribución de Clientes',
+            },
+          };
+          console.log('chartOptions DESPUÉS de asignar:', this.chartOptions);
+          
+          this.cdr.detectChanges();
+        } else {
+          console.error('No hay datos disponibles');
+        }
+      },
+      error: (err) => {
+        console.error('Error al obtener métricas:', err);
+      }
+    })
+  }
 }
