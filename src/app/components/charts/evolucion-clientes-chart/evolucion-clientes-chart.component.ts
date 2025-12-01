@@ -68,10 +68,6 @@ export class EvolucionClientesChartComponent  implements OnInit {
             stroke: {
               curve: "straight"
             },
-            title: {
-              text: "Crecimiento de clientes",
-              align: "center"
-            },
             grid: {
               row: {
                 colors: ["#f3f3f3", "transparent"],

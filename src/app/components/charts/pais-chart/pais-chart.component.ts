@@ -121,10 +121,6 @@ export class PaisChartComponent  implements OnInit {
                 show: false
               }
             },
-            subtitle: {
-              text: "Distribución de clientes por pais",
-              align: "center"
-            },
             tooltip: {
               theme: "dark",
               x: {

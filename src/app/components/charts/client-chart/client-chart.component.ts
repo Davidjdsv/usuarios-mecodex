@@ -63,10 +63,7 @@ export class ClientChartComponent implements OnInit {
             },
             xaxis: {
               categories: ['Clientes'],
-            },
-            title: {
-              text: 'Distribución de Clientes',
-            },
+            }
           });          
           this.cdr.detectChanges();
         } else {
