@@ -39,20 +39,13 @@ export class ClientChartComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log('ngOnInit ejecutado');
-    console.log('chartOptions antes de llamar getMetricas:', this.chartOptions());
     this.getMetricasClientes();
   }
 
   getMetricasClientes(){
-    console.log('getMetricas llamado');
     return this.metricasService.getMetricasGenerales().subscribe({
       next: (res) => {
-        console.log('Respuesta del API:', res);
-        
         if(res.data) {
-          console.log('Asignando chartOptions...');
-          console.log('res.data.distribucion_clientes:', res.data.distribucion_clientes.clientes_con_cuenta);
           this.chartOptions.set({
             series: [
               {
@@ -74,9 +67,7 @@ export class ClientChartComponent implements OnInit {
             title: {
               text: 'Distribución de Clientes',
             },
-          });
-          console.log('chartOptions DESPUÉS de asignar:', this.chartOptions);
-          
+          });          
           this.cdr.detectChanges();
         } else {
           console.error('No hay datos disponibles');
