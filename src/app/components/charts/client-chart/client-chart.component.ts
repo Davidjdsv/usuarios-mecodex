@@ -41,10 +41,10 @@ export class ClientChartComponent implements OnInit {
   ngOnInit() {
     console.log('ngOnInit ejecutado');
     console.log('chartOptions antes de llamar getMetricas:', this.chartOptions());
-    this.getMetricas();
+    this.getMetricasClientes();
   }
 
-  getMetricas(){
+  getMetricasClientes(){
     console.log('getMetricas llamado');
     return this.metricasService.getMetricasGenerales().subscribe({
       next: (res) => {

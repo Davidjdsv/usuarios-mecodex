@@ -27,6 +27,7 @@ import {
   ApexTitleSubtitle,
 } from 'ng-apexcharts';
 import { ClientChartComponent } from 'src/app/components/charts/client-chart/client-chart.component';
+import { PaisChartComponent } from 'src/app/components/charts/pais-chart/pais-chart.component';
 
 // 2️⃣ Definir el tipo de opciones del chart (esto hace más fácil trabajar con TypeScript)
 export type ChartOptions = {
@@ -60,6 +61,7 @@ export type ChartOptions = {
     IonCardContent,
     IonText,
     ClientChartComponent,
+    PaisChartComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
