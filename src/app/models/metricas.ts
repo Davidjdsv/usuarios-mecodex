@@ -40,26 +40,12 @@ export interface metricasPaises {
 }
 
 export interface metricasEvolucion{
-    filtros: {
-        fecha_inicio: string,
-        fecha_fin: string
-    },
-    data: {
-        evolucion_clientes: [
-            {
-                mes: string,
-                total_clientes: number
-            }
-        ],
-        evolucion_cuentas: [
-            {
-                mes: string,
-                total_cuentas: number
-            },
-            {
-                mes: string,
-                total_cuentas: number
-            }
-        ]
-    }
+    success: boolean;
+    data: [
+        {
+            mes_num: number;
+            mes_nombre: string;
+            nuevos_clientes: number;
+        }
+    ]
 }

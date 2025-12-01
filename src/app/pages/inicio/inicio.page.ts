@@ -27,6 +27,7 @@ import {
 import { ClientChartComponent } from 'src/app/components/charts/client-chart/client-chart.component';
 import { PaisChartComponent } from 'src/app/components/charts/pais-chart/pais-chart.component';
 import { PlanesChartComponent } from 'src/app/components/charts/planes-chart/planes-chart.component';
+import { EvolucionClientesChartComponent } from 'src/app/components/charts/evolucion-clientes-chart/evolucion-clientes-chart.component';
 
 // 2️⃣ Definir el tipo de opciones del chart (esto hace más fácil trabajar con TypeScript)
 export type ChartOptions = {
@@ -61,6 +62,7 @@ export type ChartOptions = {
     ClientChartComponent,
     PlanesChartComponent, 
     PaisChartComponent,
+    EvolucionClientesChartComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
