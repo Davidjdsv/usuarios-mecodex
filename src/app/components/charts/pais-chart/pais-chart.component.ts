@@ -140,6 +140,7 @@ export class PaisChartComponent  implements OnInit {
               }
             }
           })
+          this.cdr.detectChanges();
         }
       }
     })
