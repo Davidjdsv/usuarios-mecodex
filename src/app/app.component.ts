@@ -1,5 +1,6 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { RouterLink, RouterLinkActive, Router } from '@angular/router';
+import { Component, ChangeDetectionStrategy, computed } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { LoginPage } from './pages/login/login.page';
 import {
   IonApp,
   IonSplitPane,
@@ -77,6 +78,7 @@ import {
     IonLabel,
     IonRouterLink,
     IonRouterOutlet,
+    LoginPage
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -84,13 +86,18 @@ export class AppComponent {
   public appPages = [
     { title: 'Inicio', url: '/inicio', icon: 'home' },
     { title: 'Clientes Mecodex', url: '/usuarios', icon: 'people' },
-    { title: 'Usuarios webcloster', url: '/usuarios-web-closter', icon: 'cloudy' },
-    { title: "login", url: "/login", icon: "log-in" },
+    { title: 'Usuarios webcloster', url: '/usuarios-web-closter', icon: 'cloudy' }
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
+  
+  public isAuthenticated = computed(() => {
+    const logged = this.authService.authState();
+    return logged || this.authService.isAutenthicate();
+  });
+
   constructor(
     private menuCtrl: MenuController,
-    private autSerivce: AuthService,
+    private authService: AuthService,
   ) {
     addIcons({
       mailOutline,
@@ -128,13 +135,15 @@ export class AppComponent {
       keyOutline,
       syncOutline
     });
-  }
 
+    console.log("El usuario está autenticado? ", this.isAuthenticated());
+  }
+  
   async logOut(): Promise<void> {
     // Cierra el menú lateral por UX
     try {
       await this.menuCtrl.close();
-      this.autSerivce.logOut()
+      this.authService.logOut()
     } catch {}
 
   }
