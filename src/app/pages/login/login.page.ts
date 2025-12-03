@@ -64,7 +64,7 @@ export class LoginPage {
       next: async (response) => {
         this.loading = false;
         if (response.success) {
-          this.router.navigate(['/home']);
+          this.router.navigate(['/inicio']);
           
           const toast = await this.toastController.create({
             message: "Inicio de sesión exitoso",
