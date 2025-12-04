@@ -1,22 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, computed, signal, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
   IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
   IonCard,
-  IonCardHeader,
-  IonCardTitle,
   IonCardContent,
   IonInput,
   IonButton,
   IonGrid,
   IonRow,
   IonCol,
-  IonImg,
+  IonText,
+  IonIcon,
   ToastController
 } from '@ionic/angular/standalone';
 import { AuthService } from '../../core/services/auth-service/auth.service';
@@ -28,28 +24,25 @@ import { AuthService } from '../../core/services/auth-service/auth.service';
   standalone: true,
   imports: [
     IonContent,
-    IonHeader,
-    IonTitle,
-    IonToolbar,
     CommonModule,
     FormsModule,
     IonCard,
-    IonCardHeader,
-    IonCardTitle,
     IonCardContent,
     IonInput,
     IonButton,
     IonGrid,
     IonRow,
     IonCol,
-    IonImg,
+    IonText,
+    IonIcon,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginPage {
   // Variables para el formulario
-  usuario: string = '';
-  clave: string = '';
-  loading: boolean = false;
+  usuario = signal<string>("");
+  clave = signal<string>("");
+  loading = signal<boolean>(false);
 
   constructor(
     private authService: AuthService,
@@ -59,12 +52,11 @@ export class LoginPage {
 
 
   async loginUsuario(usuario: string, clave: string){
-    this.loading = true;
+    this.loading.set(true);
     this.authService.loginUsuarioService(usuario, clave).subscribe({
       next: async (response) => {
-        this.loading = false;
         if (response.success) {
-          this.router.navigate(['/home']);
+          this.router.navigate(['/inicio']);
           
           const toast = await this.toastController.create({
             message: "Inicio de sesión exitoso",

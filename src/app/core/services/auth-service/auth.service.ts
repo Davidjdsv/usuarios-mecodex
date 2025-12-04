@@ -15,6 +15,11 @@ export class AuthService {
   private tokenKey: string = "authToken";
   private userKey: string = "authUsuario";
 
+  // Propiedad de solo lectura para exponer el estado de autenticación
+  public get authState(){
+    return this.isLoggedIn.asReadonly();
+  }
+
   constructor(private http: HttpClient, private router: Router) { }
 
   loginUsuarioService(nombre_usuario: string, contrasena: string): Observable<LoginResponseInterface>{
