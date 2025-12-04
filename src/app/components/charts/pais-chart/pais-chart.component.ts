@@ -57,7 +57,7 @@ export class PaisChartComponent  implements OnInit {
     return this.metricasService.getMetricasPaises().subscribe({
       next: (res) => {
         if(res.data){
-          const clientes_por_pais = res.data.map((item) => item.total_clientes)
+          const clientes_por_pais = res.data.map((item) => item.clientes_por_pais)
           const paises = res.data.map((item) => item.pais)
           this.chartOptions.set({
             series: [
