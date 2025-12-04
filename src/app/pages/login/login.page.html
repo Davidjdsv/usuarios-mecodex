@@ -1,7 +1,7 @@
 <ion-content 
   [fullscreen]="true" 
   scrollY="false"
-  class="ion-flex ion-justify-content-center ion-align-items-center"
+  class="ion-display-flex ion-justify-content-center ion-align-items-center"
 >
 <!-- Pre loader -->
  <!-- @if(loading()){
@@ -11,22 +11,24 @@
  } @else {
 
  } -->
-
-  <ion-card class="card-center box-shadow">
-    <ion-card-content >
+<div class="main-container">
+  <ion-card class="card-center box-glass">
+    <ion-card-content>
       <ion-grid>
         <ion-row>
-          <ion-col size="12" size-md="6">
-            <div class="texto-bienvenida">
-              <ion-text class="ion-padding ion-text-center">
-                <h1>
+          <!-- Formulario - 12 columnas en móvil, 6 en desktop -->
+          <ion-col size="12" size-md="6" class="ion-padding">
+            <div class="ion-text-center ion-text-md-start">
+              <ion-text>
+                <h1 class="titulo-principal">
                   Bienvenido de nuevo a <span color="'primary'">ActivaMecodex</span>
                 </h1>
               </ion-text>
             </div>
-            <form class="">
+            
+            <form class="ion-margin-top">
               <ion-input
-                class="ion-margin-vertical"
+                class="input-field"
                 label="Correo o Usuario"
                 label-placement="floating"
                 fill="outline"
@@ -36,11 +38,11 @@
                 name="usuario"
                 required
               >
-              <ion-icon slot="start" color="primary" name="cloud-outline" aria-hidden="true"></ion-icon>
-            </ion-input>
+                <ion-icon slot="start" color="primary" name="cloud-outline" aria-hidden="true"></ion-icon>
+              </ion-input>
 
               <ion-input
-                class="ion-margin-vertical"
+                class="input-field"
                 label="Contraseña"
                 label-placement="floating"
                 fill="outline"
@@ -50,28 +52,33 @@
                 name="clave"
                 required
               >
-              <ion-icon slot="start" color="primary" name="key-outline" aria-hidden="true"></ion-icon>
-            </ion-input>
+                <ion-icon slot="start" color="primary" name="key-outline" aria-hidden="true"></ion-icon>
+              </ion-input>
 
-            <ion-button
-              size="large"
-              type="submit"
-              expand="block"
-              color="primary"
-              (click)="loginUsuario(usuario, clave)"
-            > Iniciar sesión
-            </ion-button>
-          </form>
-        </ion-col>
+              <div class="button-container">
+                <ion-button
+                  class="btn-login"
+                  size="large"
+                  type="submit"
+                  expand="block"
+                  color="primary"
+                  (click)="loginUsuario(usuario, clave)"
+                > 
+                  Iniciar sesión
+                </ion-button>
+              </div>
+            </form>
+          </ion-col>
 
-          <!-- Imagen -->
-          <ion-col size="12" size-md="6">
-            <img class="login-img" src="assets/img/login_activa_mecodex.png" alt="login_activamecodex">
+          <!-- Imagen - Oculta en móvil, visible en tablet+ -->
+          <ion-col size="12" size-md="6" class="ion-display-none ion-display-md-flex ion-align-items-center ion-justify-content-center">
+            <img class="login-img" loading="lazy" src="assets/img/login_activa_mecodex.png" alt="login_activamecodex">
           </ion-col>
 
         </ion-row>
       </ion-grid>
     </ion-card-content>
   </ion-card>
+</div>
 
 </ion-content>
