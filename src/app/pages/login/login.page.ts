@@ -40,9 +40,9 @@ import { AuthService } from '../../core/services/auth-service/auth.service';
 })
 export class LoginPage {
   // Variables para el formulario
-  usuario: string = '';
-  clave: string = '';
-  loading: boolean = false;
+  usuario = signal<string>("");
+  clave = signal<string>("");
+  loading = signal<boolean>(false);
 
   constructor(
     private authService: AuthService,
@@ -52,10 +52,9 @@ export class LoginPage {
 
 
   async loginUsuario(usuario: string, clave: string){
-    this.loading = true;
+    this.loading.set(true);
     this.authService.loginUsuarioService(usuario, clave).subscribe({
       next: async (response) => {
-        this.loading = false;
         if (response.success) {
           this.router.navigate(['/inicio']);
           
