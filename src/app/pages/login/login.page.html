@@ -3,6 +3,14 @@
   scrollY="false"
   class="ion-flex ion-justify-content-center ion-align-items-center"
 >
+<!-- Pre loader -->
+ <!-- @if(loading()){
+  <div class="ion-text-center ion-padding">
+    <img src="assets/img/loader.svg" alt="Cargando...">
+  </div>
+ } @else {
+
+ } -->
 
   <ion-card class="card-center box-shadow">
     <ion-card-content >
@@ -14,9 +22,6 @@
                 <h1>
                   Bienvenido de nuevo a <span color="'primary'">ActivaMecodex</span>
                 </h1>
-                <h2>
-                  Por favor ingresa tus credenciales para acceder a tu cuenta.
-                </h2>
               </ion-text>
             </div>
             <form class="">
@@ -31,6 +36,7 @@
                 name="usuario"
                 required
               >
+              <ion-icon slot="start" color="primary" name="cloud-outline" aria-hidden="true"></ion-icon>
             </ion-input>
 
               <ion-input
@@ -43,19 +49,20 @@
                 [(ngModel)]="clave"
                 name="clave"
                 required
-              ></ion-input>
+              >
+              <ion-icon slot="start" color="primary" name="key-outline" aria-hidden="true"></ion-icon>
+            </ion-input>
 
-              <ion-button
+            <ion-button
               size="large"
-                type="submit"
-                expand="block"
-                color="primary"
-                [disabled]="loading"
-                (click)="loginUsuario(usuario, clave)"
-              > Iniciar sesión
-              </ion-button>
-            </form>
-          </ion-col>
+              type="submit"
+              expand="block"
+              color="primary"
+              (click)="loginUsuario(usuario, clave)"
+            > Iniciar sesión
+            </ion-button>
+          </form>
+        </ion-col>
 
           <!-- Imagen -->
           <ion-col size="12" size-md="6">

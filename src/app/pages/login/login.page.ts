@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed, signal, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -12,6 +12,7 @@ import {
   IonRow,
   IonCol,
   IonText,
+  IonIcon,
   ToastController
 } from '@ionic/angular/standalone';
 import { AuthService } from '../../core/services/auth-service/auth.service';
@@ -33,7 +34,9 @@ import { AuthService } from '../../core/services/auth-service/auth.service';
     IonRow,
     IonCol,
     IonText,
+    IonIcon,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginPage {
   // Variables para el formulario
