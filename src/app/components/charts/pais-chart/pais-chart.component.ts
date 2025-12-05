@@ -69,7 +69,7 @@ export class PaisChartComponent  implements OnInit {
             ],
             chart: {
               type: "bar",
-              height: 350
+              height: 450
             },
             plotOptions: {
               bar: {
