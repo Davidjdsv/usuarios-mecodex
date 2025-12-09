@@ -134,6 +134,7 @@ A continuación se detallan las tecnologías y herramientas identificadas en la 
 | RFUWC007 | Seguimiento de suscripciones | Monitoreo en tiempo real de fechas de pago, renovaciones y vencimientos próximos |
 | RFUWC008 | Detalles del cliente | Visualización detallada de la información del cliente a un solo click, proporcionando más información al respecto. Modo de conexión, versión de la aplicación que usa, si ya está pago, calificación de la app, etc. |
 | RFUWC009 | Eliminación de usuarios de ActivaMecodex | Permite a los usuarios administradores eliminar usuarios de ActivaMecodex, teniendo en cuenta que se debe eliminar también sus datos de la base de datos. |
+|RFUWC010| Visualización de datos | Permitir a los usuarios con respectivos permisos, tener un dashboard de incio en el cual se puede apreciar las gráficas y estadísticas de la plataforma, como ver la cantidad total de clientes, planes, clientes por país y clientes obtenidos por mes |
 
 
 ## Caracterización de procesos
@@ -360,32 +361,83 @@ Para mas detalle al respecto y mejor visualización, puede consultar el siguient
 
 ## API y Endpoints
 
-<!-- Documentación de servicios y interfaces de programación -->
+<!-- Ejemplos de contenido:
+  - Base URL: https://api.mecodex.com/v1
+  - Autenticación: Bearer Token en header `Authorization: Bearer <token>`
+  - Endpoints:
+    * GET /clientes -> Lista de clientes (paginación: `page`, `limit`)
+    * POST /cuentas -> Crea cuenta (body: correo, password, id_licencia, id_pais, id_cliente)
+    * PUT /cuentas/licencia?id_cliente=&id_licencia= -> Actualiza licencia de cuenta
+    * GET /metricas?tipo=paises -> Métricas agregadas por país
+  - Ejemplo cURL:
+    * curl -H "Authorization: Bearer <token>" https://api.mecodex.com/v1/metricas?tipo=paises
+  - Respuesta tipo:
+    * { data: [{ pais: "Colombia", total_clientes: 120 }, { pais: "México", total_clientes: 80 }] }
+-->
 
 ## Diseño de Interfaz de Usuario
 
-<!-- Wireframes, flujos de navegación y diseño visual -->
+<!-- Ejemplos de contenido:
+  - Wireframes: Inicio (KPIs + gráficas), Clientes (listado y detalle), Login (form + imagen hero)
+  - Navegación: Menú lateral con rutas protegidas por rol (Inicio, Clientes, Usuarios Web)
+  - Componentes: IonGrid, IonCard, IonSelect, ApexCharts (ng-apexcharts)
+  - Responsive: breakpoints móviles/tablet/escritorio; distribución 12/6 columnas en login
+  - Accesibilidad: contraste, labels, focus management, teclas de navegación
+-->
 
 ## Configuración y Despliegue
 
-<!-- Instrucciones de instalación y configuración del sistema -->
+<!-- Ejemplos de contenido:
+  - Requisitos: Node 20+, Angular 20, Ionic, backend PHP/Node, BD MySQL/PostgreSQL
+  - Variables de entorno: API URLs (api_cuentas, api_metricas, api_usuarios_web_closter)
+  - Instalación: `npm install`; Desarrollo: `ionic serve` o `ng serve`
+  - Build: `ng build --configuration production`
+  - Despliegue: Docker/containers, Nginx reverse proxy, configuración de CORS
+  - Monitoreo: logs, métricas de rendimiento (LCP, CLS), health checks
+-->
 
 ## Mantenimiento y Operaciones
 
-<!-- Procedimientos de mantenimiento, monitoreo y backup -->
+<!-- Ejemplos de contenido:
+  - Backups: frecuencia diaria BD, retención 30 días
+  - Monitoreo: disponibilidad API, tiempos de respuesta, alertas por errores 5xx
+  - Actualizaciones: calendario de releases, versionado semántico, rollback plan
+  - Logs: rotación, niveles (info/warn/error), trazabilidad de solicitudes
+-->
 
 ## Plan de Pruebas
 
-<!-- Estrategias y casos de prueba para validar el sistema -->
+<!-- Ejemplos de contenido:
+  - Tipos: unitarias (servicios), integración (guards, auth), E2E (flujos críticos)
+  - Cobertura: objetivo >= 80% en módulos clave
+  - Casos: creación de cuenta exitosa/errónea, actualización de licencia, filtros de dashboard
+  - Rendimiento: pruebas de carga sobre endpoints de métricas y clientes
+-->
 
 ## Seguridad
 
-<!-- Medidas de seguridad, control de acceso y protección de datos -->
+<!-- Ejemplos de contenido:
+  - Autenticación: JWT; almacenamiento seguro de token, expiración y renovación
+  - Autorización: roles/guardias; ocultar módulos sin permiso; redirección a 403/login
+  - Protección de datos: cifrado en tránsito (HTTPS), validación de inputs, sanitización
+  - Buenas prácticas: OWASP Top 10, rate limiting en endpoints críticos, política de CORS
+-->
 
 ## Glosario de Términos
 
-<!-- Definiciones de términos técnicos y conceptos del dominio -->
+<!-- Ejemplos de contenido:
+  - Cliente: Persona/empresa registrada en el sistema
+  - Cuenta: Acceso a la app asociado a un cliente (correo, plan, país)
+  - Licencia/Plan: LITE, PRO, PRO PLUS (id_licencia -> nombre comercial)
+  - Métricas: KPIs y agregaciones para dashboard (clientes por país, calificaciones)
+  - LCP: Largest Contentful Paint, métrica de rendimiento
+-->
 
 ## Referencias y Anexos
 
-<!-- Documentación adicional y recursos de referencia -->
+<!-- Ejemplos de contenido:
+  - Endpoints detallados y contratos JSON
+  - Diagramas de arquitectura y despliegue
+  - Esquemas SQL y migraciones
+  - Guías de estilo de UI y componentes reutilizables
+-->
