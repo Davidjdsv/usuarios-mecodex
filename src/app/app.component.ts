@@ -19,6 +19,7 @@ import {
 } from '@ionic/angular/standalone';
 import { MenuController } from '@ionic/angular';
 import { AuthService } from './core/services/auth-service/auth.service';
+import { RolesDirective } from './core/directives/roles.directive';
 import { addIcons } from 'ionicons';
 import {
   mailOutline,
@@ -78,7 +79,8 @@ import {
     IonLabel,
     IonRouterLink,
     IonRouterOutlet,
-    LoginPage
+    LoginPage,
+    RolesDirective
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

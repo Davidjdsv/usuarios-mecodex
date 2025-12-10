@@ -77,17 +77,24 @@ export class AuthService {
    * Obtiene el id del rol del usuario autenticado.
    * Prioriza el usuario almacenado; opcionalmente intenta leer del token si el claim existe.
    */
-  getCurrentUserRole(): number | null {
+  getCurrentUserRole(): string | null {
     const user = this.getCurrentUser();
     if (user && typeof user.id_rol_usuario === 'number') {
-      return user.id_rol_usuario;
+      switch(user.id_rol_usuario){
+        case 1:
+          return "administrador";
+        case 2:
+          return "soporte";
+        default:
+          return null;
+      }
     }
     const token = this.getToken();
     if (token) {
       try {
         const payload = JSON.parse(atob(token.split('.')[1]));
         if (typeof payload?.id_rol_usuario === 'number') {
-          return payload.id_rol_usuario as number;
+          return payload.id_rol_usuario.toString();
         }
       } catch {}
     }
@@ -97,9 +104,10 @@ export class AuthService {
   /**
    * Verifica si el usuario autenticado posee alguno de los roles permitidos.
    */
-  hasRole(allowedRoles: number[]): boolean {
+  hasRole(allowedRoles: string[]): boolean {
     const role = this.getCurrentUserRole();
-    return role != null && allowedRoles.includes(role);
+    console.log("El rol actual del usuario en authservice es: ", role)
+    return role != null && allowedRoles.includes(role.toString());
   }
 
   logOut(): void {
