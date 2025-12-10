@@ -57,6 +57,7 @@ import {
   keyOutline,
   syncOutline
 } from 'ionicons/icons';
+import { RolesInterface } from './models/roles-interface';
 
 @Component({
   selector: 'app-root',
@@ -85,11 +86,22 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  public appPages = [
-    { title: 'Inicio', url: '/inicio', icon: 'home' },
-    { title: 'Clientes Mecodex', url: '/usuarios', icon: 'people' },
-    { title: 'Usuarios webcloster', url: '/usuarios-web-closter', icon: 'cloudy' }
+  public adminRoles: RolesInterface[] = [
+    { id_rol: 1, nombre_rol: 'Administrador' }
   ];
+
+  public adminYSoporteRoles: RolesInterface[] = [
+  { id_rol: 1, nombre_rol: 'Administrador' },
+  { id_rol: 2, nombre_rol: 'Soporte' }
+];
+
+  public appPages = [
+    { title: 'Inicio', url: '/inicio', icon: 'home', roles: this.adminRoles },
+    { title: 'Clientes Mecodex', url: '/usuarios', icon: 'people', roles: this.adminYSoporteRoles },
+    { title: 'Usuarios webcloster', url: '/usuarios-web-closter', icon: 'cloudy', roles: this.adminYSoporteRoles }
+  ];
+
+
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   
   public isAuthenticated = computed(() => {

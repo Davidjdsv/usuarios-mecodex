@@ -1,20 +1,48 @@
-import { Directive, TemplateRef, ViewContainerRef, inject, input } from '@angular/core';
+import {
+  Directive,
+  TemplateRef,
+  ViewContainerRef,
+  inject,
+  input,
+  effect,
+} from '@angular/core';
 import { AuthService } from '../services/auth-service/auth.service';
 import { UsuariosWebClosterInterface } from '../../models/usuarios-web-closter-interface';
+import { RolesInterface } from 'src/app/models/roles-interface';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 @Directive({
   selector: '[appRoles]',
-  standalone: true
+  standalone: true,
 })
 export class RolesDirective {
-  private user = inject(AuthService);
+  private user = toSignal<UsuariosWebClosterInterface | null>(
+    inject(AuthService).rolUsuarioLogeado$
+  );
   private templateRef = inject(TemplateRef);
   private viewContainerRef = inject(ViewContainerRef);
 
-  roles = input.required<UsuariosWebClosterInterface[]>({
-    alias: 'appRoles'
-  })
+  roles = input.required<RolesInterface[]>({
+    alias: 'appRoles',
+  });
 
+  constructor() {
+    effect(() => {
+      const user = this.user();
+      const roles = this.roles();
 
+      this.viewContainerRef.clear();
+
+      if (user && roles.length > 0 && this.hasRole(user, roles)) {
+        this.viewContainerRef.createEmbeddedView(this.templateRef);
+      }
+    });
+  }
+
+  private hasRole(
+    user: UsuariosWebClosterInterface,
+    allowedRoles: RolesInterface[]
+  ): boolean {
+    return allowedRoles.some((role) => role.id_rol === user.id_rol_usuario);
+  }
 }
