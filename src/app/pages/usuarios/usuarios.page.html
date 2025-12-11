@@ -14,6 +14,7 @@
     </ion-toolbar>
   </ion-header>
   <ion-searchbar
+    class="ion-margin-top"
     placeholder="Buscar usuario por nombre, correo o número de teléfono"
     [(ngModel)]="searchUsers"
     [debounce]="1000"
@@ -232,11 +233,11 @@
 
     </ion-card-content>
   </ion-card>
-  <ion-infinite-scroll (ionInfinite)="loadMore($event)" threshold="10%">
-    <ion-infinite-scroll-content
-      loading-text="Cargando más usuarios..."
-      loadingSpinner="crescent"
-    ></ion-infinite-scroll-content>
-  </ion-infinite-scroll>
-  } }
+} }
+<ion-infinite-scroll (ionInfinite)="loadMore($event)" threshold="10%">
+  <ion-infinite-scroll-content
+    loading-text="Cargando más usuarios..."
+    loadingSpinner="crescent"
+  ></ion-infinite-scroll-content>
+</ion-infinite-scroll>
 </ion-content>
