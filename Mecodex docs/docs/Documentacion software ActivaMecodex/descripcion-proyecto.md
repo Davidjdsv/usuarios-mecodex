@@ -16,6 +16,10 @@ Aplicación Ionic + Angular para visualizar y gestionar usuarios de Mecodex. Uti
 - **RxJS** para manejo de Observables
 - **Entornos configurables** en `src/environments`
 
+## ActivaMecodex usa Zoneless y Signals para una reactividad más eficiente
+
+ActivaMecodex está construida sin Zone.js y aprovecha el modo [Zoneless](https://v20.angular.dev/guide/zoneless) de Angular, lo que reduce sobrecarga y mejora el rendimiento. Además, utiliza Signals para manejar el estado de forma reactiva y precisa, asegurando actualizaciones rápidas y controladas en la interfaz sin procesos innecesarios.
+
 ## Rutas y Navegación (`src/app/app.routes.ts`)
 
 | Ruta | Descripción | Componente |
@@ -24,18 +28,25 @@ Aplicación Ionic + Angular para visualizar y gestionar usuarios de Mecodex. Uti
 | `/inicio` | Página de inicio | `InicioPage` |
 | `/usuarios` | Listado de usuarios | `UsuariosPage` |
 | `/usuario/:id` | Detalle de usuario específico | `UsuarioPage` |
+| `/usuarios-web-closter` | Listado de usuarios de webcloster | `UsuariosWebClosterPage` |
+| `/usuarios-web-closter/:id` | Detalle de usuario específico de webcloster | `UsuarioWebClosterPage` |
 | `**` | Ruta no reconocida | → `/inicio` |
 
-## Páginas
+## Páginas 📄
 
 ### 1. InicioPage (`src/app/pages/inicio/inicio.page.ts` y `.html`)
 
-**Propósito:** Página de inicio con encabezado y título "Inicio".
+<!-- Añadir imagen de la página de inicio proximamente -->
+
+**Propósito:** Página de inicio con encabezado y título "Inicio". Tiene como propósito mostrar información general a tráves de métricas usando gráficos de barras, líneas, pie. etc. Se uso la libreria de [Apexcharts](https://apexcharts.com/)
 
 **Funciones:**
-- `ngOnInit()`: Ciclo de vida inicial (actualmente sin lógica adicional)
+- En la página de inicio se puede encontrar las gráficas de barras, líneas, pie. etc. que muestran información general de los clientes. Estas gráficas se separar por componentes standalone. Es decir, para cada gráfica hay un componente distinto y están ubicados en `src/app/components/charts/`. Cada uno con su respectivo .html, .scss y .ts
 
-**Plantilla:** Encabezado básico con título de la aplicación.
+![Estructura de carpetas para las gráficas](estructura_carpetas_graficas.png)
+
+- Cada gráfica se configura con opciones específicas y se actualiza dinámicamente cuando cambian los datos de clientes, planes, clientes por país, evolución de clientes por mes.
+- Por lo tanto la lógica de cada gráfica se encuentra en cada .ts de cada componente.
 
 ### 2. UsuariosPage (`src/app/pages/usuarios/usuarios.page.ts` y `.html`)
 
