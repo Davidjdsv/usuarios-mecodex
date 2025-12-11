@@ -70,6 +70,19 @@ ActivaMecodex está construida sin Zone.js y aprovecha el modo [Zoneless](https:
 
 ![Estructura de carpetas para la página de clientes](estructura_carpetas_clientes.png)
 
+### 4. UsuariosWebClosterPage
+
+**Propósito:** Listado de usuarios de webcloster con búsqueda, carga incremental y CRUD completo (registrar, editar, eliminar). Este modulo solo puede ser accedido por usuarios con rol de administrador. Esto porque solo dicho usuario tiene permisos para gestionar los usuarios de webcloster.
+
+#### Visualización:
+
+![Vista general de la página de usuarios de webcloster](usuarios_webcloster.png)
+
+#### Estructura de carpetas para la página de usuarios de webcloster:
+
+![Estructura de carpetas para la página de usuarios de webcloster](estructura_usuarios_webcloster.png)
+
+
 ---
 
 ## Notas técnicas adicionales
