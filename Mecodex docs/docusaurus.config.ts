@@ -18,12 +18,12 @@ const config: Config = {
   },
 
   // Set the production url of your site here
-  url: 'https://your-docusaurus-site.example.com',
-  // url: 'https://davidjdsv.github.io',
+  // url: 'https://your-docusaurus-site.example.com', Asi se ve el logo e inicio de la documentación
+  url: 'https://davidjdsv.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/',
-  // baseUrl: 'usuarios-mecodex',
+  // baseUrl: '/',
+  baseUrl: '/usuarios-mecodex/',
   // onBrokenAnchors: 'ignore',
 
   // GitHub pages deployment config.
