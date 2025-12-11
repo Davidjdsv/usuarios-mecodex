@@ -55,7 +55,9 @@ import {
   cloudySharp,
   cloud,
   keyOutline,
-  syncOutline
+  syncOutline,
+  documentOutline,
+  documentSharp,
 } from 'ionicons/icons';
 import { RolesInterface } from './models/roles-interface';
 
@@ -147,7 +149,9 @@ export class AppComponent {
       cloudySharp,
       cloud,
       keyOutline,
-      syncOutline
+      syncOutline,
+      documentOutline,
+      documentSharp,
     });
 
     console.log("El usuario está autenticado? ", this.isAuthenticated());
@@ -160,5 +164,9 @@ export class AppComponent {
       this.authService.logOut()
     } catch {}
 
+  }
+
+  goToDocs(){
+    window.open('http://localhost:3000/', "_blank");
   }
 }
