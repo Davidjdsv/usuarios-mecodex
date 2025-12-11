@@ -32,9 +32,8 @@ export interface metricasPaises {
     data: [
         {
             pais: string,
-            total_cuentas: number,
-            total_clientes: number,
-            porcentaje_cuentas: string
+            clientes_por_pais: number,
+            porcentaje_clientes_pais: string
         },
     ]
 }

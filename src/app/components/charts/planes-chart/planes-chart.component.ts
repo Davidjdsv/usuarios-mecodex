@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild, signal } from '@angular/core';
+import { ChangeDetectorRef, ChangeDetectionStrategy, Component, OnInit, ViewChild, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   ApexNonAxisChartSeries,
@@ -22,6 +22,7 @@ export type ChartOptions = {
   styleUrls: ['./planes-chart.component.scss'],
   standalone: true,
   imports: [CommonModule, ChartComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PlanesChartComponent  implements OnInit {
 
@@ -57,7 +58,7 @@ export class PlanesChartComponent  implements OnInit {
                 breakpoint: 480,
                 options: {
                   chart: {
-                    width: "200"
+                    width: "300"
                   },
                   legend: {
                     position: "bottom",

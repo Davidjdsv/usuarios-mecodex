@@ -19,6 +19,7 @@ import {
 } from '@ionic/angular/standalone';
 import { MenuController } from '@ionic/angular';
 import { AuthService } from './core/services/auth-service/auth.service';
+import { RolesDirective } from './core/directives/roles.directive';
 import { addIcons } from 'ionicons';
 import {
   mailOutline,
@@ -54,8 +55,11 @@ import {
   cloudySharp,
   cloud,
   keyOutline,
-  syncOutline
+  syncOutline,
+  documentOutline,
+  documentSharp,
 } from 'ionicons/icons';
+import { RolesInterface } from './models/roles-interface';
 
 @Component({
   selector: 'app-root',
@@ -78,16 +82,28 @@ import {
     IonLabel,
     IonRouterLink,
     IonRouterOutlet,
-    LoginPage
+    LoginPage,
+    RolesDirective
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  public appPages = [
-    { title: 'Inicio', url: '/inicio', icon: 'home' },
-    { title: 'Clientes Mecodex', url: '/usuarios', icon: 'people' },
-    { title: 'Usuarios webcloster', url: '/usuarios-web-closter', icon: 'cloudy' }
+  public adminRoles: RolesInterface[] = [
+    { id_rol: 1, nombre_rol: 'Administrador' }
   ];
+
+  public adminYSoporteRoles: RolesInterface[] = [
+  { id_rol: 1, nombre_rol: 'Administrador' },
+  { id_rol: 2, nombre_rol: 'Soporte' }
+];
+
+  public appPages = [
+    { title: 'Inicio', url: '/inicio', icon: 'home', roles: this.adminRoles },
+    { title: 'Clientes Mecodex', url: '/usuarios', icon: 'people', roles: this.adminYSoporteRoles },
+    { title: 'Usuarios webcloster', url: '/usuarios-web-closter', icon: 'cloudy', roles: this.adminYSoporteRoles }
+  ];
+
+
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   
   public isAuthenticated = computed(() => {
@@ -133,7 +149,9 @@ export class AppComponent {
       cloudySharp,
       cloud,
       keyOutline,
-      syncOutline
+      syncOutline,
+      documentOutline,
+      documentSharp,
     });
 
     console.log("El usuario está autenticado? ", this.isAuthenticated());
@@ -146,5 +164,9 @@ export class AppComponent {
       this.authService.logOut()
     } catch {}
 
+  }
+
+  goToDocs(){
+    window.open('http://localhost:3000/', "_blank");
   }
 }

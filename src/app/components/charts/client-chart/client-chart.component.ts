@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ChangeDetectorRef, signal, ChangeDetectionStrategy } from '@angular/core'; // <- Agrega ChangeDetectorRef
 import { CommonModule } from '@angular/common';
+// 1️⃣ Importar el módulo de ApexCharts y los tipos necesarios
 import {
   NgApexchartsModule,
   ChartComponent,
@@ -10,6 +11,7 @@ import {
 } from 'ng-apexcharts';
 import { MetricasService } from 'src/app/core/services/metricas.service';
 
+// 2️⃣ Definir el tipo de opciones del chart (esto hace más fácil trabajar con TypeScript)
 export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
@@ -17,6 +19,7 @@ export type ChartOptions = {
   title: ApexTitleSubtitle;
 };
 
+  // 3️⃣ Agregar NgApexchartsModule a los imports para poder usar <apx-chart>
 @Component({
   selector: 'app-client-chart',
   templateUrl: './client-chart.component.html',
@@ -35,7 +38,7 @@ export class ClientChartComponent implements OnInit {
 
   constructor(
     private metricasService: MetricasService,
-    private cdr: ChangeDetectorRef  // <- Inyecta esto
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {

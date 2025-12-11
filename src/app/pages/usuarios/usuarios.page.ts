@@ -31,7 +31,7 @@ import {
   IonInfiniteScroll,
   AlertController,
   ModalController,
-  IonInfiniteScrollContent
+  IonInfiniteScrollContent,
 } from '@ionic/angular/standalone';
 
 import { UsuariosInterface } from 'src/app/models/usuarios-interface';
@@ -91,13 +91,13 @@ export class UsuariosPage implements OnInit {
   indiceActual = signal<number>(0);
 
   // * Límite máximo de usuarios a mostrar por scroll del ion-infinite-scroll
-  LIMITE_USUARIOS = 10;
+  LIMITE_USUARIOS = 5;
 
+  // Contadores para usuarios por tipo de plan
   cont_usuarios_pro_plus = signal<number>(0);
   cont_usuarios_pro_plus_web = signal<number>(0);
   cont_usuarios_pro = signal<number>(0);
   cont_usuarios_lite = signal<number>(0);
-
   cont_usuarios_totales = signal<number>(0);
 
   // Se puede injectar las dependencias en el constructor (Clásico)
@@ -172,6 +172,7 @@ export class UsuariosPage implements OnInit {
     });
 
     // Actualizar todas las señales con los contadores
+
     this.cont_usuarios_pro_plus.set(contadores.proPlus);
     this.cont_usuarios_pro_plus_web.set(contadores.proPlusWeb);
     this.cont_usuarios_pro.set(contadores.pro);
@@ -187,7 +188,8 @@ export class UsuariosPage implements OnInit {
 
     // Si la búsqueda está vacía, mostrar todos los usuarios originales
     if (!query || query.trim() === '') {
-      this.usuarios.set(this.usuariosOriginales());
+        this.indiceActual.set(0);
+        this.cargarUsuariosInicial();
       return;
     }
 
@@ -218,6 +220,7 @@ export class UsuariosPage implements OnInit {
 
     // Obtener el total de usuarios disponibles
     const totalUsuarios = this.usuariosOriginales().length;
+    console.log("Total usuarios:",totalUsuarios);
 
     // Verificar si ya se cargaron todos los usuarios
     if (indice >= totalUsuarios) {
@@ -253,70 +256,30 @@ export class UsuariosPage implements OnInit {
     event.target.complete();
   }
 
-  // * Modales de alerta
-
-  private async showAddSuccesAlert(nombre?: string): Promise<void> {
+  // * INICIO DE MODALES DE ALERTA
+  private async showSuccessAlert(mensaje?: string): Promise<void> {
     const alert = await this.alertController.create({
-      header: 'Cliente agregado',
-      message: `El cliente ${nombre || ''} ha sido registrado con éxito.`,
+      header: 'Operación exitosa',
+      message: mensaje || 'La operación se ha realizado con éxito.',
       buttons: ['OK'],
       animated: true,
     });
     await alert.present();
   }
 
-  private async showEditSuccesAlert(nombre?: string): Promise<void> {
+  private async showErrorAlert(mensaje?: string): Promise<void> {
     const alert = await this.alertController.create({
-      header: 'Cliente editado correctamente',
-      message: `El cliente ${nombre || ''} ha sido editado con éxito.`,
+      header: 'Error',
+      message: mensaje || 'Ups! Ocurrió un error al ejecutar la acción',
       buttons: ['OK'],
       animated: true,
     });
     await alert.present();
   }
+  // * FIN DE MODALES DE ALERTA
 
-  private async showEditErrorAlert(nombre?: string): Promise<void> {
-    const alert = await this.alertController.create({
-      header: 'Error al editar cliente',
-      message: `El cliente ${nombre || ''} no ha sido editado.`,
-      buttons: ['OK'],
-      animated: true,
-    });
-    await alert.present();
-  }
 
-  private async showDeleteSuccesAlert(): Promise<void> {
-    const alert = await this.alertController.create({
-      header: 'Cliente eliminado',
-      message: "El cliente ha sido eliminado con éxito.",
-      buttons: ['OK'],
-      animated: true,
-    });
-    await alert.present();
-  }
-
-  private async showDeleteErrorAlert(): Promise<void> {
-    const alert = await this.alertController.create({
-      header: 'Error al eliminar cliente',
-      message: "Ocurrió un error al realizar esta acción",
-      buttons: ['OK'],
-      animated: true,
-    });
-    await alert.present();
-  }
-
-  private async showErrorAlert(): Promise<void> {
-    const alert = await this.alertController.create({
-      header: 'Error al agregar cliente',
-      message: 'Ups! Ocurrió un error al registrar el cliente',
-      buttons: ['OK'],
-      animated: true,
-    });
-    await alert.present();
-  }
-
-  // * Fin de modales de alerta
-
+  // * INICIO DE OPERACIONES DE CRUD
   async addClient() {
     const modal = await this.mdlController.create({
       component: AddClientComponent,
@@ -325,7 +288,6 @@ export class UsuariosPage implements OnInit {
     await modal.present();
 
     const { data, role } = await modal.onWillDismiss();
-    console.log('datos recibidos de la moda: ', data, role);
 
     if (role === 'guardar') {
       this.usuariosServices.createUser(data).subscribe({
@@ -336,15 +298,14 @@ export class UsuariosPage implements OnInit {
               this.usuariosOriginales.set(lista);
 
               // Mostrar alerta de éxito
-              await this.showAddSuccesAlert(data.nombre);
+              await this.showSuccessAlert("El cliente fue agregado satisfactoriamente!");
 
               // Reinicia la carga inicial y actualiza contadores
               this.cargarUsuariosInicial();
               this.contarUsuariosPorTipo();
             },
             error: async (err) => {
-              console.log('Error al refrescar la lista de usuarios: ', err);
-              await this.showErrorAlert();
+              await this.showErrorAlert("Algo falló al agregar al cliente");
             },
           });
         },
@@ -358,42 +319,38 @@ export class UsuariosPage implements OnInit {
     }
   }
 
-  async deleteClient(usuario: UsuariosInterface){
+  async deleteClient(usuario: UsuariosInterface) {
     const modal = await this.mdlController.create({
       component: DeleteClientComponent,
       componentProps: {
-        userData: usuario
-      }
-    })
-    await modal.present()
-
-    console.log(usuario)
+        userData: usuario,
+      },
+    });
+    await modal.present();
 
     const { role } = await modal.onWillDismiss();
 
-    if(role === "confirmar"){
+    if (role === 'confirmar') {
       this.usuariosServices.deleteUser(usuario.id).subscribe({
         next: async (_res) => {
-          console.log("Datos del usuario: ", _res)
           // Tras eliminar el cliente, recargamos la lista desde el backend para reflejar los cambios.
           this.usuariosServices.getUsuarios().subscribe({
             next: async (lista: UsuariosInterface[]) => {
               this.usuariosOriginales.set(lista);
 
               // Mostrar alerta de éxito
-              await this.showDeleteSuccesAlert();
+              await this.showSuccessAlert("El cliente fue eliminado satisfactoriamente!");
 
               // Reinicia la carga inicial y actualiza contadores
               this.cargarUsuariosInicial();
               this.contarUsuariosPorTipo();
             },
             error: async (err) => {
-              console.log('Error al refrescar la lista de usuarios: ', err);
-              await this.showDeleteErrorAlert();
+              await this.showErrorAlert("Algo falló al eliminar al cliente");
             },
           });
         },
-      })
+      });
     }
   }
 
@@ -417,21 +374,20 @@ export class UsuariosPage implements OnInit {
               this.usuariosOriginales.set(lista);
 
               // Mostrar alerta de éxito
-              await this.showEditSuccesAlert(data.nombre);
+              await this.showSuccessAlert("El cliente fue actualizado satisfactoriamente!");
 
               // Reinicia la carga inicial y actualiza contadores
               this.cargarUsuariosInicial();
               this.contarUsuariosPorTipo();
             },
             error: async (err) => {
-              console.log('Error al refrescar la lista de usuarios: ', err);
-              await this.showEditErrorAlert();
+              await this.showErrorAlert("Algo falló al actualizar al cliente");
             },
           });
         },
         error: async (err) => {
           console.log('Error al actualizar el usuario: ', err);
-            await this.showEditErrorAlert(data.nombre);
+          await this.showErrorAlert("Algo falló al actualizar al cliente");
           if (err?.error) {
             console.log('Detalle del backend: ', err.error);
           }
@@ -440,4 +396,5 @@ export class UsuariosPage implements OnInit {
       });
     }
   }
+  // * FIN DE OPERACIONES DE CRUD
 }

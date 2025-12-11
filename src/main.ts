@@ -1,4 +1,4 @@
-import { bootstrapApplication } from '@angular/platform-browser';
+import { bootstrapApplication, provideClientHydration, withEventReplay, withIncrementalHydration } from '@angular/platform-browser';
 import { RouteReuseStrategy, provideRouter, withPreloading, PreloadAllModules } from '@angular/router';
 import { provideZonelessChangeDetection } from '@angular/core'; // Zoneless
 import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
@@ -16,5 +16,6 @@ bootstrapApplication(AppComponent, {
     provideIonicAngular(),
     provideHttpClient(withFetch()),
     provideRouter(routes, withPreloading(PreloadAllModules)),
+    // provideClientHydration(withEventReplay(), withIncrementalHydration())
   ],
 });
