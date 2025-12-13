@@ -42,11 +42,11 @@ ActivaMecodex está construida sin Zone.js y aprovecha el modo [Zoneless](https:
 
 #### Visualización de gráficas
 
-![Gráficas de clientes](graficas.png)
+![Gráficas de clientes](./img/graficas.png)
 
 #### Estructura de carpetas de gráficas
 
-![Estructura de carpetas para las gráficas](estructura_carpetas_graficas.png)
+![Estructura de carpetas para las gráficas](./img/estructura_carpetas_graficas.png)
 
 ### 2. UsuariosPage
 
@@ -56,7 +56,7 @@ ActivaMecodex está construida sin Zone.js y aprovecha el modo [Zoneless](https:
 
 #### Visualización:
 
-![Vista general de la página de clientes](clientes.png)
+![Vista general de la página de clientes](./img/clientes.png)
 
 ### 3. UsuarioPage
 
@@ -64,11 +64,11 @@ ActivaMecodex está construida sin Zone.js y aprovecha el modo [Zoneless](https:
 
 #### Visualización:
 
-![Vista general de la página del cliente seleccionado](cliente.png)
+![Vista general de la página del cliente seleccionado](./img/cliente.png)
 
 #### Estructura de componentes CRUD
 
-![Estructura de carpetas para la página de clientes](estructura_carpetas_clientes.png)
+![Estructura de carpetas para la página de clientes](./img/estructura_carpetas_clientes.png)
 
 ### 4. UsuariosWebClosterPage
 
@@ -76,11 +76,11 @@ ActivaMecodex está construida sin Zone.js y aprovecha el modo [Zoneless](https:
 
 #### Visualización:
 
-![Vista general de la página de usuarios de webcloster](usuarios_webcloster.png)
+![Vista general de la página de usuarios de webcloster](./img/usuarios_webcloster.png)
 
 #### Estructura de carpetas para la página de usuarios de webcloster:
 
-![Estructura de carpetas para la página de usuarios de webcloster](estructura_usuarios_webcloster.png)
+![Estructura de carpetas para la página de usuarios de webcloster](./img/estructura_usuarios_webcloster.png)
 
 
 ---
@@ -152,7 +152,7 @@ ActivaMecodex está construida sin Zone.js y aprovecha el modo [Zoneless](https:
 
 #### Estructura de carpetas para los servicios:
 
-![Estructura de carpetas para los servicios](servicios.png)
+![Estructura de carpetas para los servicios](./img/servicios.png)
 
 
 
