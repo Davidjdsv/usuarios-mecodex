@@ -139,48 +139,30 @@ export class UsuariosWebClosterPage implements OnInit {
     });
   }
 
-  // TODO: Modales de alerta
-  private async showAddSuccesAlert(nombre?: string): Promise<void> {
+  // TODO: INICIO MODALES DE ALERTA
+  private async showSuccesAlert(mensaje: string): Promise<void> {
     const alert = await this.alertController.create({
-      header: 'Usuario agregado',
-      message: `El usuario ${nombre || ''} ha sido registrado con éxito.`,
+      header: 'Acción realizada con éxito',
+      message: `${mensaje}`,
       buttons: ['OK'],
       animated: true,
     });
     await alert.present();
   }
 
-  private async showEditSuccesAlert(nombre?: string): Promise<void> {
+  private async showErrorAlert(mensaje?: string): Promise<void> {
     const alert = await this.alertController.create({
-      header: 'Usuario editado correctamente',
-      message: `El usuario ${nombre || ''} ha sido editado con éxito.`,
+      header: 'Ups, algo ha fallado!',
+      message: `${mensaje}`,
       buttons: ['OK'],
       animated: true,
     });
     await alert.present();
   }
+  // TODO: FIN MODALES DE ALERTA
 
-  private async showDeleteSuccesAlert(nombre?: string): Promise<void> {
-    const alert = await this.alertController.create({
-      header: 'Usuario eliminado correctamente',
-      message: `El usuario ${nombre || ''} ha sido eliminado con éxito.`,
-      buttons: ['OK'],
-      animated: true,
-    });
-    await alert.present();
-  }
 
-  private async showErrorAlert(): Promise<void> {
-    const alert = await this.alertController.create({
-      header: 'Error',
-      message: 'Ups! Ocurrió un error al realizar esta acción',
-      buttons: ['OK'],
-      animated: true,
-    });
-    await alert.present();
-  }
-
-  // Añadiendo un nuevo usuario de webcloster
+  // * INICIO OPERACIONES CRUD
   async addUsuarioWebCloster(): Promise<void> {
     const modal = await this.modalController.create({
       component: AddUsuariosWcComponent,
@@ -199,18 +181,16 @@ export class UsuariosWebClosterPage implements OnInit {
               this.applyFiltersAndPaging();
             },
           });
-          console.log(res);
-          this.showAddSuccesAlert(data.nombre);
+          this.showSuccesAlert("Usuario agregado satisfactoriamente");
         },
         error: (err) => {
-          console.error('Error al crear un nuevo usuario: ', err.message);
-          this.showErrorAlert();
+          this.showErrorAlert("Error al agregar el usuario, por favor intenta de nuevo");
         },
       });
     }
   }
 
-  async editUsuario(usuario: UsuariosWebClosterInterface) {
+  async editUsuario(usuario: UsuariosWebClosterInterface): Promise<void> {
     const modal = await this.modalController.create({
       component: EditUsuariosWcComponent,
       componentProps: {
@@ -224,19 +204,17 @@ export class UsuariosWebClosterPage implements OnInit {
 
     if (role === 'guardar') {
       this.usuariosWebClosterService.updateUsuariosWebCloster(data).subscribe({
-        next: (res: UsuariosWebClosterInterface[]) => {
+        next: (_res: UsuariosWebClosterInterface[]) => {
           this.usuariosWebClosterService.getUsuariosWebCloster().subscribe({
             next: (_res: UsuariosWebClosterInterface[]) => {
               this.usuariosWc.set(_res);
               this.applyFiltersAndPaging();
             },
           });
-          console.log(res);
-          this.showEditSuccesAlert(usuario.nombre_completo);
+          this.showSuccesAlert("Usuario editado satisfactoriamente");
         },
-        error: (err) => {
-          console.error('Error al editar un usuario: ', err.message);
-          this.showErrorAlert();
+        error: () => {
+          this.showErrorAlert("Error al editar el usuario, por favor intenta de nuevo");
         },
       });
     }
@@ -263,10 +241,13 @@ export class UsuariosWebClosterPage implements OnInit {
               this.applyFiltersAndPaging(); 
             },
           });
-          console.log(_res);
-          this.showDeleteSuccesAlert(usuario.nombre_completo);
-        }
+          this.showSuccesAlert("Usuario eliminado satisfactoriamente");
+        },
+        error: () => {
+          this.showErrorAlert("Error al eliminar el usuario, por favor intenta de nuevo");
+        },
       })
     }
   }
+  // * FIN OPERACIONES CRUD
 }
