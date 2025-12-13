@@ -52,21 +52,19 @@ export class LoginPage {
 
 
   async loginUsuario(usuario: string, clave: string){
-    this.loading.set(true);
     this.authService.loginUsuarioService(usuario, clave).subscribe({
       next: async (response) => {
         if (response.success) {
+          this.loading.set(true);
           this.router.navigate(['/inicio']);
-          
+          this.authService.actualizarRol();
+
           const toast = await this.toastController.create({
             message: "Inicio de sesión exitoso",
             duration: 2000,
             color: "medium",
           })
           await toast.present();
-
-        } else {
-          console.error('Error de autenticación:', response.message);
         }
       },
       error: async (error) => {
