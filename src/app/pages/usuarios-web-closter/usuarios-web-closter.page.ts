@@ -183,7 +183,7 @@ export class UsuariosWebClosterPage implements OnInit {
           });
           this.showSuccesAlert("Usuario agregado satisfactoriamente");
         },
-        error: (err) => {
+        error: () => {
           this.showErrorAlert("Error al agregar el usuario, por favor intenta de nuevo");
         },
       });
