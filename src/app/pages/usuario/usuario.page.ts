@@ -49,6 +49,8 @@ import { CuentaService } from 'src/app/core/services/cuenta.service';
 import { CuentaInterface } from 'src/app/models/cuenta-interface';
 import { AddCuentaComponent } from 'src/app/components/cuenta-cliente/add-cuenta/add-cuenta.component';
 
+import { HidePasswordPipe } from 'src/app/core/pipes/hide-password.pipe';
+
 
 @Component({
   selector: 'app-usuario',
@@ -84,6 +86,7 @@ import { AddCuentaComponent } from 'src/app/components/cuenta-cliente/add-cuenta
     IonButton,
     IonAccordionGroup,
     IonAccordion,
+    HidePasswordPipe
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
