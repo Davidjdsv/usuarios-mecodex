@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import {
   IonContent,
   IonHeader,
@@ -67,13 +67,12 @@ import { DeleteClientComponent } from 'src/app/components/clientes/delete-client
     IonIcon,
     CommonModule,
     FormsModule,
-    RouterLink,
     IonSearchbar,
     NotFoundComponent,
     IonInfiniteScroll,
     IonInfiniteScrollContent,
   ],
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UsuariosPage implements OnInit {
   folder = signal('Clientes Mecodex');
@@ -100,12 +99,20 @@ export class UsuariosPage implements OnInit {
   cont_usuarios_lite = signal<number>(0);
   cont_usuarios_totales = signal<number>(0);
 
+  id = signal<number | null>(null);
+
+  
+  
   // Se puede injectar las dependencias en el constructor (Clásico)
   constructor(
     private mdlController: ModalController,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private router: Router
   ) {}
 
+  // this.id.set(Number(this.activatedRoute.snapshot.paramMap.get('id')));
+  
+  // ruta = inject(ActivatedRoute);
   // O se pueden injectar por inject (Mas moderno)
   private usuariosServices = inject(UsuariosService);
 
@@ -254,6 +261,22 @@ export class UsuariosPage implements OnInit {
 
     // Finalizar la carga
     event.target.complete();
+  }
+
+  getUser(usuarioId: number) {
+    this.usuariosServices.getUsuarios().subscribe({
+      next: (res) => {
+        this.usuarios.set(res); // guarda todos los usuarios del servicio en este array de tipo interface
+        const usuarioEncontrado = this.usuarios().find((usuario) => usuario.id === usuarioId
+      );
+
+      this.router.navigate(['/usuario', usuarioEncontrado?.id]);
+      
+      },
+      error(err: any) {
+        console.error('Error al obtener el usuario:', err);
+      },
+    });
   }
 
   // * INICIO DE MODALES DE ALERTA

@@ -42,11 +42,11 @@ ActivaMecodex está construida sin Zone.js y aprovecha el modo [Zoneless](https:
 
 #### Visualización de gráficas
 
-![Gráficas de clientes](graficas.png)
+![Gráficas de clientes](./img/graficas.png)
 
 #### Estructura de carpetas de gráficas
 
-![Estructura de carpetas para las gráficas](estructura_carpetas_graficas.png)
+![Estructura de carpetas para las gráficas](./img/estructura_carpetas_graficas.png)
 
 ### 2. UsuariosPage
 
@@ -56,7 +56,7 @@ ActivaMecodex está construida sin Zone.js y aprovecha el modo [Zoneless](https:
 
 #### Visualización:
 
-![Vista general de la página de clientes](clientes.png)
+![Vista general de la página de clientes](./img/clientes.png)
 
 ### 3. UsuarioPage
 
@@ -64,11 +64,11 @@ ActivaMecodex está construida sin Zone.js y aprovecha el modo [Zoneless](https:
 
 #### Visualización:
 
-![Vista general de la página del cliente seleccionado](cliente.png)
+![Vista general de la página del cliente seleccionado](./img/cliente.png)
 
 #### Estructura de componentes CRUD
 
-![Estructura de carpetas para la página de clientes](estructura_carpetas_clientes.png)
+![Estructura de carpetas para la página de clientes](./img/estructura_carpetas_clientes.png)
 
 ### 4. UsuariosWebClosterPage
 
@@ -76,14 +76,85 @@ ActivaMecodex está construida sin Zone.js y aprovecha el modo [Zoneless](https:
 
 #### Visualización:
 
-![Vista general de la página de usuarios de webcloster](usuarios_webcloster.png)
+![Vista general de la página de usuarios de webcloster](./img/usuarios_webcloster.png)
 
 #### Estructura de carpetas para la página de usuarios de webcloster:
 
-![Estructura de carpetas para la página de usuarios de webcloster](estructura_usuarios_webcloster.png)
+![Estructura de carpetas para la página de usuarios de webcloster](./img/estructura_usuarios_webcloster.png)
 
 
 ---
+
+## Servicios 🖥
+
+**Propósito:** Proveer servicios HTTP para interactuar con las APIs del backend, gestionando usuarios, autenticación JWT, datos de clientes y métricas. Estos servicios se encargan de realizar solicitudes HTTP a la API, manejar respuestas y errores mediante RxJS, y proporcionar estado reactivo usando Signals de Angular.
+
+### Categorías de Servicios
+
+#### 1. **Autenticación y Autorización**
+- **`AuthService`** (`auth-service/auth.service.ts`)
+  - Maneja login con JWT (JSON Web Token)
+  - Almacena y valida tokens en `localStorage`
+  - Gestiona el estado de sesión del usuario autenticado
+  - Verifica roles (Administrador, Soporte) para control de acceso
+  - Proporciona métodos: `loginUsuarioService()`, `isAutenthicate()`, `getCurrentUser()`, `getCurrentUserRole()`, `hasRole()`, `logOut()`
+
+#### 2. **Gestión de Usuarios**
+- **`UsuariosService`** (`usuarios.service.ts`)
+  - CRUD completo de clientes Mecodex
+  - Métodos: `getUsuarios()`, `createUser()`, `updateUser()`, `deleteUser()`
+  - Consume endpoint principal de clientes
+
+- **`UsuariosWebClosterService`** (`usuarios-webcloster.service.ts`)
+  - CRUD de usuarios del sistema (solo accesible por administradores)
+  - Métodos: `getUsuariosWebCloster()`, `createUsuariosWebCloster()`, `updateUsuariosWebCloster()`, `deleteUsuarioWebCloster()`
+
+#### 3. **Datos de Cliente y Configuración**
+- **`CuentaService`** (`cuenta.service.ts`)
+  - Gestiona cuentas Mecodex asociadas a clientes
+  - Métodos: `getCuenta()`, `createCuenta()`, `updateCuentaLicencia()`
+  - Almacena en signal el ID de licencia seleccionada
+
+- **`LicenciaService`** (`licencia.service.ts`)
+  - Obtiene y almacena listado de licencias disponibles
+  - Usa signal reactivo para el estado de licencias
+  - Método: `getLicenciasService()`
+
+- **`PaisServicioService`** (`pais-servicio.service.ts`)
+  - Obtiene catálogo de países para formularios
+  - Método: `getPaises()`
+
+- **`DocumentosService`** (`documentos.service.ts`)
+  - Obtiene tipos de documentos (CC, CE, etc.)
+  - Método: `getDocuments()`
+
+- **`RolesUsuariosService`** (`roles-usuarios.service.ts`)
+  - Obtiene catálogo de roles del sistema
+  - Método: `getRoles()`
+
+#### 4. **Métricas y Dashboard**
+- **`MetricasService`** (`metricas.service.ts`)
+  - Provee datos para las gráficas del dashboard
+  - Métodos especializados:
+    - `getMetricasGenerales()` - Total de clientes
+    - `getMetricasPlanes()` - Distribución por plan
+    - `getMetricasPaises()` - Clientes por país
+    - `getMetricasEvolucion()` - Evolución mensual
+  - Cada método consulta el mismo endpoint con parámetro `tipo` diferente
+
+### Características Técnicas
+
+- **Estado Reactivo:** Todos los servicios usan Signals para almacenar URLs de API y datos reactivos
+- **Manejo de Errores:** Implementan `catchError` de RxJS para capturar y propagar errores HTTP
+- **Transformación de Datos:** Usan operadores `map` para transformar respuestas de API a interfaces TypeScript
+- **Variables de Entorno:** Todas las URLs de API se configuran desde `src/environments/environment.ts`
+- **Inyección Singleton:** Todos los servicios usan `providedIn: 'root'` para una única instancia en la aplicación
+
+#### Estructura de carpetas para los servicios:
+
+![Estructura de carpetas para los servicios](./img/servicios.png)
+
+
 
 ## Notas técnicas adicionales
 

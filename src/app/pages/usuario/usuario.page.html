@@ -374,7 +374,7 @@
                     ></ion-icon>
                     <ion-label>
                       <ion-text
-                        ><strong>Contraseña:</strong> {{ useCuenta()?.password || 'N/A' }}</ion-text
+                        ><strong>Contraseña:</strong> {{ useCuenta()?.password || 'N/A' | hidePassword }}</ion-text
                       >
                     </ion-label>
                   </ion-item>

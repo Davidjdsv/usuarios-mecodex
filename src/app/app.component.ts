@@ -167,6 +167,6 @@ export class AppComponent {
   }
 
   goToDocs(){
-    window.open('http://localhost:3000/', "_blank");
+    window.open('http://localhost:3000/usuarios-mecodex/', "_blank");
   }
 }

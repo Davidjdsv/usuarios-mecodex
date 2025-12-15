@@ -1,4 +1,4 @@
-import { Component, computed, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -52,21 +52,24 @@ export class LoginPage {
 
 
   async loginUsuario(usuario: string, clave: string){
-    this.loading.set(true);
     this.authService.loginUsuarioService(usuario, clave).subscribe({
       next: async (response) => {
         if (response.success) {
-          this.router.navigate(['/inicio']);
-          
+          this.loading.set(true);
+          //Validar vista según rol
+          if(this.authService.getCurrentUserRole() == "Administrador"){
+            this.router.navigate(['/inicio'])
+          } else {
+            this.router.navigate(['/usuarios']);
+          }
+          this.authService.actualizarRol();
+
           const toast = await this.toastController.create({
             message: "Inicio de sesión exitoso",
             duration: 2000,
             color: "medium",
           })
           await toast.present();
-
-        } else {
-          console.error('Error de autenticación:', response.message);
         }
       },
       error: async (error) => {

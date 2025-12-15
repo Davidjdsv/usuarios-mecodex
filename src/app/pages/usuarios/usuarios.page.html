@@ -215,7 +215,7 @@
               
             <ion-button
               color="primary"
-              [routerLink]="['/usuario', usuario.id]">
+              (click)="getUser(usuario.id)">
               <ion-icon name="caret-forward-outline" slot="start"></ion-icon>
               Más detalles
             </ion-button>
