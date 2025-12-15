@@ -56,7 +56,12 @@ export class LoginPage {
       next: async (response) => {
         if (response.success) {
           this.loading.set(true);
-          this.router.navigate(['/inicio']);
+          //Validar vista según rol
+          if(this.authService.getCurrentUserRole() == "Administrador"){
+            this.router.navigate(['/inicio'])
+          } else {
+            this.router.navigate(['/usuarios']);
+          }
           this.authService.actualizarRol();
 
           const toast = await this.toastController.create({
