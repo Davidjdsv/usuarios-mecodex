@@ -13,9 +13,9 @@ import {
   IonCol,
   IonText,
   IonIcon,
-  ToastController
+  ToastController,
 } from '@ionic/angular/standalone';
-import { AuthService } from '../../core/services/auth-service/auth.service';
+import { AuthService } from '../../core/services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -40,51 +40,50 @@ import { AuthService } from '../../core/services/auth-service/auth.service';
 })
 export class LoginPage {
   // Variables para el formulario
-  usuario = signal<string>("");
-  clave = signal<string>("");
+  usuario = signal<string>('');
+  clave = signal<string>('');
   loading = signal<boolean>(false);
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private toastController: ToastController,
+    private toastController: ToastController
   ) {}
 
-
-  async loginUsuario(usuario: string, clave: string){
+  async loginUsuario(usuario: string, clave: string) {
     this.authService.loginUsuarioService(usuario, clave).subscribe({
       next: async (response) => {
         if (response.success) {
           this.loading.set(true);
           //Validar vista según rol
-          if(this.authService.getCurrentUserRole() == "Administrador"){
-            this.router.navigate(['/inicio'])
+          if (this.authService.getCurrentUserRole() == 'Administrador') {
+            this.router.navigate(['/inicio']);
           } else {
             this.router.navigate(['/usuarios']);
           }
           this.authService.actualizarRol();
 
           const toast = await this.toastController.create({
-            message: "Inicio de sesión exitoso",
+            message: 'Inicio de sesión exitoso',
             duration: 2000,
-            color: "medium",
-          })
+            color: 'medium',
+          });
           await toast.present();
         }
       },
       error: async (error) => {
         console.error('Error en la solicitud:', error);
         const toast = await this.toastController.create({
-          message: "Usuario o contraseña incorrectos",
+          message: 'Usuario o contraseña incorrectos',
           duration: 2000,
-          color: "danger",
-        })
+          color: 'danger',
+        });
         await toast.present();
-      }
+      },
     });
   }
 
-  logOut(){
-    this.authService.logOut()
+  logOut() {
+    this.authService.logOut();
   }
 }

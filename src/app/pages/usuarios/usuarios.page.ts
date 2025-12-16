@@ -40,7 +40,7 @@ import { NotFoundComponent } from 'src/app/components/not-found/not-found.compon
 import { AddClientComponent } from 'src/app/components/clientes/add-client/add-client.component';
 import { EditClientComponent } from 'src/app/components/clientes/edit-client/edit-client.component';
 import { DeleteClientComponent } from 'src/app/components/clientes/delete-client/delete-client.component';
-import { CacheService } from 'src/app/core/services/cache.service';
+import { CacheService } from 'src/app/core/services/cache/cache.service';
 
 @Component({
   selector: 'app-usuarios',
