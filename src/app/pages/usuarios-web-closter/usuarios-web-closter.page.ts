@@ -72,7 +72,7 @@ import { CacheWebClosterService } from 'src/app/core/services/cache/cache-web-cl
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UsuariosWebClosterPage implements OnInit {
-  folder = signal('Usuarios web closter');
+  folder = signal('Usuarios WebCloster');
   usuariosWc = signal(<UsuariosWebClosterInterface[]>[]);
   searchQuery = signal('');
   pageSize = signal(10);
