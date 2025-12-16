@@ -39,29 +39,29 @@
 :root {
     /* Paleta personalizada (tema claro) usando los colores provistos:
     #357ff8 (azul principal), #29b6f6 (azul claro) y #00b1ce (cian) */
-    --color-primary: #357ff8; /* Color primario base */
-    --color-primary-dark: #00b1ce; /* Variante "oscura" basada en el cian provisto */
-    --color-primary-darker: #00b1ce; /* Reutilizamos el cian por consistencia */
-    --color-primary-darkest: #00b1ce; /* Reutilizamos el cian por consistencia */
-    --color-primary-light: #29b6f6; /* Tonos claros del primario */
-    --color-primary-lighter: #29b6f6; /* Reutilizamos el azul claro */
-    --color-primary-lightest: #29b6f6; /* Reutilizamos el azul claro */
-    --color-danger: #c9111f
-    --color-white: #f2f8f9; /* Reutilizamos el azul claro */
-    --code-font-size: 95%;
-    --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+    --ion-color-primary: #3fbef8; /* Color primario base */
+    --ion-color-primary-dark: #2e80fa; /* Variante "oscura" basada en el cian provisto */
+    --ion-color-danger: #c9111f;
+    --ion-color-white: #f2f8f9; /* Reutilizamos el azul claro */
+    --ion-code-font-size: 95%;
+    --ion-docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+.ion-color-primary-dark {
+    --ion-color-base: var(--ion-color-primary-dark);
+    --ion-color-base-rgb: var(--ion-color-primary-dark-rgb);
+    --ion-color-contrast: var(--ion-color-primary-dark-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-primary-dark-contrast-rgb);
+    --ion-color-shade: var(--ion-color-primary-dark-shade);
+    --ion-color-tint: var(--ion-color-primary-dark-tint);
 }
 
 ion-icon{
-    color: var(--color-primary);
-}
-
-ion-button, ion-icon{
-    color: var(--color-white);
+    color: var(--ion-color-primary-dark);
 }
 
 body{
-    scrollbar-color: #357ff8 #f2f8f9;
+    scrollbar-color: #3fbef8 #f2f8f9;
     scrollbar-width: thin;
 }
 
