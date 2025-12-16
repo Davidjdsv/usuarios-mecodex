@@ -40,6 +40,7 @@ import { NotFoundComponent } from 'src/app/components/not-found/not-found.compon
 import { AddClientComponent } from 'src/app/components/clientes/add-client/add-client.component';
 import { EditClientComponent } from 'src/app/components/clientes/edit-client/edit-client.component';
 import { DeleteClientComponent } from 'src/app/components/clientes/delete-client/delete-client.component';
+import { CacheService } from 'src/app/core/services/cache.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -116,22 +117,28 @@ export class UsuariosPage implements OnInit {
   // O se pueden injectar por inject (Mas moderno)
   private usuariosServices = inject(UsuariosService);
 
+  private cacheService = inject(CacheService);
+
   ngOnInit() {
-    this.usuariosServices.getUsuarios().subscribe({
-      next: (res: UsuariosInterface[]) => {
-        // Guardar los usuarios originales sin modificar
-        this.usuariosOriginales.set(res);
-        // Establecer el índice inicial en 0
-        this.indiceActual.set(0);
-        // Cargar los primeros usuarios
-        this.cargarUsuariosInicial();
-        // Contar usuarios por tipo después de cargar
-        this.contarUsuariosPorTipo();
-      },
-      error: (err: any) => {
-        console.log(err);
-      },
-    });
+    if(this.cacheService.isCacheValido()) {
+      const usuariosCache = this.cacheService.getUsuarios();
+      this.usuariosOriginales.set(usuariosCache);
+      this.cargarUsuariosInicial();
+      this.contarUsuariosPorTipo();
+    } else {
+      this.usuariosServices.getUsuarios().subscribe({
+        next: (res: UsuariosInterface[]) => {
+          this.cacheService.setUsuarios(res);
+
+          this.usuariosOriginales.set(res);
+          this.cargarUsuariosInicial();
+          this.contarUsuariosPorTipo();
+        },
+        error: (err: any) => {
+          console.log(err);
+        },
+      });
+    }
   }
 
   // * Método para cargar los primeros usuarios al iniciar (Según la cantidad LIMITE_USUARIOS)
@@ -315,9 +322,11 @@ export class UsuariosPage implements OnInit {
     if (role === 'guardar') {
       this.usuariosServices.createUser(data).subscribe({
         next: async (_res: any) => {
+          this.cacheService.invalidarCache();
           // Tras crear el cliente, recargamos la lista desde el backend para reflejar los cambios.
           this.usuariosServices.getUsuarios().subscribe({
             next: async (lista: UsuariosInterface[]) => {
+              this.cacheService.setUsuarios(lista);
               this.usuariosOriginales.set(lista);
 
               // Mostrar alerta de éxito
@@ -356,9 +365,11 @@ export class UsuariosPage implements OnInit {
     if (role === 'confirmar') {
       this.usuariosServices.deleteUser(usuario.id).subscribe({
         next: async (_res) => {
+          this.cacheService.invalidarCache();
           // Tras eliminar el cliente, recargamos la lista desde el backend para reflejar los cambios.
           this.usuariosServices.getUsuarios().subscribe({
             next: async (lista: UsuariosInterface[]) => {
+              this.cacheService.setUsuarios(lista);
               this.usuariosOriginales.set(lista);
 
               // Mostrar alerta de éxito
@@ -391,9 +402,11 @@ export class UsuariosPage implements OnInit {
     if (role === 'guardar') {
       this.usuariosServices.updateUser(data).subscribe({
         next: async (_res: any) => {
+          this.cacheService.invalidarCache();
           // Tras actualizar el cliente, recargamos la lista desde el backend para reflejar los cambios.
           this.usuariosServices.getUsuarios().subscribe({
             next: async (lista: UsuariosInterface[]) => {
+              this.cacheService.setUsuarios(lista);
               this.usuariosOriginales.set(lista);
 
               // Mostrar alerta de éxito
@@ -403,7 +416,7 @@ export class UsuariosPage implements OnInit {
               this.cargarUsuariosInicial();
               this.contarUsuariosPorTipo();
             },
-            error: async (err) => {
+            error: async () => {
               await this.showErrorAlert("Algo falló al actualizar al cliente");
             },
           });

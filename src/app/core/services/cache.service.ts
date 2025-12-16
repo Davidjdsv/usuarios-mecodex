@@ -12,7 +12,7 @@ export class CacheService {
   private cacheValido = signal<boolean>(false);
 
   // Obtiene los datos del caché
-  getusuarios(){
+  getUsuarios(){
     return this.usuariosCache();
   }
 
