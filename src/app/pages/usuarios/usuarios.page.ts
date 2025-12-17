@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import {
   IonContent,
   IonHeader,
@@ -32,6 +32,10 @@ import {
   AlertController,
   ModalController,
   IonInfiniteScrollContent,
+  IonSegment,
+  IonSegmentButton,
+  IonSegmentView,
+  IonSegmentContent
 } from '@ionic/angular/standalone';
 
 import { UsuariosInterface } from 'src/app/models/usuarios-interface';
@@ -72,6 +76,10 @@ import { CacheService } from 'src/app/core/services/cache/cache.service';
     NotFoundComponent,
     IonInfiniteScroll,
     IonInfiniteScrollContent,
+    IonSegment,
+    IonSegmentButton,
+    IonSegmentView,
+    IonSegmentContent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -102,7 +110,8 @@ export class UsuariosPage implements OnInit {
 
   id = signal<number | null>(null);
 
-  
+  // Signal para controlar qué segment está activo
+  selectedSegment = signal<string>('clientes');
   
   // Se puede injectar las dependencias en el constructor (Clásico)
   constructor(
@@ -433,4 +442,9 @@ export class UsuariosPage implements OnInit {
     }
   }
   // * FIN DE OPERACIONES DE CRUD
+
+  // * Método para cambiar el segment activo
+  onSegmentChange(event: any) {
+    this.selectedSegment.set(event.detail.value);
+  }
 }
