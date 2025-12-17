@@ -34,8 +34,6 @@ import {
   IonInfiniteScrollContent,
   IonSegment,
   IonSegmentButton,
-  IonSegmentView,
-  IonSegmentContent
 } from '@ionic/angular/standalone';
 
 import { UsuariosInterface } from 'src/app/models/usuarios-interface';
@@ -78,8 +76,6 @@ import { CacheService } from 'src/app/core/services/cache/cache.service';
     IonInfiniteScrollContent,
     IonSegment,
     IonSegmentButton,
-    IonSegmentView,
-    IonSegmentContent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

@@ -1,9 +1,12 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
-<svg width="800px" height="800px" viewBox="-2.4 -2.4 28.80 28.80" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg fill="#ffffff" width="800px" height="800px" viewBox="-7.2 -7.2 86.40 86.40" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
 <g id="SVGRepo_bgCarrier" stroke-width="0">
-<path transform="translate(-2.4, -2.4), scale(1.7999999999999998)" fill="#3fbef8" d="M9.166.33a2.25 2.25 0 00-2.332 0l-5.25 3.182A2.25 2.25 0 00.5 5.436v5.128a2.25 2.25 0 001.084 1.924l5.25 3.182a2.25 2.25 0 002.332 0l5.25-3.182a2.25 2.25 0 001.084-1.924V5.436a2.25 2.25 0 00-1.084-1.924L9.166.33z" strokewidth="0"/>
+<path transform="translate(-7.2, -7.2), scale(5.4)" fill="#3fbef8" d="M9.166.33a2.25 2.25 0 00-2.332 0l-5.25 3.182A2.25 2.25 0 00.5 5.436v5.128a2.25 2.25 0 001.084 1.924l5.25 3.182a2.25 2.25 0 002.332 0l5.25-3.182a2.25 2.25 0 001.084-1.924V5.436a2.25 2.25 0 00-1.084-1.924L9.166.33z" strokewidth="0"/>
 </g>
 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
-<g id="SVGRepo_iconCarrier"> <path d="M3 13.6493C3 16.6044 5.41766 19 8.4 19L16.5 19C18.9853 19 21 16.9839 21 14.4969C21 12.6503 19.8893 10.9449 18.3 10.25C18.1317 7.32251 15.684 5 12.6893 5C10.3514 5 8.34694 6.48637 7.5 8.5C4.8 8.9375 3 11.2001 3 13.6493Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> </g>
+<g id="SVGRepo_iconCarrier">
+<title>cloud-o</title>
+<path d="M43,14.06A10.47,10.47,0,0,1,53.42,24.39a4.48,4.48,0,0,0-.05.64l-.09,2.56,2.42.84a6.94,6.94,0,0,1-2.28,13.51H18.58A7,7,0,0,1,18.47,28l.5.05,2.65.18.87-2.5A7,7,0,0,1,29,21a6.86,6.86,0,0,1,1.22.13l2.44.44,1.21-2.16A10.46,10.46,0,0,1,43,14.06m0-3.48a13.86,13.86,0,0,0-12.1,7.15A11.14,11.14,0,0,0,29,17.55a10.4,10.4,0,0,0-9.83,7c-.21,0-.41-.06-.62-.06a10.45,10.45,0,0,0,0,20.9H53.42a10.43,10.43,0,0,0,3.42-20.29c0-.21.07-.4.07-.61A13.94,13.94,0,0,0,43,10.58Z"/>
+</g>
 </svg>
