@@ -9,7 +9,7 @@
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
-    <ion-toolbar class="ion-margin-bottom">
+    <ion-toolbar>
       <ion-title size="large">{{ folder() }}</ion-title>
     </ion-toolbar>
   </ion-header>
@@ -24,7 +24,7 @@
   } @else {
 
   <!-- Segment para cambiar entre clientes y cuentas -->
-  <ion-segment
+  <ion-segment 
     [value]="selectedSegment()" 
     (ionChange)="onSegmentChange($event)">
     <ion-segment-button value="clientes">
@@ -40,13 +40,15 @@
 
   <!-- Contenido de CLIENTES -->
   @if (selectedSegment() === 'clientes') {
-    <ion-searchbar
-      class=""
-      placeholder="Buscar cliente por nombre, correo o número de teléfono"
-      [(ngModel)]="searchUsers"
-      [debounce]="1000"
-      (ionInput)="filterUsers()"
-    ></ion-searchbar>
+    <div class="box-center">      
+      <ion-searchbar
+        class="ion-margin-top"
+        placeholder="Buscar cliente por nombre, correo o número de teléfono"
+        [(ngModel)]="searchUsers"
+        [debounce]="1000"
+        (ionInput)="filterUsers()"
+      ></ion-searchbar>
+    </div>
 
     <ion-button
       color="primary-dark"
@@ -56,11 +58,11 @@
       <ion-icon
         name="person-add-outline"
         slot="start"
-        expand="block"
         color="tertiary"
       ></ion-icon>
       Agregar Cliente
     </ion-button>
+
     @for (usuario of usuarios(); track usuario.id; let i = $index) {
     <ion-card class="ion-margin-top card-hover user-card ion-no-padding">
       <ion-card-content class="ion-no-padding">
@@ -75,7 +77,7 @@
               <ion-thumbnail class="thumb-cover">
                 <img
                   alt="A silloute of a user"
-                  src="../../../assets/icon/customer2-solid.svg"
+                  src="../../../assets/icon/user-group-solid.svg"
                 />
               </ion-thumbnail>
             </ion-col>
@@ -259,29 +261,270 @@
 
   <!-- Contenido de CUENTAS -->
   @if (selectedSegment() === 'cuentas') {
+    <div class="box-center">
+      <ion-searchbar
+        class="ion-margin-top"
+        placeholder="Buscar cuenta por usuario o correo"
+        [(ngModel)]="searchUsers"
+        [debounce]="1000"
+        (ionInput)="filterUsers()"
+      ></ion-searchbar>
+    </div>
     <div
       class="main-text-container ion-justify-content-between ion-align-items-center"
     >
       <ion-text
         ><h3>
-          Cuentas
+          Usuarios
           <ion-badge class="plan-badge plan-pro-plus">PRO PLUS</ion-badge> :
           {{ cont_usuarios_pro_plus() }}
         </h3></ion-text
       >
       <ion-text
         ><h3>
-          Cuentas <ion-badge class="plan-badge plan-pro">PRO</ion-badge> : {{
+          Usuarios <ion-badge class="plan-badge plan-pro">PRO</ion-badge> : {{
           cont_usuarios_pro() }}
         </h3></ion-text
       >
       <ion-text
         ><h3>
-          Cuentas <ion-badge class="plan-badge plan-lite">LITE</ion-badge> :
+          Usuarios <ion-badge class="plan-badge plan-lite">LITE</ion-badge> :
           {{ cont_usuarios_lite() }}
         </h3></ion-text
       >
     </div>
+    
+    <ion-card>
+      <ion-card-content>
+        <ion-grid [fixed]="true">
+          <ion-row class="ion-align-items-stretch ion-justify-content-between">
+            <ion-col size="12" size-md="4" class="meta">
+              <ion-item lines="none" aria-label="favorite">
+                <ion-icon
+                  slot="start"
+                  color="primary-dark"
+                  name="card-outline"
+                  aria-hidden="true"
+                ></ion-icon>
+                <ion-label>
+                  <ion-text>
+                    <strong>Plan Mecodex:</strong> PRO PLUS
+                  </ion-text>
+                </ion-label>
+              </ion-item>
+    
+              <ion-item lines="none" aria-label="favorite">
+                <ion-icon
+                  slot="start"
+                  color="primary-dark"
+                  name="mail-outline"
+                  aria-hidden="true"
+                ></ion-icon>
+                <ion-label>
+                  <ion-text>
+                    <strong>Correo Cuenta:</strong> ejemplo@mecodex.com
+                  </ion-text>
+                </ion-label>
+              </ion-item>
+            </ion-col>
+    
+            <ion-col size="12" size-md="4" class="meta">
+              <ion-item lines="none" aria-label="favorite">
+                <ion-icon
+                  slot="start"
+                  color="primary-dark"
+                  name="cloud"
+                  aria-hidden="true"
+                ></ion-icon>
+                <ion-label>
+                  <ion-text>
+                    <strong>IDApp Status:</strong> ACTIVO
+                  </ion-text>
+                </ion-label>
+              </ion-item>
+    
+              <ion-item lines="none" aria-label="favorite">
+                <ion-icon
+                  slot="start"
+                  color="primary-dark"
+                  name="cloud"
+                  aria-hidden="true"
+                ></ion-icon>
+                <ion-label>
+                  <ion-text>
+                    <strong>IDApp Din:</strong> 12345
+                  </ion-text>
+                </ion-label>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+    
+          <div class="break-section" aria-label="sección-divisor">
+            <span class="break-section__text">Información general</span>
+          </div>
+    
+        <ion-grid [fixed]="true">
+          <ion-row class="ion-align-items-stretch ion-justify-content-between">
+            <ion-col size="12" size-md="4" class="meta">
+              <ion-item lines="none" aria-label="favorite">
+                <ion-icon
+                  slot="start"
+                  color="primary-dark"
+                  name="grid-outline"
+                  aria-hidden="true"
+                ></ion-icon>
+                <ion-label>
+                  <ion-text>
+                    <strong>Estado Cuenta:</strong> Activa
+                  </ion-text>
+                </ion-label>
+              </ion-item>
+    
+              <ion-item lines="none" aria-label="favorite">
+                <ion-icon
+                  slot="start"
+                  color="primary-dark"
+                  name="key-outline"
+                  aria-hidden="true"
+                ></ion-icon>
+                <ion-label>
+                  <ion-text>
+                    <strong>Contraseña:</strong> ********
+                  </ion-text>
+                </ion-label>
+              </ion-item>
+    
+              <ion-item lines="none" aria-label="favorite">
+                <ion-icon
+                  slot="start"
+                  color="primary-dark"
+                  name="information-circle-outline"
+                  aria-hidden="true"
+                ></ion-icon>
+                <ion-label>
+                  <ion-text>
+                    <strong>Versión App:</strong> 1.2.3
+                  </ion-text>
+                </ion-label>
+              </ion-item>
+    
+              <ion-item lines="none" aria-label="favorite">
+                <ion-icon
+                  slot="start"
+                  color="primary-dark"
+                  name="sync-outline"
+                  aria-hidden="true"
+                ></ion-icon>
+                <ion-label>
+                  <ion-text>
+                    <strong>Sincronización total:</strong> 100%
+                  </ion-text>
+                </ion-label>
+              </ion-item>
+            </ion-col>
+    
+            <ion-col size="12" size-md="4" class="meta">
+              <ion-item lines="none" aria-label="favorite">
+                <ion-icon
+                  slot="start"
+                  color="primary-dark"
+                  name="calendar-outline"
+                  aria-hidden="true"
+                ></ion-icon>
+                <ion-label>
+                  <ion-text>
+                    <strong>Fecha actualización modo conexión:</strong> 2025-01-15
+                  </ion-text>
+                </ion-label>
+              </ion-item>
+    
+              <ion-item lines="none" aria-label="favorite">
+                <ion-icon
+                  slot="start"
+                  color="primary-dark"
+                  name="calendar-number"
+                  aria-hidden="true"
+                ></ion-icon>
+                <ion-label>
+                  <ion-text>
+                    <strong>Fecha creación cuenta:</strong> 2024-06-10
+                  </ion-text>
+                </ion-label>
+              </ion-item>
+    
+              <ion-item lines="none" aria-label="favorite">
+                <ion-icon
+                  slot="start"
+                  color="primary-dark"
+                  name="radio-outline"
+                  aria-hidden="true"
+                ></ion-icon>
+                <ion-label>
+                  <ion-text>
+                    <strong>Modo conexión:</strong> Online
+                  </ion-text>
+                </ion-label>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+    
+        <div class="break-section" aria-label="sección-divisor">
+          <span class="break-section__text">Calificación</span>
+        </div>
+    
+        <ion-grid [fixed]="true">
+          <ion-row class="ion-align-items-stretch ion-justify-content-between">
+            <ion-col size="12" size-md="4" class="meta">
+              <ion-item lines="none" aria-label="favorite">
+                <ion-icon
+                  slot="start"
+                  color="primary-dark"
+                  name="calendar-outline"
+                  aria-hidden="true"
+                ></ion-icon>
+                <ion-label>
+                  <ion-text>
+                    <strong>Fecha Calificación:</strong> 2025-01-10
+                  </ion-text>
+                </ion-label>
+              </ion-item>
+    
+              <ion-item lines="none" aria-label="favorite">
+                <ion-icon
+                  slot="start"
+                  color="primary-dark"
+                  name="information-circle-outline"
+                  aria-hidden="true"
+                ></ion-icon>
+                <ion-label>
+                  <ion-text>
+                    <strong>Mensaje Calificación:</strong> Excelente servicio
+                  </ion-text>
+                </ion-label>
+              </ion-item>
+            </ion-col>
+    
+            <ion-col size="12" size-md="4" class="meta">
+              <ion-item lines="none" aria-label="favorite">
+                <ion-icon
+                  slot="start"
+                  color="primary-dark"
+                  name="star-outline"
+                  aria-hidden="true"
+                ></ion-icon>
+                <ion-label>
+                  <ion-text>
+                    <strong>Calificación:</strong> ⭐⭐⭐⭐⭐
+                  </ion-text>
+                </ion-label>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
   }
 
   }
