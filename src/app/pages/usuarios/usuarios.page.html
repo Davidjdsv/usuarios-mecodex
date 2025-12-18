@@ -240,7 +240,7 @@
   </ion-card>
   }
 
-  <ion-infinite-scroll (ionInfinite)="loadMore($event)" threshold="10%">
+  <ion-infinite-scroll loadingText="Cargando más usuarios..." (ionInfinite)="loadMore($event)" threshold="10%">
     <ion-infinite-scroll-content
       loading-text="Cargando más clientes..."
       loadingSpinner="crescent"
@@ -254,9 +254,9 @@
     <ion-searchbar
       class="ion-margin-top"
       placeholder="Buscar cuenta por usuario o correo"
-      [(ngModel)]="searchUsers"
+      [(ngModel)]="searchCuentas"
       [debounce]="1000"
-      (ionInput)="filterUsers()"
+      (ionInput)="filterCuentas()"
     ></ion-searchbar>
   </div>
   <div
@@ -285,6 +285,9 @@
 
   @for (cuenta of cuentas(); track cuenta.id; let i = $index) {
   <ion-card>
+    <ion-card-header color="primary">
+      <ion-card-title>Cuenta {{ cuenta.cliente_nombre }}</ion-card-title>
+    </ion-card-header>
     <ion-card-content>
       <ion-grid [fixed]="true">
         <ion-row class="ion-align-items-stretch ion-justify-content-between">

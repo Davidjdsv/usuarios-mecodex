@@ -17,6 +17,8 @@ import {
   IonMenuButton,
   IonButtons,
   IonCard,
+  IonCardHeader,
+  IonCardTitle,
   IonCardContent,
   IonThumbnail,
   IonIcon,
@@ -61,6 +63,8 @@ import { CacheCuentaService } from 'src/app/core/services/cache/cache-cuenta.ser
     IonMenuButton,
     IonButtons,
     IonCard,
+    IonCardHeader,
+    IonCardTitle,
     IonCardContent,
     IonThumbnail,
     IonItem,
@@ -100,6 +104,7 @@ export class UsuariosPage implements OnInit {
 
   // * SIGNAL PARA BÚSQUEDA (compartido)
   searchUsers = signal<string>('');
+  searchCuentas = signal<string>('');
 
   // * CONTADORES
   cont_usuarios_pro_plus = signal<number>(0);
@@ -145,11 +150,9 @@ export class UsuariosPage implements OnInit {
   }
 
   ngOnInit() {
-    // 👇 Carga inicial solo de clientes (segment por defecto)
     this.cargarClientes();
   }
 
-  // 👇 MÉTODOS PARA CARGAR CLIENTES
   private cargarClientes() {
     if (this.cacheService.isCacheValido()) {
       const usuariosCache = this.cacheService.getUsuarios();
@@ -268,6 +271,31 @@ export class UsuariosPage implements OnInit {
     }
 
     this.usuarios.set(usuariosFiltrados);
+  }
+
+  filterCuentas() {
+    const query = this.searchCuentas().toLowerCase();
+
+    if (!query || query.trim() === '') {
+      this.indiceActualCuentas.set(0);
+      this.cargarCuentasInicial();
+      return;
+    }
+
+    const cuentasFiltradas = this.cuentasOriginales().filter(
+      (cuenta) =>
+        cuenta.cliente_nombre.toLowerCase().includes(query) ||
+        cuenta.correo.toLowerCase().includes(query)
+    );
+
+    if (cuentasFiltradas.length === 0) {
+      console.log('No se encontró ninguna cuenta');
+    } else {
+      console.log(`Se encontraron ${cuentasFiltradas.length} cuenta(s)`);
+    }
+
+    this.cuentas.set(cuentasFiltradas);
+    this.indiceActualCuentas.set(this.LIMITE_CUENTAS);
   }
 
   // 👇 Infinite scroll para CLIENTES
