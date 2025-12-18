@@ -4,6 +4,7 @@ import {
   ChangeDetectionStrategy,
   signal,
   inject,
+  effect,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -38,11 +39,14 @@ import {
 
 import { UsuariosInterface } from 'src/app/models/usuarios-interface';
 import { UsuariosService } from 'src/app/core/services/usuarios.service';
+import { CuentaService } from 'src/app/core/services/cuenta.service';
 import { NotFoundComponent } from 'src/app/components/not-found/not-found.component';
 import { AddClientComponent } from 'src/app/components/clientes/add-client/add-client.component';
 import { EditClientComponent } from 'src/app/components/clientes/edit-client/edit-client.component';
 import { DeleteClientComponent } from 'src/app/components/clientes/delete-client/delete-client.component';
-import { CacheService } from 'src/app/core/services/cache/cache.service';
+import { CacheUsuarioService } from 'src/app/core/services/cache/cache-usuario.service';
+import { CuentaInterface } from 'src/app/models/cuenta-interface';
+import { CacheCuentaService } from 'src/app/core/services/cache/cache-cuenta.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -81,23 +85,23 @@ import { CacheService } from 'src/app/core/services/cache/cache.service';
 })
 export class UsuariosPage implements OnInit {
   folder = signal('Clientes Mecodex');
-  // * Una señal de tipo array de UsuariosInterface que contiene un array vacío como valor inicial
+  
+  // * SIGNALS PARA CLIENTES
   usuarios = signal<UsuariosInterface[]>([]);
-
-  // * Señal para guardar los usuarios originales sin filtrar
   usuariosOriginales = signal<UsuariosInterface[]>([]);
-
-  // * Una señal de tipo string que contiene una cadena vacía como valor inicial.
-  // * Se utiliza para almacenar el texto de búsqueda ingresado por el usuario en el buscador que es enviada por [(ngModel)]="searchUsers".
-  searchUsers = signal<string>('');
-
-  // * Índice para controlar desde dónde cargar más usuarios
   indiceActual = signal<number>(0);
-
-  // * Límite máximo de usuarios a mostrar por scroll del ion-infinite-scroll
   LIMITE_USUARIOS = 5;
 
-  // Contadores para usuarios por tipo de plan
+  // * SIGNALS PARA CUENTAS
+  cuentas = signal<CuentaInterface[]>([]);
+  cuentasOriginales = signal<CuentaInterface[]>([]);
+  indiceActualCuentas = signal<number>(0);
+  LIMITE_CUENTAS = 5;
+
+  // * SIGNAL PARA BÚSQUEDA (compartido)
+  searchUsers = signal<string>('');
+
+  // * CONTADORES
   cont_usuarios_pro_plus = signal<number>(0);
   cont_usuarios_pro_plus_web = signal<number>(0);
   cont_usuarios_pro = signal<number>(0);
@@ -106,22 +110,48 @@ export class UsuariosPage implements OnInit {
 
   id = signal<number | null>(null);
 
+  // * SIGNAL PARA EL SEGMENT
   selectedSegment = signal<string>('clientes');
   
   private mdlController = inject(ModalController);
   private alertController = inject(AlertController);
   private router = inject(Router);
-
-  // this.id.set(Number(this.activatedRoute.snapshot.paramMap.get('id')));
-  
-  // ruta = inject(ActivatedRoute);
-  // O se pueden injectar por inject (Mas moderno)
   private usuariosServices = inject(UsuariosService);
+  private cacheService = inject(CacheUsuarioService);
+  private cuentaService = inject(CuentaService);
+  private cacheCuentaService = inject(CacheCuentaService);
 
-  private cacheService = inject(CacheService);
+  constructor() {
+    effect(() => {
+      const segment = this.selectedSegment();
+      console.log('Segment cambió a:', segment);
+      
+      // Solo ejecuta la carga si ya pasó el ngOnInit
+      if (segment === 'clientes') {
+        // Si ya hay datos de usuarios cargados, no hace nada
+        if (this.usuariosOriginales().length > 0) {
+          this.cargarUsuariosInicial();
+        }
+      } else if (segment === 'cuentas') {
+        // Si no hay cuentas cargadas, las carga
+        if (this.cuentasOriginales().length === 0) {
+          this.cargarCuentas();
+        } else {
+          // Si ya están cargadas, solo muestra las primeras
+          this.cargarCuentasInicial();
+        }
+      }
+    });
+  }
 
   ngOnInit() {
-    if(this.cacheService.isCacheValido()) {
+    // 👇 Carga inicial solo de clientes (segment por defecto)
+    this.cargarClientes();
+  }
+
+  // 👇 MÉTODOS PARA CARGAR CLIENTES
+  private cargarClientes() {
+    if (this.cacheService.isCacheValido()) {
       const usuariosCache = this.cacheService.getUsuarios();
       this.usuariosOriginales.set(usuariosCache);
       this.cargarUsuariosInicial();
@@ -130,7 +160,6 @@ export class UsuariosPage implements OnInit {
       this.usuariosServices.getUsuarios().subscribe({
         next: (res: UsuariosInterface[]) => {
           this.cacheService.setUsuarios(res);
-
           this.usuariosOriginales.set(res);
           this.cargarUsuariosInicial();
           this.contarUsuariosPorTipo();
@@ -142,7 +171,6 @@ export class UsuariosPage implements OnInit {
     }
   }
 
-  // * Método para cargar los primeros usuarios al iniciar (Según la cantidad LIMITE_USUARIOS)
   cargarUsuariosInicial() {
     const usuariosInicial = this.usuariosOriginales().slice(
       0,
@@ -152,10 +180,36 @@ export class UsuariosPage implements OnInit {
     this.indiceActual.set(this.LIMITE_USUARIOS);
   }
 
-  // * Método para contar los usuarios por tipo (más eficiente)
-  // * Recorre el array una sola vez en lugar de 5 veces
+  // 👇 MÉTODOS PARA CARGAR CUENTAS
+  private cargarCuentas() {
+    if (this.cacheCuentaService.isCacheValido()) {
+      const cuentasCache = this.cacheCuentaService.getCuentas();
+      this.cuentasOriginales.set(cuentasCache);
+      this.cargarCuentasInicial();
+    } else {
+      this.cuentaService.getCuenta().subscribe({
+        next: (res: CuentaInterface[]) => {
+          this.cacheCuentaService.setCuentas(res);
+          this.cuentasOriginales.set(res);
+          this.cargarCuentasInicial();
+        },
+        error: (err: any) => {
+          console.log(err);
+        },
+      });
+    }
+  }
+
+  cargarCuentasInicial() {
+    const cuentasInicial = this.cuentasOriginales().slice(
+      0,
+      this.LIMITE_CUENTAS
+    );
+    this.cuentas.set(cuentasInicial);
+    this.indiceActualCuentas.set(this.LIMITE_CUENTAS);
+  }
+
   contarUsuariosPorTipo() {
-    // Objeto para almacenar los contadores
     const contadores = {
       proPlus: 0,
       proPlusWeb: 0,
@@ -164,12 +218,9 @@ export class UsuariosPage implements OnInit {
       total: 0,
     };
 
-    // Recorrer una sola vez y contar según el plan
     this.usuariosOriginales().forEach((usuario) => {
-      // Incrementar contador total
       contadores.total++;
 
-      // Clasificar por tipo de plan
       switch (usuario.PLAN_MECODEX) {
         case 'PRO PLUS':
           contadores.proPlus++;
@@ -186,8 +237,6 @@ export class UsuariosPage implements OnInit {
       }
     });
 
-    // Actualizar todas las señales con los contadores
-
     this.cont_usuarios_pro_plus.set(contadores.proPlus);
     this.cont_usuarios_pro_plus_web.set(contadores.proPlusWeb);
     this.cont_usuarios_pro.set(contadores.pro);
@@ -195,20 +244,15 @@ export class UsuariosPage implements OnInit {
     this.cont_usuarios_totales.set(contadores.total);
   }
 
-  // * Método que filtra los usuarios basados en la cadena de búsqueda
-  // * Se ejecuta cada vez que el usuario escribe en el searchbar
   filterUsers() {
-    // Obtener el texto de búsqueda y convertir a minúsculas
     const query = this.searchUsers().toLowerCase();
 
-    // Si la búsqueda está vacía, mostrar todos los usuarios originales
     if (!query || query.trim() === '') {
-        this.indiceActual.set(0);
-        this.cargarUsuariosInicial();
+      this.indiceActual.set(0);
+      this.cargarUsuariosInicial();
       return;
     }
 
-    // Filtrar usuarios que coincidan por nombre, correo o teléfono
     const usuariosFiltrados = this.usuariosOriginales().filter(
       (usuario) =>
         usuario.nombre.toLowerCase().includes(query) ||
@@ -217,69 +261,88 @@ export class UsuariosPage implements OnInit {
         usuario.documento.trim().toLowerCase().includes(query)
     );
 
-    // Verificar si encontró usuarios
     if (usuariosFiltrados.length === 0) {
       console.log('No se encontró ningún usuario');
     } else {
       console.log(`Se encontraron ${usuariosFiltrados.length} usuario(s)`);
     }
 
-    // Actualizar la señal con los usuarios filtrados
     this.usuarios.set(usuariosFiltrados);
   }
 
-  // * Método para cargar más usuarios cuando se alcanza el final de la lista
+  // 👇 Infinite scroll para CLIENTES
   loadMore(event: any) {
-    // Obtener el índice actual (desde dónde cargar)
     const indice = this.indiceActual();
-
-    // Obtener el total de usuarios disponibles
     const totalUsuarios = this.usuariosOriginales().length;
-    console.log("Total usuarios:",totalUsuarios);
+    console.log('Total usuarios:', totalUsuarios);
 
-    // Verificar si ya se cargaron todos los usuarios
     if (indice >= totalUsuarios) {
       console.log('Todos los usuarios han sido cargados');
-      event.target.disabled = true; // Deshabilitar infinite scroll
+      event.target.disabled = true;
       event.target.complete();
       return;
     }
 
-    // Calcular el siguiente índice (índice actual + LIMITE_USUARIOS)
     const siguienteIndice = Math.min(
       indice + this.LIMITE_USUARIOS,
       totalUsuarios
     );
 
-    // Obtener los nuevos usuarios desde indice hasta siguienteIndice
     const nuevosUsuarios = this.usuariosOriginales().slice(
       indice,
       siguienteIndice
     );
 
-    // Agregar los nuevos usuarios a los que ya están mostrados
     const usuariosActuales = this.usuarios();
     const usuariosCombinados = [...usuariosActuales, ...nuevosUsuarios];
 
-    // Actualizar la señal de usuarios
     this.usuarios.set(usuariosCombinados);
-
-    // Actualizar el índice actual para la próxima carga
     this.indiceActual.set(siguienteIndice);
 
-    // Finalizar la carga
+    event.target.complete();
+  }
+
+  // 👇 Infinite scroll para CUENTAS (nuevo método)
+  loadMoreCuentas(event: any) {
+    const indice = this.indiceActualCuentas();
+    const totalCuentas = this.cuentasOriginales().length;
+    console.log('Total cuentas:', totalCuentas);
+
+    if (indice >= totalCuentas) {
+      console.log('Todas las cuentas han sido cargadas');
+      event.target.disabled = true;
+      event.target.complete();
+      return;
+    }
+
+    const siguienteIndice = Math.min(
+      indice + this.LIMITE_CUENTAS,
+      totalCuentas
+    );
+
+    const nuevasCuentas = this.cuentasOriginales().slice(
+      indice,
+      siguienteIndice
+    );
+
+    const cuentasActuales = this.cuentas();
+    const cuentasCombinadas = [...cuentasActuales, ...nuevasCuentas];
+
+    this.cuentas.set(cuentasCombinadas);
+    this.indiceActualCuentas.set(siguienteIndice);
+
     event.target.complete();
   }
 
   getUser(usuarioId: number) {
     this.usuariosServices.getUsuarios().subscribe({
       next: (res) => {
-        this.usuarios.set(res); // guarda todos los usuarios del servicio en este array de tipo interface
-        const usuarioEncontrado = this.usuarios().find((usuario) => usuario.id === usuarioId
-      );
+        this.usuarios.set(res);
+        const usuarioEncontrado = this.usuarios().find(
+          (usuario) => usuario.id === usuarioId
+        );
 
-      this.router.navigate(['/usuario', usuarioEncontrado?.id]);
-      
+        this.router.navigate(['/usuario', usuarioEncontrado?.id]);
       },
       error(err: any) {
         console.error('Error al obtener el usuario:', err);
@@ -309,7 +372,6 @@ export class UsuariosPage implements OnInit {
   }
   // * FIN DE MODALES DE ALERTA
 
-
   // * INICIO DE OPERACIONES DE CRUD
   async addClient() {
     const modal = await this.mdlController.create({
@@ -324,21 +386,20 @@ export class UsuariosPage implements OnInit {
       this.usuariosServices.createUser(data).subscribe({
         next: async (_res: any) => {
           this.cacheService.invalidarCache();
-          // Tras crear el cliente, recargamos la lista desde el backend para reflejar los cambios.
           this.usuariosServices.getUsuarios().subscribe({
             next: async (lista: UsuariosInterface[]) => {
               this.cacheService.setUsuarios(lista);
               this.usuariosOriginales.set(lista);
 
-              // Mostrar alerta de éxito
-              await this.showSuccessAlert("El cliente fue agregado satisfactoriamente!");
+              await this.showSuccessAlert(
+                'El cliente fue agregado satisfactoriamente!'
+              );
 
-              // Reinicia la carga inicial y actualiza contadores
               this.cargarUsuariosInicial();
               this.contarUsuariosPorTipo();
             },
             error: async (err) => {
-              await this.showErrorAlert("Algo falló al agregar al cliente");
+              await this.showErrorAlert('Algo falló al agregar al cliente');
             },
           });
         },
@@ -367,21 +428,20 @@ export class UsuariosPage implements OnInit {
       this.usuariosServices.deleteUser(usuario.id).subscribe({
         next: async (_res) => {
           this.cacheService.invalidarCache();
-          // Tras eliminar el cliente, recargamos la lista desde el backend para reflejar los cambios.
           this.usuariosServices.getUsuarios().subscribe({
             next: async (lista: UsuariosInterface[]) => {
               this.cacheService.setUsuarios(lista);
               this.usuariosOriginales.set(lista);
 
-              // Mostrar alerta de éxito
-              await this.showSuccessAlert("El cliente fue eliminado satisfactoriamente!");
+              await this.showSuccessAlert(
+                'El cliente fue eliminado satisfactoriamente!'
+              );
 
-              // Reinicia la carga inicial y actualiza contadores
               this.cargarUsuariosInicial();
               this.contarUsuariosPorTipo();
             },
             error: async (err) => {
-              await this.showErrorAlert("Algo falló al eliminar al cliente");
+              await this.showErrorAlert('Algo falló al eliminar al cliente');
             },
           });
         },
@@ -393,7 +453,7 @@ export class UsuariosPage implements OnInit {
     const modal = await this.mdlController.create({
       component: EditClientComponent,
       componentProps: {
-        datacliente: usuario, // Obtener los datos del cliente
+        datacliente: usuario,
       },
     });
     await modal.present();
@@ -404,27 +464,26 @@ export class UsuariosPage implements OnInit {
       this.usuariosServices.updateUser(data).subscribe({
         next: async (_res: any) => {
           this.cacheService.invalidarCache();
-          // Tras actualizar el cliente, recargamos la lista desde el backend para reflejar los cambios.
           this.usuariosServices.getUsuarios().subscribe({
             next: async (lista: UsuariosInterface[]) => {
               this.cacheService.setUsuarios(lista);
               this.usuariosOriginales.set(lista);
 
-              // Mostrar alerta de éxito
-              await this.showSuccessAlert("El cliente fue actualizado satisfactoriamente!");
+              await this.showSuccessAlert(
+                'El cliente fue actualizado satisfactoriamente!'
+              );
 
-              // Reinicia la carga inicial y actualiza contadores
               this.cargarUsuariosInicial();
               this.contarUsuariosPorTipo();
             },
             error: async () => {
-              await this.showErrorAlert("Algo falló al actualizar al cliente");
+              await this.showErrorAlert('Algo falló al actualizar al cliente');
             },
           });
         },
         error: async (err) => {
           console.log('Error al actualizar el usuario: ', err);
-          await this.showErrorAlert("Algo falló al actualizar al cliente");
+          await this.showErrorAlert('Algo falló al actualizar al cliente');
           if (err?.error) {
             console.log('Detalle del backend: ', err.error);
           }
@@ -438,5 +497,6 @@ export class UsuariosPage implements OnInit {
   // * Método para cambiar el segment activo
   onSegmentChange(event: any) {
     this.selectedSegment.set(event.detail.value);
+    // 👆 El effect() detectará el cambio automáticamente
   }
 }

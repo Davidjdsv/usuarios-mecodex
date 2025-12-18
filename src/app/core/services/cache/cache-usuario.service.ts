@@ -4,7 +4,7 @@ import { UsuariosInterface } from 'src/app/models/usuarios-interface';
 @Injectable({
   providedIn: 'root'
 })
-export class CacheService {
+export class CacheUsuarioService {
   // Caché para usuarios
   private usuariosCache = signal<UsuariosInterface[]>([]);
 
