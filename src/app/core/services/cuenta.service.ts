@@ -13,7 +13,7 @@ export class CuentaService {
   // Signal para almacenar la licencia seleccionada
   idLicenciaSeleccionada = signal<number | null>(null);
 
-  private http = inject(HttpClient)
+  private http = inject(HttpClient);
 
   /**
   * Obtiene todas las cuentas disponibles.
@@ -35,7 +35,7 @@ export class CuentaService {
     const url = new URL(this.ApiCuentas());
     return this.http.post<CuentaInterface>(url.toString(), cuenta).pipe(
       catchError((error) => {
-        return throwError(() => new Error(error.message))
+        return throwError(() => new Error(error.message));
       })
     )
   }
@@ -54,7 +54,7 @@ export class CuentaService {
 
     return this.http.put<CuentaInterface>(url.toString(), {}).pipe(
       catchError((error) => {
-        return throwError(() => new Error(error.message))
+        return throwError(() => new Error(error.message));
       })
     )
   }
