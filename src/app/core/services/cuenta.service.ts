@@ -9,7 +9,6 @@ import { environment } from 'src/environments/environment';
 })
 export class CuentaService {
   ApiCuentas = signal(environment.api_cuentas);
-  ApiCuentaLicencia = signal(environment.api_cuenta_licencia);
   
   // Signal para almacenar la licencia seleccionada
   idLicenciaSeleccionada = signal<number | null>(null);
@@ -65,7 +64,7 @@ export class CuentaService {
   }
 
   updateCuentaLicencia(id_licencia: number, id_cliente: any): Observable<CuentaInterface>{
-    const url = new URL(this.ApiCuentaLicencia());
+    const url = new URL(this.ApiCuentas());
     url.searchParams.append('id_cliente', id_cliente.toString());
     url.searchParams.append('id_licencia', id_licencia.toString());
 
