@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Observable, map } from 'rxjs';
@@ -13,19 +13,32 @@ import {
 export class UsuariosService {
   api = signal(environment.api_db);
 
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
 
-  // * Nota: Los datos de la interface, si no son opcionales, deben de ser incluidos en la solicitud.
+  /**
+  * Obtiene la lista de usuarios
+  * @returns Observable<UsuariosInterface[]>
+  */
   getUsuarios(): Observable<UsuariosInterface[]> {
     return this.http.get<UsuariosResponseInterface>(this.api()).pipe(
       map((res) => res.data as UsuariosInterface[])
     );
   }
 
+  /**
+  * Crea un usuario
+  * @param usuario toma el objeto para crear el usuario
+  * @returns Observable con el usuario creado
+  */
   createUser(usuario: UsuariosInterface): Observable<UsuariosInterface[]> {
     return this.http.post<UsuariosInterface[]>(this.api(), usuario);
   }
 
+  /**
+  * Actualiza un usuario
+  * @param usuario toma el objeto para actualizar el usuario
+  * @returns Observable con el usuario actualizado
+  */
   updateUser(usuario: UsuariosInterface): Observable<UsuariosInterface[]>{
     const url = new URL(this.api());
     url.searchParams.append('id', usuario.id.toString());
@@ -33,6 +46,11 @@ export class UsuariosService {
     return this.http.put<UsuariosInterface[]>(url.toString(),usuario);
   }
 
+  /**
+  * Elimina un usuario
+  * @param id toma el id del usuario a eliminar
+  * @returns Observable con el usuario eliminado
+  */
   deleteUser(id: number): Observable<UsuariosInterface[]> {
     const url = new URL(this.api());
     url.searchParams.append('id', id.toString());
