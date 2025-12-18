@@ -106,15 +106,11 @@ export class UsuariosPage implements OnInit {
 
   id = signal<number | null>(null);
 
-  // Signal para controlar qué segment está activo
   selectedSegment = signal<string>('clientes');
   
-  // Se puede injectar las dependencias en el constructor (Clásico)
-  constructor(
-    private mdlController: ModalController,
-    private alertController: AlertController,
-    private router: Router
-  ) {}
+  private mdlController = inject(ModalController);
+  private alertController = inject(AlertController);
+  private router = inject(Router);
 
   // this.id.set(Number(this.activatedRoute.snapshot.paramMap.get('id')));
   
