@@ -22,7 +22,7 @@ export class CuentaService {
   */
   getCuenta(): Observable<CuentaInterface[]> {
     return this.http.get<CuentaResponseInterface>(this.ApiCuentas())
-    .pipe(map((res) => res.data));
+    .pipe(map((res) => res.data as CuentaInterface[]));
   }
 
   /**

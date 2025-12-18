@@ -15,20 +15,7 @@ export class UsuariosWebClosterService {
 
   getUsuariosWebCloster(): Observable<UsuariosWebClosterInterface[]>{
     return this.http.get<UsuariosWebClosterResponseInterface>(this.apiWebCloster()).pipe(
-      map(res => {
-        return res.data.map((usuario: UsuariosWebClosterInterface) => ({
-          id_usuario_wc: usuario.id_usuario_wc,
-          nombre_completo: usuario.nombre_completo,
-          id_tipo_documento: usuario.id_tipo_documento,
-          abreviatura: usuario.abreviatura,
-          documento: usuario.documento,
-          contacto: usuario.contacto,
-          correo: usuario.correo,
-          id_rol_usuario: usuario.id_rol_usuario,
-          nombre_usuario: usuario.nombre_usuario,
-          contrasena: usuario.contrasena,
-        }))
-      })
+      map((res) => res.data as UsuariosWebClosterInterface[])
     )
   }
 
