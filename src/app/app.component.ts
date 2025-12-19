@@ -58,6 +58,7 @@ import {
   syncOutline,
   documentOutline,
   documentSharp,
+  addCircle
 } from 'ionicons/icons';
 import { RolesInterface } from './models/roles-interface';
 
@@ -161,6 +162,7 @@ export class AppComponent {
       syncOutline,
       documentOutline,
       documentSharp,
+      addCircle
     });
 
     console.log('El usuario está autenticado? ', this.isAuthenticated());
