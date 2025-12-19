@@ -4,6 +4,7 @@ import {
   ChangeDetectionStrategy,
   signal,
   computed,
+  inject
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -92,13 +93,14 @@ import { HidePasswordPipe } from 'src/app/core/pipes/hide-password.pipe';
 })
 export class UsuarioPage implements OnInit {
   constructor(
-    private activatedRoute: ActivatedRoute,
-    private usuariosService: UsuariosService,
-    private licenciaService: LicenciaService,
-    private cuentaService: CuentaService,
-    private alertController: AlertController,
-    private modalController: ModalController
-) {}
+  ) {}
+
+  private activatedRoute = inject(ActivatedRoute)
+  private usuariosService = inject(UsuariosService)
+  private licenciaService = inject(LicenciaService)
+  private cuentaService = inject(CuentaService)
+  private alertController = inject(AlertController)
+  private modalController = inject(ModalController)
 
   // * INTERFACES 
   licencias = signal<LicenciaInterface[]>([]);
