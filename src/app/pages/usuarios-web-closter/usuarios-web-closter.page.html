@@ -21,8 +21,8 @@
   ></ion-searchbar>
 
   <div class="main-text-container ion-justify-content-between ion-align-items-center">
-    <ion-button (click)="addUsuarioWebCloster()" class="ion-margin-vertical" color="primary">
-      <ion-icon name="person-add-outline" slot="start"></ion-icon>
+    <ion-button (click)="addUsuarioWebCloster()" class="ion-margin-vertical" color="primary-dark">
+      <ion-icon name="person-add" slot="end" color="tertiary"></ion-icon>
       Agregar usuario
     </ion-button>
   </div>
@@ -41,8 +41,8 @@
             >
               <ion-thumbnail class="thumb-cover">
                 <img
-                  alt="A silloute of a user"
-                  src="../../../assets/icon/user-group-solid.svg"
+                  alt="imagen alusiva al logo de Webcloster"
+                  src="../../../assets/icon/webcloster-icon-2.svg"
                 />
               </ion-thumbnail>
             </ion-col>
@@ -52,7 +52,7 @@
               <ion-item lines="none" aria-label="favorite">
                 <ion-icon
                   slot="start"
-                  color="primary"
+                  color="primary-dark"
                   name="person-outline"
                   aria-hidden="true"
                 ></ion-icon>
@@ -66,7 +66,7 @@
               <ion-item lines="none" aria-label="favorite">
                 <ion-icon
                   slot="start"
-                  color="primary"
+                  color="primary-dark"
                   name="call-outline"
                   aria-hidden="true"
                 ></ion-icon>
@@ -80,7 +80,7 @@
               <ion-item lines="none" aria-label="favorite">
                 <ion-icon
                   slot="start"
-                  color="primary"
+                  color="primary-dark"
                   name="mail-outline"
                   aria-hidden="true"
                 ></ion-icon>
@@ -97,7 +97,7 @@
               <ion-item lines="none" aria-label="favorite">
                 <ion-icon
                   slot="start"
-                  color="primary"
+                  color="primary-dark"
                   name="document-text-outline"
                   aria-hidden="true"
                 ></ion-icon>
@@ -111,7 +111,7 @@
               <ion-item lines="none" aria-label="favorite">
                 <ion-icon
                   slot="start"
-                  color="primary"
+                  color="primary-dark"
                   name="cloud-outline"
                   aria-hidden="true"
                 ></ion-icon>
@@ -129,18 +129,18 @@
           <ion-row class="ion-justify-content-evenly">
             <ion-col size="12" size-md="4">
               <ion-buttons class="ion-justify-content-center ion-margin-horizontal">
-                <ion-button (click)="editUsuario(usuario)" color="primary" class="ion-margin-end">
+                <ion-button (click)="editUsuario(usuario)" color="primary-dark" class="ion-margin-end">
                   <ion-icon name="create-outline" slot="start"></ion-icon>
                   Editar
                 </ion-button>
   
-                <ion-button [routerLink]="['/usuario-web-closter', usuario.id_usuario_wc]" color="primary">
+                <ion-button [routerLink]="['/usuario-web-closter', usuario.id_usuario_wc]" color="primary-dark">
                   <ion-icon name="caret-forward-outline" slot="start"></ion-icon>
                   Más detalles
                 </ion-button>
   
                 <ion-button (click)="eliminarUsuarioWebCloster(usuario)" color="danger" class="ion-margin-end">
-                  <ion-icon name="trash-outline" slot="start" class="delete-icon"></ion-icon>
+                  <ion-icon name="trash-outline" slot="start" class="delete-icon" color="danger"></ion-icon>
                   Eliminar
                 </ion-button>
   

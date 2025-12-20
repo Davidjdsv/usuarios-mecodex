@@ -23,6 +23,7 @@ export interface CuentaInterface {
     sincronizacion_total: string | null;
     id_cliente: number;
     id_pais: number;
+    cliente_nombre: string;
     id_licencia: number | null;
     plan_mecodex: string | null;
     id_usuario_sensei: number | null;

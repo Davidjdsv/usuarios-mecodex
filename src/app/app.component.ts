@@ -15,10 +15,10 @@ import {
   IonLabel,
   IonRouterOutlet,
   IonRouterLink,
-  AlertController
+  AlertController,
 } from '@ionic/angular/standalone';
 import { MenuController } from '@ionic/angular';
-import { AuthService } from './core/services/auth-service/auth.service';
+import { AuthService } from './core/services/auth/auth.service';
 import { RolesDirective } from './core/directives/roles.directive';
 import { addIcons } from 'ionicons';
 import {
@@ -49,7 +49,7 @@ import {
   globeOutline,
   globeSharp,
   caretForwardOutline,
-  logOutOutline, 
+  logOutOutline,
   logOutSharp,
   cloudyOutline,
   cloudySharp,
@@ -58,6 +58,7 @@ import {
   syncOutline,
   documentOutline,
   documentSharp,
+  addCircle
 } from 'ionicons/icons';
 import { RolesInterface } from './models/roles-interface';
 
@@ -83,29 +84,38 @@ import { RolesInterface } from './models/roles-interface';
     IonRouterLink,
     IonRouterOutlet,
     LoginPage,
-    RolesDirective
+    RolesDirective,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
   public adminRoles: RolesInterface[] = [
-    { id_rol: 1, nombre_rol: 'Administrador' }
+    { id_rol: 1, nombre_rol: 'Administrador' },
   ];
 
   public adminYSoporteRoles: RolesInterface[] = [
-  { id_rol: 1, nombre_rol: 'Administrador' },
-  { id_rol: 2, nombre_rol: 'Soporte' }
-];
+    { id_rol: 1, nombre_rol: 'Administrador' },
+    { id_rol: 2, nombre_rol: 'Soporte' },
+  ];
 
   public appPages = [
     { title: 'Inicio', url: '/inicio', icon: 'home', roles: this.adminRoles },
-    { title: 'Clientes Mecodex', url: '/usuarios', icon: 'people', roles: this.adminYSoporteRoles },
-    { title: 'Usuarios webcloster', url: '/usuarios-web-closter', icon: 'cloudy', roles: this.adminYSoporteRoles }
+    {
+      title: 'Clientes Mecodex',
+      url: '/usuarios',
+      icon: 'people',
+      roles: this.adminYSoporteRoles,
+    },
+    {
+      title: 'Usuarios webcloster',
+      url: '/usuarios-web-closter',
+      icon: 'cloudy',
+      roles: this.adminYSoporteRoles,
+    },
   ];
 
-
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-  
+
   public isAuthenticated = computed(() => {
     const logged = this.authService.authState();
     return logged || this.authService.isAutenthicate();
@@ -113,7 +123,7 @@ export class AppComponent {
 
   constructor(
     private menuCtrl: MenuController,
-    private authService: AuthService,
+    private authService: AuthService
   ) {
     addIcons({
       mailOutline,
@@ -152,21 +162,21 @@ export class AppComponent {
       syncOutline,
       documentOutline,
       documentSharp,
+      addCircle
     });
 
-    console.log("El usuario está autenticado? ", this.isAuthenticated());
+    console.log('El usuario está autenticado? ', this.isAuthenticated());
   }
-  
+
   async logOut(): Promise<void> {
     // Cierra el menú lateral por UX
     try {
       await this.menuCtrl.close();
-      this.authService.logOut()
+      this.authService.logOut();
     } catch {}
-
   }
 
-  goToDocs(){
-    window.open('http://localhost:3000/usuarios-mecodex/', "_blank");
+  goToDocs() {
+    window.open('http://localhost:3000/usuarios-mecodex/', '_blank');
   }
 }

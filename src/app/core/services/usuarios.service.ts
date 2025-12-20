@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Observable, map } from 'rxjs';
@@ -13,50 +13,32 @@ import {
 export class UsuariosService {
   api = signal(environment.api_db);
 
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
 
-  // * Nota: Los datos de la interface, si no son opcionales, deben de ser incluidos en la solicitud.
+  /**
+  * Obtiene la lista de usuarios
+  * @returns Observable<UsuariosInterface[]>
+  */
   getUsuarios(): Observable<UsuariosInterface[]> {
     return this.http.get<UsuariosResponseInterface>(this.api()).pipe(
-      map((res) => {
-        return res.data.map((usuario: UsuariosInterface) => ({
-          id: usuario.id,
-          nombre: usuario.nombre,
-          segundo_nombre: usuario.segundo_nombre,
-          apellido: usuario.apellido,
-          segundo_apellido: usuario.segundo_apellido,
-          telefono: usuario.telefono,
-          direccion: usuario.direccion,
-          id_tipo_documento: usuario.id_tipo_documento,
-          abreviatura: usuario.abreviatura,
-          estado: usuario.estado,
-          modo_conexion: usuario.modo_conexion,
-          version_app: usuario.version_app,
-          fecha_clasificacion: usuario.fecha_calificacion,
-          calificacion: usuario.calificacion,
-          mensaje_calificacion: usuario.mensaje_calificacion,
-          documento: usuario.documento,
-          fecha_expedicion: usuario.fecha_expedicion,
-          correo: usuario.correo,
-          id_pais: usuario.id_pais,
-          pais_nombre: usuario.pais_nombre,
-          PLAN_MECODEX: usuario.PLAN_MECODEX,
-          observacion_cliente: usuario.observacion_cliente,
-          observacion_comercial: usuario.observacion_comercial,
-          observacion_soporte: usuario.observacion_soporte,
-          observacion_cuenta: usuario.observacion_cuenta,
-          fecha_creacion: usuario.fecha_creacion,
-          id_usuario_sensei: usuario.id_usuario_sensei,
-          fecha_modificacion: usuario.fecha_modificacion,
-        }));
-      })
+      map((res) => res.data as UsuariosInterface[])
     );
   }
 
+  /**
+  * Crea un usuario
+  * @param usuario toma el objeto para crear el usuario
+  * @returns Observable con el usuario creado
+  */
   createUser(usuario: UsuariosInterface): Observable<UsuariosInterface[]> {
     return this.http.post<UsuariosInterface[]>(this.api(), usuario);
   }
 
+  /**
+  * Actualiza un usuario
+  * @param usuario toma el objeto para actualizar el usuario
+  * @returns Observable con el usuario actualizado
+  */
   updateUser(usuario: UsuariosInterface): Observable<UsuariosInterface[]>{
     const url = new URL(this.api());
     url.searchParams.append('id', usuario.id.toString());
@@ -64,6 +46,11 @@ export class UsuariosService {
     return this.http.put<UsuariosInterface[]>(url.toString(),usuario);
   }
 
+  /**
+  * Elimina un usuario
+  * @param id toma el id del usuario a eliminar
+  * @returns Observable con el usuario eliminado
+  */
   deleteUser(id: number): Observable<UsuariosInterface[]> {
     const url = new URL(this.api());
     url.searchParams.append('id', id.toString());

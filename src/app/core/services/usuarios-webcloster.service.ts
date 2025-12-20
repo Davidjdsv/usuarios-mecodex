@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Observable, catchError, map, throwError } from 'rxjs';
@@ -11,27 +11,23 @@ import { UsuariosWebClosterResponseInterface } from 'src/app/models/usuarios-web
 export class UsuariosWebClosterService {
   apiWebCloster = signal(environment.api_usuarios_web_closter)
 
-  constructor(private http: HttpClient) { }
+  private http = inject(HttpClient);
 
+  /**
+  * Obtiene la lista de usuarios de Web Closter
+  * @returns Observable<UsuariosWebClosterInterface[]>
+  */
   getUsuariosWebCloster(): Observable<UsuariosWebClosterInterface[]>{
     return this.http.get<UsuariosWebClosterResponseInterface>(this.apiWebCloster()).pipe(
-      map(res => {
-        return res.data.map((usuario: UsuariosWebClosterInterface) => ({
-          id_usuario_wc: usuario.id_usuario_wc,
-          nombre_completo: usuario.nombre_completo,
-          id_tipo_documento: usuario.id_tipo_documento,
-          abreviatura: usuario.abreviatura,
-          documento: usuario.documento,
-          contacto: usuario.contacto,
-          correo: usuario.correo,
-          id_rol_usuario: usuario.id_rol_usuario,
-          nombre_usuario: usuario.nombre_usuario,
-          contrasena: usuario.contrasena,
-        }))
-      })
+      map((res) => res.data as UsuariosWebClosterInterface[])
     )
   }
 
+  /**
+  * Crea un usuario de webCloster
+  * @param usuario toma el objeto para crear el usuario
+  * @returns Observable con el usuario creado
+  */
   createUsuariosWebCloster(usuario: UsuariosWebClosterInterface): Observable<UsuariosWebClosterInterface[]>{
     const url = this.apiWebCloster()
     return this.http.post<UsuariosWebClosterInterface[]>(url, usuario).pipe(
@@ -42,6 +38,11 @@ export class UsuariosWebClosterService {
     )
   }
 
+  /**
+  * Crea un usuario de webCloster
+  * @param usuario toma el objeto para editar el usuario
+  * @returns Observable con el usuario editado
+  */
   updateUsuariosWebCloster(usuario: UsuariosWebClosterInterface): Observable<UsuariosWebClosterInterface[]>{
     const url = new URL(this.apiWebCloster())
     url.searchParams.append("id_usuario_wc", usuario.id_usuario_wc.toString())
@@ -53,6 +54,11 @@ export class UsuariosWebClosterService {
     )
   }
 
+  /**
+  * Crea un usuario de webCloster
+  * @param id toma el id del usuario a eliminar
+  * @returns Observable con el usuario eliminado
+  */
   deleteUsuarioWebCloster(id: number): Observable<UsuariosWebClosterInterface[]>{
     const url = new URL(this.apiWebCloster())
     url.searchParams.append("id_usuario_wc", id.toString())

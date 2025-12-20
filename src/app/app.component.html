@@ -4,8 +4,8 @@
     <ion-menu contentId="main-content" type="overlay">
       <ion-content>
         <ion-list id="inbox-list">
-          <ion-list-header>ActivaMecodex</ion-list-header>
-          <ion-note>  </ion-note>
+            <ion-list-header>ActivaMecodex</ion-list-header>
+            <ion-note>v1.0.0</ion-note>
 
           @for (p of appPages; track p; let i = $index) {
           <ion-menu-toggle auto-hide="false">
@@ -20,6 +20,7 @@
               <ion-icon
                 aria-hidden="true"
                 slot="start"
+                color="primary-dark"
                 [ios]="p.icon + '-outline'"
                 [md]="p.icon + '-sharp'"
               ></ion-icon>
@@ -31,6 +32,8 @@
           <ion-item button detail="false" lines="none" (click)="goToDocs()">
             <ion-icon
               aria-hidden="true"
+              slot="start"
+              color="primary-dark"
               ios="document-outline"
               md="document-sharp"
             ></ion-icon>
@@ -40,6 +43,8 @@
           <ion-item button detail="false" lines="none" (click)="logOut()">
             <ion-icon
               aria-hidden="true"
+              slot="start"
+              color="primary-dark"
               ios="log-out-outline"
               md="log-out-sharp"
             ></ion-icon>

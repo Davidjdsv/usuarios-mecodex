@@ -4,6 +4,7 @@ import {
   OnInit,
   signal,
   computed,
+  inject
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -37,6 +38,7 @@ import { AddUsuariosWcComponent } from 'src/app/components/webcloster/add-usuari
 import { EditUsuariosWcComponent } from 'src/app/components/webcloster/edit-usuarios-wc/edit-usuarios-wc.component';
 import { DeleteUsuariosWcComponent } from 'src/app/components/webcloster/delete-usuarios-wc/delete-usuarios-wc.component';
 import type { InfiniteScrollCustomEvent } from '@ionic/angular';
+import { CacheWebClosterService } from 'src/app/core/services/cache/cache-web-closter.service';
 
 @Component({
   selector: 'app-usuarios-web-closter',
@@ -70,7 +72,7 @@ import type { InfiniteScrollCustomEvent } from '@ionic/angular';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UsuariosWebClosterPage implements OnInit {
-  folder = signal('Usuarios web closter');
+  folder = signal('Usuarios WebCloster');
   usuariosWc = signal(<UsuariosWebClosterInterface[]>[]);
   searchQuery = signal('');
   pageSize = signal(10);
@@ -80,14 +82,26 @@ export class UsuariosWebClosterPage implements OnInit {
     () => this.filterUsuarios(this.searchQuery()).length > this.visibleCount()
   );
 
-  constructor(
-    private usuariosWebClosterService: UsuariosWebClosterService,
-    private alertController: AlertController,
-    private modalController: ModalController
-  ) {}
+  private usuariosWebClosterService = inject(UsuariosWebClosterService);
+  private alertController = inject(AlertController);
+  private modalController = inject(ModalController);
+  private cacheWc = inject(CacheWebClosterService);
+
 
   ngOnInit(): void {
-    this.getUsuariosWebCloster();
+    if(this.cacheWc.isCacheValido()){
+      const usuariosWcCache = this.cacheWc.getUsuariosWebCloster();
+      this.usuariosWc.set(usuariosWcCache);
+      this.applyFiltersAndPaging();
+    } else {
+      this.usuariosWebClosterService.getUsuariosWebCloster().subscribe({
+        next: (_res: UsuariosWebClosterInterface[]) => {
+          this.cacheWc.setUsuariosWebCloster(_res);
+          this.usuariosWc.set(_res);
+          this.applyFiltersAndPaging();
+        }
+      })
+    }
   }
 
   getUsuariosWebCloster() {
@@ -175,8 +189,10 @@ export class UsuariosWebClosterPage implements OnInit {
     if (role === 'guardar') {
       this.usuariosWebClosterService.createUsuariosWebCloster(data).subscribe({
         next: (res: UsuariosWebClosterInterface[]) => {
+          this.cacheWc.invalidarCache();
           this.usuariosWebClosterService.getUsuariosWebCloster().subscribe({
             next: (_res: UsuariosWebClosterInterface[]) => {
+              this.cacheWc.setUsuariosWebCloster(_res);
               this.usuariosWc.set(_res);
               this.applyFiltersAndPaging();
             },
@@ -205,8 +221,10 @@ export class UsuariosWebClosterPage implements OnInit {
     if (role === 'guardar') {
       this.usuariosWebClosterService.updateUsuariosWebCloster(data).subscribe({
         next: (_res: UsuariosWebClosterInterface[]) => {
+          this.cacheWc.invalidarCache();
           this.usuariosWebClosterService.getUsuariosWebCloster().subscribe({
             next: (_res: UsuariosWebClosterInterface[]) => {
+              this.cacheWc.setUsuariosWebCloster(_res);
               this.usuariosWc.set(_res);
               this.applyFiltersAndPaging();
             },
@@ -235,8 +253,10 @@ export class UsuariosWebClosterPage implements OnInit {
     if(role === "guardar"){
       this.usuariosWebClosterService.deleteUsuarioWebCloster(data.id_usuario_wc).subscribe({
         next: async (_res: UsuariosWebClosterInterface[]) => {
+          this.cacheWc.invalidarCache();
           this.usuariosWebClosterService.getUsuariosWebCloster().subscribe({
             next: (_res: UsuariosWebClosterInterface[]) => {
+              this.cacheWc.setUsuariosWebCloster(_res);
               this.usuariosWc.set(_res);
               this.applyFiltersAndPaging(); 
             },

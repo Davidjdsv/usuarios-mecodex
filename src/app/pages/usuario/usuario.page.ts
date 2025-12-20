@@ -4,6 +4,7 @@ import {
   ChangeDetectionStrategy,
   signal,
   computed,
+  inject
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -92,19 +93,20 @@ import { HidePasswordPipe } from 'src/app/core/pipes/hide-password.pipe';
 })
 export class UsuarioPage implements OnInit {
   constructor(
-    private activatedRoute: ActivatedRoute,
-    private usuariosService: UsuariosService,
-    private licenciaService: LicenciaService,
-    private cuentaService: CuentaService,
-    private alertController: AlertController,
-    private modalController: ModalController
-) {}
+  ) {}
+
+  private activatedRoute = inject(ActivatedRoute)
+  private usuariosService = inject(UsuariosService)
+  private licenciaService = inject(LicenciaService)
+  private cuentaService = inject(CuentaService)
+  private alertController = inject(AlertController)
+  private modalController = inject(ModalController)
 
   // * INTERFACES 
   licencias = signal<LicenciaInterface[]>([]);
   usuarios = signal<UsuariosInterface[]>([]);
   cuentaUsuario = signal<CuentaInterface[]>([]);
-  usuarioActual = signal<UsuariosInterface | undefined>(undefined);
+  usuarioActual = signal<UsuariosInterface[]>([]);
   useUsuario = signal<UsuariosInterface | undefined>(undefined);
   useCuenta = signal<CuentaInterface | undefined>(undefined);
   // Variables para almacenar los datos del cliente y de la cuenta que son de tipo interface
@@ -113,18 +115,19 @@ export class UsuarioPage implements OnInit {
 
   ngOnInit() {
     this.id.set(Number(this.activatedRoute.snapshot.paramMap.get('id')));
-    this.getUser();
+    console.log("El usuario es: ", this.id());
+    this.getUsers();
     this.getCuentaUsuario();
   }
 
-  getUser() {
+  getUsers() {
     this.usuariosService.getUsuarios().subscribe({
       next: (res) => {
         this.usuarios.set(res); // guarda todos los usuarios del servicio en este array de tipo interface
         const usuarioEncontrado = this.usuarios().find((usuario) => usuario.id === Number(this.id())
         );
         this.useUsuario.set(usuarioEncontrado);
-        this.usuarioActual.set(usuarioEncontrado);
+        // this.usuarioActual.set(usuarioEncontrado);
       },
       error(err: any) {
         console.error('Error al obtener el usuario:', err);
@@ -143,20 +146,23 @@ export class UsuarioPage implements OnInit {
     });
   }
 
-  getCuentaUsuario(){
-    this.cuentaService.getCuenta().subscribe({
-      next: (res) => {
-        this.cuentaUsuario.set(res)
-        const cuenta = res.find(c => c.id_cliente === Number(this.id()));
-        if (cuenta) {
-          this.useCuenta.set(cuenta);
-        }
-      },
-      error(err: any) {
-        console.error('Error al obtener la cuenta:', err);
-      },
-    });
-  }
+getCuentaUsuario(){
+  this.cuentaService.getCuenta(Number(this.id())).subscribe({
+    next: (res) => {
+      this.cuentaUsuario.set(res);
+      
+      if (res.length > 0) {
+        this.useCuenta.set(res[0]); // Primera cuenta por defecto
+        console.log("Cantidad de cuentas del usuario: ", res.length);
+        console.log("Todas las cuentas: ", res);
+        console.log("Cuenta por defecto seleccionada: ", this.useCuenta());
+      }
+    },
+    error(err: any) {
+      console.error('Error al obtener la cuenta:', err);
+    },
+  });
+}
 
   idLicencia = signal<number | null>(null);
   showIdlicencia = computed(() => this.idLicencia());
