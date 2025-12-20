@@ -20,8 +20,9 @@ export class CuentaService {
   *
   * @returns Observable con un array de objetos CuentaInterface.
   */
-  getCuenta(): Observable<CuentaInterface[]> {
-    return this.http.get<CuentaResponseInterface>(this.ApiCuentas())
+  getCuenta(id_cliente: number): Observable<CuentaInterface[]> {
+    const url = new URL(this.ApiCuentas());
+    return this.http.get<CuentaResponseInterface>(`${url.toString()}?id_cliente=${id_cliente}`)
     .pipe(map((res) => res.data as CuentaInterface[]));
   }
 

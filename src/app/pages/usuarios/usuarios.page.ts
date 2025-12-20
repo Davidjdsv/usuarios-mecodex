@@ -190,7 +190,7 @@ export class UsuariosPage implements OnInit {
       this.cuentasOriginales.set(cuentasCache);
       this.cargarCuentasInicial();
     } else {
-      this.cuentaService.getCuenta().subscribe({
+      this.cuentaService.getCuenta(Number(this.id())).subscribe({
         next: (res: CuentaInterface[]) => {
           this.cacheCuentaService.setCuentas(res);
           this.cuentasOriginales.set(res);
