@@ -25,6 +25,14 @@ export class UsuariosService {
     );
   }
 
+  getUsuario(id: number, id_cuenta: number): Observable<UsuariosInterface[]> {
+    const url = new URL(this.api());
+    url.searchParams.append('id', id.toString());
+    url.searchParams.append('id_cuenta', id_cuenta.toString());
+    
+    return this.http.get<UsuariosInterface[]>(url.toString());
+  }
+
   /**
   * Crea un usuario
   * @param usuario toma el objeto para crear el usuario

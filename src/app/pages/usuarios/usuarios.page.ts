@@ -362,27 +362,28 @@ export class UsuariosPage implements OnInit {
     event.target.complete();
   }
 
-  getUser(usuarioId: number, cuentaCliente: number) {
-    this.usuariosServices.getUsuarios().subscribe({
-      next: (res) => {
-        this.usuarios.set(res);
-        const usuarioEncontrado = this.usuarios().find(
-          (usuario) => usuario.id === usuarioId);
-        const cuentaEncontrado = this.usuarios().filter(
-          (cuenta) => cuenta.id_cuenta === cuentaCliente);
+  /**
+   * Navega al detalle de un usuario específico
+   * Usa el cache en memoria (usuariosOriginales) para evitar modificar el array de usuarios mostrados
+   * @param usuarioId - ID del usuario
+   * @param cuentaCliente - ID de la cuenta del cliente
+   */
+getUser(usuarioId: number, cuentaCliente: number) {
+  // 👇 Busca en memoria SIN modificar el array
+  const usuarioEncontrado = this.usuariosOriginales().find(
+    (usuario) => usuario.id === usuarioId && usuario.id_cuenta === cuentaCliente
+  );
 
-        this.router.navigate(['/usuario', usuarioEncontrado?.id], {
-          queryParams: {
-            id_cuenta: cuentaEncontrado[0]?.id_cuenta,
-          }
-        }
-        );
-      },
-      error(err: any) {
-        console.error('Error al obtener el usuario:', err);
-      },
-    });
+  if (!usuarioEncontrado) {
+    console.error('⚠️ Usuario no encontrado con ID:', usuarioId, 'y cuenta:', cuentaCliente);
+    return;
   }
+
+  // 👇 Navega directamente sin tocar el signal usuarios()
+  this.router.navigate(['/usuario', usuarioEncontrado.id], {
+    queryParams: { id_cuenta: cuentaCliente }
+  });
+}
 
   // * INICIO DE MODALES DE ALERTA
   private async showSuccessAlert(mensaje?: string): Promise<void> {

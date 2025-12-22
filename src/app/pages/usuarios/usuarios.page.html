@@ -60,6 +60,7 @@
     Agregar Cliente
   </ion-button>
 
+  <!-- Obtener y recorrer todos los clientes traidos por el servicio -->
   @for (usuario of usuarios(); track usuario.id; let i = $index) {
   <ion-card class="ion-margin-top card-hover user-card ion-no-padding">
     <ion-card-content class="ion-no-padding">
@@ -247,6 +248,7 @@
     ></ion-infinite-scroll-content>
   </ion-infinite-scroll>
   }
+  <!-- Fin contenido clientes -->
 
   <!-- Contenido de CUENTAS -->
   @if (selectedSegment() === 'cuentas') {
