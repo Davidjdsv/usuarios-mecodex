@@ -362,15 +362,21 @@ export class UsuariosPage implements OnInit {
     event.target.complete();
   }
 
-  getUser(usuarioId: number) {
+  getUser(usuarioId: number, cuentaCliente: number) {
     this.usuariosServices.getUsuarios().subscribe({
       next: (res) => {
         this.usuarios.set(res);
         const usuarioEncontrado = this.usuarios().find(
-          (usuario) => usuario.id === usuarioId
-        );
+          (usuario) => usuario.id === usuarioId);
+        const cuentaEncontrado = this.usuarios().filter(
+          (cuenta) => cuenta.id_cuenta === cuentaCliente);
 
-        this.router.navigate(['/usuario', usuarioEncontrado?.id]);
+        this.router.navigate(['/usuario', usuarioEncontrado?.id], {
+          queryParams: {
+            id_cuenta: cuentaEncontrado[0]?.id_cuenta,
+          }
+        }
+        );
       },
       error(err: any) {
         console.error('Error al obtener el usuario:', err);

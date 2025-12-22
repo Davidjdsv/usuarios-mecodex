@@ -111,11 +111,14 @@ export class UsuarioPage implements OnInit {
   useCuenta = signal<CuentaInterface | undefined>(undefined);
   // Variables para almacenar los datos del cliente y de la cuenta que son de tipo interface
   id = signal<number | null>(null);
+  id_cuenta = signal<number | null>(null)
   plan = signal<string>("")
 
   ngOnInit() {
     this.id.set(Number(this.activatedRoute.snapshot.paramMap.get('id')));
+    this.id_cuenta.set(Number(this.activatedRoute.snapshot.paramMap.get('id_cuenta')));
     console.log("El usuario es: ", this.id());
+    console.log("El id de la cuenta es: ", this.id_cuenta());
     this.getUsers();
     this.getCuentaUsuario();
   }
@@ -172,23 +175,25 @@ getCuentaUsuario(){
     return this.idLicencia.set(event.detail.value);
   }
 
-  actualizarPlan() {
-    console.log('El valor seleccionado por el usuario es de: ', this.showIdlicencia(), "el id de usuario es: ", this.id());
-    const nuevaLicencia = this.showIdlicencia();
-    const idUsuario = this.id();
-    if (nuevaLicencia !== null && idUsuario) {
-      this.cuentaService.updateCuentaLicencia(nuevaLicencia, idUsuario).subscribe({
-          next: (res) => {
-            console.log('Licencia actualizada con éxito:', res);
-            this.actualizarPlanSuccess();
-          },
-          error: (err: any) => {
-            console.error('Error al actualizar la licencia:', err);
-            this.actualizarPLanFailure();
-          },
-        });
-    }
+actualizarPlan(idCuenta: number) {
+  console.log('El valor seleccionado es:', this.showIdlicencia(), "el id de cuenta es:", idCuenta);
+  
+  const nuevaLicencia = this.showIdlicencia();
+  
+  if (nuevaLicencia !== null && idCuenta) {
+    this.cuentaService.updateCuentaLicencia(nuevaLicencia, idCuenta).subscribe({
+      next: (res) => {
+        console.log('Licencia actualizada con éxito:', res);
+        this.actualizarPlanSuccess();
+        this.getCuentaUsuario();
+      },
+      error: (err: any) => {
+        console.error('Error al actualizar la licencia:', err);
+        this.actualizarPLanFailure();
+      },
+    });
   }
+}
 
   // * CREAR CUENTA DE UN CLIENTE CUANDO NO TIENE CUENTA ASOCIADA
   async crearCuenta(){
