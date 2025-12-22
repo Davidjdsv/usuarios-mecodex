@@ -45,12 +45,12 @@ export class CuentaService {
  * Actualiza la licencia asociada a un cliente.
  *
  * @param id_licencia Identificador de la licencia a asignar.
- * @param id_cliente Identificador del cliente.
+ * @param id_cuenta Identificador del cliente.
  * @returns Observable con la cuenta actualizada.
  */
-  updateCuentaLicencia(id_licencia: number, id_cliente: any): Observable<CuentaInterface>{
+  updateCuentaLicencia(id_licencia: number, id_cuenta: any): Observable<CuentaInterface>{
     const url = new URL(this.ApiCuentas());
-    url.searchParams.append('id_cliente', id_cliente.toString());
+    url.searchParams.append('id_cuenta', id_cuenta.toString());
     url.searchParams.append('id_licencia', id_licencia.toString());
 
     return this.http.put<CuentaInterface>(url.toString(), {}).pipe(
