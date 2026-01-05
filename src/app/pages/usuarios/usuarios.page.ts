@@ -51,6 +51,8 @@ import { DeleteClientComponent } from 'src/app/components/clientes/delete-client
 import { CacheUsuarioService } from 'src/app/core/services/cache/cache-usuario.service';
 import { CuentaInterface } from 'src/app/models/cuenta-interface';
 import { CacheCuentaService } from 'src/app/core/services/cache/cache-cuenta.service';
+import { LicenciaService } from 'src/app/core/services/licencia.service';
+import { LicenciaInterface } from 'src/app/models/licencia';
 
 @Component({
   selector: 'app-usuarios',
@@ -109,6 +111,7 @@ export class UsuariosPage implements OnInit {
   // * SIGNAL PARA BÚSQUEDA (compartido)
   searchUsers = signal<string>('');
   searchCuentas = signal<string>('');
+  licencias = signal<LicenciaInterface[]>([]);  
 
   // * CONTADORES
   cont_usuarios_pro_plus = signal<number>(0);
@@ -129,6 +132,7 @@ export class UsuariosPage implements OnInit {
   private cacheService = inject(CacheUsuarioService);
   private cuentaService = inject(CuentaService);
   private cacheCuentaService = inject(CacheCuentaService);
+  private licenciaService = inject(LicenciaService);
 
   constructor() {
     effect(() => {
@@ -168,6 +172,7 @@ export class UsuariosPage implements OnInit {
         next: (res: UsuariosInterface[]) => {
           this.cacheService.setUsuarios(res);
           this.usuariosOriginales.set(res);
+          this.getLicencias();
           this.cargarUsuariosInicial();
           this.contarUsuariosPorTipo();
         },
@@ -364,6 +369,17 @@ export class UsuariosPage implements OnInit {
     this.indiceActualCuentas.set(siguienteIndice);
 
     event.target.complete();
+  }
+
+    getLicencias() {
+    this.licenciaService.getLicenciasService().subscribe({
+      next: (res) => {
+        this.licencias.set(res.data);
+      },
+      error(err: any) {
+        console.error('Error al obtener las licencias:', err);
+      },
+    });
   }
 
   /**

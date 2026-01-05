@@ -64,9 +64,9 @@
       class="ion-margin-vertical"
       style="min-width: 50px;"
     >
-      <ion-select-option value="1">Opción 1</ion-select-option>
-      <ion-select-option value="2">Opción 2</ion-select-option>
-      <ion-select-option value="3">Opción 3</ion-select-option>
+      @for (licencia of licencias(); track licencia.id) {
+        <ion-select-option value="{{ licencia.id }}">{{ licencia.nombre }}</ion-select-option>
+      }
     </ion-select>
   </div>
 
