@@ -51,17 +51,27 @@
     ></ion-searchbar>
   </div>
 
-  <ion-button color="primary-dark" class="ion-margin" (click)="addClient()">
-    <ion-icon
-      name="person-add"
-      slot="end"
-      color="tertiary"
-    ></ion-icon>
-    Agregar Cliente
-  </ion-button>
+  <div class="ion-display-flex ion-justify-content-between ion-align-items-center">
+    <ion-button color="primary-dark" class="ion-margin-vertical" (click)="addClient()">
+      <ion-icon name="person-add" slot="end" color="tertiary"></ion-icon>
+      Agregar Cliente
+    </ion-button>
+
+    <ion-select 
+      fill="outline" 
+      interface="popover" 
+      placeholder="Filtrar opciones" 
+      class="ion-margin-vertical"
+      style="min-width: 50px;"
+    >
+      <ion-select-option value="1">Opción 1</ion-select-option>
+      <ion-select-option value="2">Opción 2</ion-select-option>
+      <ion-select-option value="3">Opción 3</ion-select-option>
+    </ion-select>
+  </div>
 
   <!-- Obtener y recorrer todos los clientes traidos por el servicio -->
-  @for (usuario of usuarios(); track usuario.id; let i = $index) {
+  @for (usuario of usuarios(); track usuario.id + '-' + usuario.id_cuenta; let i = $index) {
   <ion-card class="ion-margin-top card-hover user-card ion-no-padding">
     <ion-card-content class="ion-no-padding">
       <ion-grid [fixed]="true">
@@ -252,7 +262,7 @@
 
   <!-- Contenido de CUENTAS -->
   @if (selectedSegment() === 'cuentas') {
-  <div class="box-center">
+  <div class="ion-display-flex ion-justify-content-around ion-align-items-around">
     <ion-searchbar
       class="ion-margin-top"
       placeholder="Buscar cuenta por usuario o correo"
