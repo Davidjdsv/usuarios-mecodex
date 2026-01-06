@@ -17,7 +17,8 @@ import {
   IonIcon,
   IonLabel,
   IonText,
-  IonButton
+  IonButton,
+  IonButtons
 } from '@ionic/angular/standalone';
 import { ActivatedRoute } from '@angular/router';
 import { UsuariosWebClosterInterface } from 'src/app/models/usuarios-web-closter-interface';
@@ -44,6 +45,7 @@ import { UsuariosWebClosterService } from 'src/app/core/services/usuarios-webclo
     IonLabel,
     IonText,
     IonButton,
+    IonButtons,
     CommonModule,
     FormsModule,
     RouterLink
@@ -84,5 +86,19 @@ export class UsuarioWebClosterPage implements OnInit {
         console.error('Error al obtener el usuario Web Closter por ID:', err)
       }
     })
+  }
+
+  // Otorga permisos al usuario seleccionado
+  otorgarPermisos() {
+  //   this.usuarioWebClosterService.otorgarPermisos(this.id_usuario_wc()).subscribe({
+  //     next: (response) => {
+  //       console.log('Permisos otorgados con éxito:', response)
+  //       // Actualizar la lista de usuarios después de otorgar permisos
+  //       this.obtenerUsuarioWc(this.id_usuario_wc())
+  //     },
+  //     error: (err) => {
+  //       console.error('Error al otorgar permisos:', err)
+  //     }
+  //   })
   }
 }

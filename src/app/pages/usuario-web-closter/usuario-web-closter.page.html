@@ -116,6 +116,26 @@
           </ion-col>
         </ion-row>
       </ion-grid>
+
+      <ion-grid [fixed]="true">
+        <ion-row class="ion-justify-content-evenly">
+          <ion-col size="12" size-md="4">
+            <ion-buttons
+              class="ion-justify-content-center ion-margin-horizontal"
+            >
+              <ion-button
+                (click)="otorgarPermisos()"
+                color="primary-dark"
+                class="ion-margin-end"
+              >
+                <ion-icon name="create-outline" slot="start"></ion-icon>
+                Permisos
+              </ion-button>
+
+            </ion-buttons>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-card-content>
     }
   </ion-card>
