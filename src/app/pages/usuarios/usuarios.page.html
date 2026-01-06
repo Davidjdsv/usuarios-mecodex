@@ -66,7 +66,7 @@
       style="min-width: 50px;"
     >
     <!-- Opción por defecto para limpiar filtros -->
-    <ion-select-option value="null">Limpiar filtros</ion-select-option>
+    <ion-select-option value="null">Todos</ion-select-option>
       @for (licencia of licencias(); track licencia.id) {
         <ion-select-option value="{{ licencia.id }}">{{ licencia.nombre }}</ion-select-option>
       }
