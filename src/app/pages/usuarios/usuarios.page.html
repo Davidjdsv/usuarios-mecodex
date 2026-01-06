@@ -60,10 +60,13 @@
     <ion-select 
       fill="outline" 
       interface="popover" 
-      placeholder="Filtrar opciones" 
+      placeholder="Filtrar por plan" 
+      (ionChange)="getLicenciaSeleccionada($event)"
       class="ion-margin-vertical"
       style="min-width: 50px;"
     >
+    <!-- Opción por defecto para limpiar filtros -->
+    <ion-select-option value="null">Limpiar filtros</ion-select-option>
       @for (licencia of licencias(); track licencia.id) {
         <ion-select-option value="{{ licencia.id }}">{{ licencia.nombre }}</ion-select-option>
       }

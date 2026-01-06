@@ -112,6 +112,7 @@ export class UsuariosPage implements OnInit {
   searchUsers = signal<string>('');
   searchCuentas = signal<string>('');
   licencias = signal<LicenciaInterface[]>([]);  
+  licenciaSeleccionada = signal<string | null>(null);
 
   // * CONTADORES
   cont_usuarios_pro_plus = signal<number>(0);
@@ -220,6 +221,27 @@ export class UsuariosPage implements OnInit {
     this.cuentas.set(cuentasInicial);
     this.indiceActualCuentas.set(this.LIMITE_CUENTAS);
   }
+
+getLicenciaSeleccionada(event: CustomEvent) {
+  const licenciaId = event.detail.value;
+  
+  if (!licenciaId) {
+    this.cargarUsuariosInicial();
+    return;
+  }
+  
+  this.usuariosServices.getUsuariosPorLicencia(licenciaId).subscribe({
+    next: (usuariosFiltrados: UsuariosInterface[]) => {
+      this.usuarios.set(usuariosFiltrados);
+      this.indiceActual.set(usuariosFiltrados.length);
+      
+    },
+    error: (err: any) => {
+      console.error('Error al filtrar usuarios por licencia:', err);
+      this.cargarUsuariosInicial();
+    }
+  });
+}
 
   contarUsuariosPorTipo() {
     const contadores = {

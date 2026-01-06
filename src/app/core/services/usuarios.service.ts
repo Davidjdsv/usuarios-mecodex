@@ -71,4 +71,18 @@ export class UsuariosService {
     
     return this.http.delete<UsuariosInterface[]>(url.toString());
   }
+
+/**
+ * Obtiene usuarios filtrados por licencia
+ * @param id_licencia ID de la licencia (plan) para filtrar
+ * @returns Observable<UsuariosInterface[]>
+ */
+getUsuariosPorLicencia(id_licencia: number): Observable<UsuariosInterface[]> {
+  const url = new URL(this.api());
+  url.searchParams.append('id_licencia', id_licencia.toString());
+  
+  return this.http.get<UsuariosResponseInterface>(url.toString()).pipe(
+    map((res) => res.data as UsuariosInterface[])
+  );
+}
 }
