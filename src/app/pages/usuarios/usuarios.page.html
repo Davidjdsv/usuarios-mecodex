@@ -51,7 +51,7 @@
     ></ion-searchbar>
   </div>
 
-  <div class="ion-display-flex ion-justify-content-between ion-align-items-center">
+  <div class="ion-display-flex ion-justify-content-between ion-align-items-center ion-margin-horizontal">
     <ion-button color="primary-dark" class="ion-margin-vertical" (click)="addClient()">
       <ion-icon name="person-add" slot="end" color="tertiary"></ion-icon>
       Agregar Cliente
@@ -265,7 +265,7 @@
 
   <!-- Contenido de CUENTAS -->
   @if (selectedSegment() === 'cuentas') {
-  <div class="ion-display-flex ion-justify-content-around ion-align-items-around">
+  <div class="box-center">
     <ion-searchbar
       class="ion-margin-top"
       placeholder="Buscar cuenta por usuario o correo"
