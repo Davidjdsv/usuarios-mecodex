@@ -90,6 +90,11 @@ export class UsuarioWebClosterPage implements OnInit {
 
   // Otorga permisos al usuario seleccionado
   otorgarPermisos() {
+    // 1. Crear y mostrar la ventana
+
+    // 2. Enviar la solicitud al backend para otorgar permisos
+
+    // 3. Actualizar la lista de usuarios después de otorgar permisos
   //   this.usuarioWebClosterService.otorgarPermisos(this.id_usuario_wc()).subscribe({
   //     next: (response) => {
   //       console.log('Permisos otorgados con éxito:', response)
