@@ -20,6 +20,7 @@ import {
 } from '@ionic/angular/standalone';
 import { RolesUsuariosService } from 'src/app/core/services/roles-usuarios.service';
 import { RolesInterface } from 'src/app/models/roles-interface';
+import { AddRoleComponent } from 'src/app/components/rbca/roles/add-role/add-role.component';
 
 @Component({
   selector: 'app-configuracion-permisos',
@@ -56,7 +57,7 @@ export class ConfiguracionPermisosPage implements OnInit {
 
   async crearRolModal(): Promise<void>{
     const modal = await this.modalController.create({
-      component: CrearRolModalComponent,
+      component: AddRoleComponent,
       backdropDismiss: true,
     });
     await modal.present();

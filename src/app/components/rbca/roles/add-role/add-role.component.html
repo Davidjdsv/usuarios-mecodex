@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Agregar nuevo rol</ion-title>
+    <!-- Botón para cerrar el modal si es necesario -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+    <ion-list>
+      <!-- Nombre del rol -->
+      <ion-input
+        required
+        type="text"
+        name="nombre"
+        [(ngModel)]="dataRole.nombre_rol"
+        label="Nombre del rol"
+        label-placement="floating"
+        fill="outline"
+        maxlength="50"
+        minlength="3"
+        class="ion-margin-bottom"
+      ></ion-input>
+
+      <!-- Descripción -->
+      <ion-textarea
+        auto-grow="true"
+        label="Descripción"
+        label-placement="floating"
+        fill="outline"
+        [(ngModel)]="dataRole.descripcion"
+        name="descripcion"
+        maxlength="255"
+        class="ion-margin-bottom"
+      ></ion-textarea>
+
+      <!-- Estado Activo (Toggle) -->
+      <ion-item lines="none" class="ion-no-padding">
+        <ion-toggle
+          name="activo"
+          [(ngModel)]="dataRole.activo"
+          justify="space-between"
+          color="success"
+        >
+          Rol activo
+        </ion-toggle>
+      </ion-item>
+
+      <!-- Nota informativa sobre el estado -->
+      <ion-note color="medium" class="ion-margin-bottom ion-display-block">
+        {{
+          dataRole.activo
+            ? "El rol estará disponible para su asignación inmediatamente."
+            : "El rol se creará como inactivo."
+        }}
+      </ion-note>
+    </ion-list>
+
+    <!-- Botones de Acción -->
+    <ion-toolbar>
+      <ion-buttons slot="end">
+        <ion-button expand="block" color="medium" (click)="cancelar()"
+          >Cancelar</ion-button
+        >
+        <ion-button
+          expand="block"
+          color="primary"
+          type="submit"
+          [disabled]="form.invalid"
+          (click)="guardar()"
+          >Guardar</ion-button
+        >
+      </ion-buttons>
+    </ion-toolbar>
+  </form>
+</ion-content>
