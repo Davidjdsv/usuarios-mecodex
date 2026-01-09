@@ -32,7 +32,7 @@ RBAC es un modelo de seguridad que asigna permisos a usuarios basándose en sus 
 ActivaMecodex utiliza una **jerarquía de 3 niveles** para determinar los permisos efectivos de cada usuario:
 ```
 ┌─────────────────────────────────────────┐
-│  Nivel 3: OVERRIDES INDIVIDUALES       │  ← Mayor prioridad
+│  Nivel 3: OVERRIDES INDIVIDUALES        │  ← Mayor prioridad
 │  (usuarios_permisos)                    │
 │  Excepción específica por usuario       │
 └─────────────────────────────────────────┘
