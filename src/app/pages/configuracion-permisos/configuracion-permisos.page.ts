@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -14,7 +14,11 @@ import {
   IonCard,
   IonCardContent,
   IonIcon,
+  AlertController,
+  ModalController
 } from '@ionic/angular/standalone';
+import { RolesUsuariosService } from 'src/app/core/services/roles-usuarios.service';
+import { RolesInterface } from 'src/app/models/roles-interface';
 
 @Component({
   selector: 'app-configuracion-permisos',
@@ -37,9 +41,14 @@ import {
     IonCardContent,
     IonIcon,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ConfiguracionPermisosPage implements OnInit {
-  constructor() {}
+  private rolesService = inject(RolesUsuariosService)
+  private roles = signal<RolesInterface[]>([])
+  
+  private alertController = inject(AlertController)
+  private modalController = inject(ModalController)
 
   ngOnInit() {}
 }

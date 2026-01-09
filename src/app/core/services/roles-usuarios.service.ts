@@ -1,6 +1,6 @@
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable, catchError, map, throwError } from 'rxjs';
 import { RolesInterface, RolesResponseInterface } from 'src/app/models/roles-interface';
 import { environment } from 'src/environments/environment';
 
@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 export class RolesUsuariosService {
   private url = signal(environment.api_roles);
 
-  constructor(private http: HttpClient) { }
+  private http = inject(HttpClient);
 
   getRoles(): Observable<RolesInterface[]>{
     const url = `${this.url()}`;
@@ -23,4 +23,15 @@ export class RolesUsuariosService {
       })
     )
   }
+
+  createRoles(rol: string): Observable<RolesInterface[]> {
+    const url = `${this.url()}`
+    return this.http.post<RolesInterface[]>(url, rol).pipe(
+      catchError((error) => {
+        console.error("Error al crear un nuevo rol: ", error.message)
+        return throwError(() => new Error(error.message))
+      })
+    )
+  }
+
 }
