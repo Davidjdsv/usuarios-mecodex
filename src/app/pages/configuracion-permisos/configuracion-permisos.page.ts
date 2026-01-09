@@ -15,7 +15,8 @@ import {
   IonCardContent,
   IonIcon,
   AlertController,
-  ModalController
+  ModalController,
+  IonButton
 } from '@ionic/angular/standalone';
 import { RolesUsuariosService } from 'src/app/core/services/roles-usuarios.service';
 import { RolesInterface } from 'src/app/models/roles-interface';
@@ -40,6 +41,7 @@ import { RolesInterface } from 'src/app/models/roles-interface';
     IonCard,
     IonCardContent,
     IonIcon,
+    IonButton
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -51,4 +53,12 @@ export class ConfiguracionPermisosPage implements OnInit {
   private modalController = inject(ModalController)
 
   ngOnInit() {}
+
+  async crearRolModal(): Promise<void>{
+    const modal = await this.modalController.create({
+      component: CrearRolModalComponent,
+      backdropDismiss: true,
+    });
+    await modal.present();
+  }
 }

@@ -32,9 +32,17 @@
       <ion-segment-view>
         <!-- Contenido Segmento Usuarios -->
         <ion-segment-content id="usuarios">
+
           <div class="ion-padding">
             <h2>Gestión de Usuarios. Asignación de los perfiles a los usuarios</h2>
             <!-- Aquí iría el contenido de usuarios -->
+          </div>
+
+          <div>
+            <ion-button color="primary" (click)="crearRolModal()">
+              <ion-icon name="person-add" slot="end" color="tertiary"></ion-icon>
+              Crear rol
+            </ion-button>
           </div>
         </ion-segment-content>
 
