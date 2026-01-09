@@ -53,6 +53,14 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/usuario-web-closter/usuario-web-closter.page').then( m => m.UsuarioWebClosterPage)
   },
   {
+    path: 'configuracion-permisos',
+    data: {
+      roles: ["Administrador"]
+    },
+    canActivate: [authLoginGuard, rolesGuard],
+    loadComponent: () => import('./pages/configuracion-permisos/configuracion-permisos.page').then( m => m.ConfiguracionPermisosPage)
+  },
+  {
     path: '**',
     redirectTo: 'inicio',
   },

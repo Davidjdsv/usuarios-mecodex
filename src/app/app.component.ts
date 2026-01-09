@@ -99,7 +99,11 @@ export class AppComponent {
   ];
 
   public appPages = [
-    { title: 'Inicio', url: '/inicio', icon: 'home', roles: this.adminRoles },
+    { 
+      title: 'Inicio', 
+      url: '/inicio', 
+      icon: 'home', 
+      roles: this.adminRoles },
     {
       title: 'Clientes Mecodex',
       url: '/usuarios',
@@ -111,6 +115,12 @@ export class AppComponent {
       url: '/usuarios-web-closter',
       icon: 'cloudy',
       roles: this.adminYSoporteRoles,
+    },
+    {
+      title: 'RBCA',
+      url: '/configuracion-permisos',
+      icon: 'key',
+      roles: this.adminRoles,
     },
   ];
 
