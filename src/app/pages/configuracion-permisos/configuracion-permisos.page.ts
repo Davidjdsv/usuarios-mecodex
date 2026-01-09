@@ -55,11 +55,48 @@ export class ConfiguracionPermisosPage implements OnInit {
 
   ngOnInit() {}
 
+  // TODO: INICIO MODALES DE ALERTA
+  private async showSuccesAlert(mensaje: string): Promise<void> {
+    const alert = await this.alertController.create({
+      header: 'Acción realizada con éxito',
+      message: `${mensaje}`,
+      buttons: ['OK'],
+      animated: true,
+    });
+    await alert.present();
+  }
+
+  private async showErrorAlert(mensaje: string): Promise<void> {
+    const alert = await this.alertController.create({
+      header: 'Error',
+      message: `${mensaje}`,
+      buttons: ['OK'],
+      animated: true,
+    });
+    await alert.present();
+  }
+  // TODO: FIN MODALES DE ALERTA
+
   async crearRolModal(): Promise<void>{
     const modal = await this.modalController.create({
       component: AddRoleComponent,
       backdropDismiss: true,
     });
     await modal.present();
+
+    const { data, role } = await modal.onWillDismiss();
+
+    console.log('data:', data, 'role:', role);
+    if (role === 'confirm') {
+      this.rolesService.createRoles(data).subscribe({
+        next: (res: RolesInterface[]) => {
+          this.roles.set(res);
+          this.showSuccesAlert("Rol agregado satisfactoriamente");
+        },
+        error: () => {
+          this.showErrorAlert("Error al agregar el rol, por favor intenta de nuevo");
+        },
+      });
+    }
   }
 }
