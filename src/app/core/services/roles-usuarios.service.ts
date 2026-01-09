@@ -24,7 +24,7 @@ export class RolesUsuariosService {
     )
   }
 
-  createRoles(rol: string): Observable<RolesInterface[]> {
+  createRoles(rol: RolesInterface): Observable<RolesInterface[]> {
     const url = `${this.url()}`
     return this.http.post<RolesInterface[]>(url, rol).pipe(
       catchError((error) => {
