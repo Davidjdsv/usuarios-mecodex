@@ -10,4 +10,50 @@
       <ion-title size="large">RBCA</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <ion-card class="ion-margin-top">
+    <ion-card-content class="ion-padding">
+      <!-- Segmentos: Usuarios, Perfiles, Roles -->
+      <ion-segment value="usuarios">
+        <ion-segment-button value="usuarios" content-id="usuarios">
+          <ion-icon name="people"></ion-icon>
+          <ion-label>Usuarios</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="perfiles" content-id="perfiles">
+          <ion-icon name="id-card"></ion-icon>
+          <ion-label>Perfiles</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="roles" content-id="roles">
+          <ion-icon name="key"></ion-icon>
+          <ion-label>Roles</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+
+      <ion-segment-view>
+        <!-- Contenido Segmento Usuarios -->
+        <ion-segment-content id="usuarios">
+          <div class="ion-padding">
+            <h2>Gestión de Usuarios. Asignación de los perfiles a los usuarios</h2>
+            <!-- Aquí iría el contenido de usuarios -->
+          </div>
+        </ion-segment-content>
+
+        <!-- Contenido Segmento Perfiles -->
+        <ion-segment-content id="perfiles">
+          <div class="ion-padding">
+            <h2>Gestión de Perfiles. Creación de los perfiles con sus respectivos permisos personalizados</h2>
+            <!-- Aquí iría el contenido de perfiles -->
+          </div>
+        </ion-segment-content>
+
+        <!-- Contenido Segmento Roles -->
+        <ion-segment-content id="roles">
+          <div class="ion-padding">
+            <h2>Gestión de Roles. Creación de roles por defecto para el sistema</h2>
+            <!-- Aquí iría el contenido de roles -->
+          </div>
+        </ion-segment-content>
+      </ion-segment-view>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
