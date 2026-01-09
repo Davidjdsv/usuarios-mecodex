@@ -1,4 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy, signal, inject } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  signal,
+  inject,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -16,7 +22,14 @@ import {
   IonIcon,
   AlertController,
   ModalController,
-  IonButton
+  IonButton,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonItem,
+  IonThumbnail,
+  IonText,
+  IonButtons,
 } from '@ionic/angular/standalone';
 import { RolesUsuariosService } from 'src/app/core/services/roles-usuarios.service';
 import { RolesInterface } from 'src/app/models/roles-interface';
@@ -42,18 +55,27 @@ import { AddRoleComponent } from 'src/app/components/rbca/roles/add-role/add-rol
     IonCard,
     IonCardContent,
     IonIcon,
-    IonButton
+    IonButton,
+    IonGrid,
+    IonRow,
+    IonCol,
+    IonItem,
+    IonThumbnail,
+    IonText,
+    IonButtons,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ConfiguracionPermisosPage implements OnInit {
-  private rolesService = inject(RolesUsuariosService)
-  private roles = signal<RolesInterface[]>([])
-  
-  private alertController = inject(AlertController)
-  private modalController = inject(ModalController)
+  private rolesService = inject(RolesUsuariosService);
+  roles = signal<RolesInterface[]>([]);
 
-  ngOnInit() {}
+  private alertController = inject(AlertController);
+  private modalController = inject(ModalController);
+
+  ngOnInit() {
+    this.obtenerRoles();
+  }
 
   // TODO: INICIO MODALES DE ALERTA
   private async showSuccesAlert(mensaje: string): Promise<void> {
@@ -77,7 +99,16 @@ export class ConfiguracionPermisosPage implements OnInit {
   }
   // TODO: FIN MODALES DE ALERTA
 
-  async crearRolModal(): Promise<void>{
+  obtenerRoles() {
+    this.rolesService.getRoles().subscribe({
+      next: (res: RolesInterface[]) => {
+        this.roles.set(res);
+        console.log('roles:', this.roles());
+      },
+    });
+  }
+
+  async crearRolModal(): Promise<void> {
     const modal = await this.modalController.create({
       component: AddRoleComponent,
       backdropDismiss: true,
@@ -91,10 +122,12 @@ export class ConfiguracionPermisosPage implements OnInit {
       this.rolesService.createRoles(data).subscribe({
         next: (res: RolesInterface[]) => {
           this.roles.set(res);
-          this.showSuccesAlert("Rol agregado satisfactoriamente");
+          this.showSuccesAlert('Rol agregado satisfactoriamente');
         },
         error: () => {
-          this.showErrorAlert("Error al agregar el rol, por favor intenta de nuevo");
+          this.showErrorAlert(
+            'Error al agregar el rol, por favor intenta de nuevo'
+          );
         },
       });
     }

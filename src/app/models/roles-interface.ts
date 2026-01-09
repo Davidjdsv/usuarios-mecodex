@@ -2,7 +2,7 @@ export interface RolesInterface {
     id_rol: number;
     nombre_rol: string;
     descripcion?: string;
-    activo?: boolean;
+    activo?: number;
 }
 
 export interface RolesResponseInterface{

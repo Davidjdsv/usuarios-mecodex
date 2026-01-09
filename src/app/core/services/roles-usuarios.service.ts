@@ -15,12 +15,7 @@ export class RolesUsuariosService {
   getRoles(): Observable<RolesInterface[]>{
     const url = `${this.url()}`;
     return this.http.get<RolesResponseInterface>(url).pipe(
-      map(res => {
-        return res.data.map((rol: RolesInterface) => ({
-          id_rol: rol.id_rol,
-          nombre_rol: rol.nombre_rol,
-        }))
-      })
+      map(res => res.data as RolesInterface[])
     )
   }
 

@@ -41,7 +41,7 @@ export class AddRoleComponent implements OnInit {
   dataRole = {
     nombre_rol: '',
     descripcion: '',
-    activo: true,
+    activo: 1,
   };
 
   constructor(private modalCtrl: ModalController) {}
