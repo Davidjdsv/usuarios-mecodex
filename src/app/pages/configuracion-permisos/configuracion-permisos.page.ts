@@ -34,6 +34,7 @@ import {
 import { RolesUsuariosService } from 'src/app/core/services/roles-usuarios.service';
 import { RolesInterface } from 'src/app/models/roles-interface';
 import { AddRoleComponent } from 'src/app/components/rbca/roles/add-role/add-role.component';
+import { PermisosService } from 'src/app/core/services/permisos.service';
 
 @Component({
   selector: 'app-configuracion-permisos',
@@ -67,6 +68,7 @@ import { AddRoleComponent } from 'src/app/components/rbca/roles/add-role/add-rol
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ConfiguracionPermisosPage implements OnInit {
+  private permisosService = inject(PermisosService);
   private rolesService = inject(RolesUsuariosService);
   roles = signal<RolesInterface[]>([]);
 
