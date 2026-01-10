@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { ModalController } from '@ionic/angular/standalone';
 import { FormsModule, NgForm } from '@angular/forms';
 import {
@@ -13,8 +13,12 @@ import {
   IonTextarea,
   IonToggle,
   IonList,
-  IonNote
+  IonNote,
+  IonListHeader,
+  IonLabel
 } from '@ionic/angular/standalone';
+import { PermisosService } from 'src/app/core/services/permisos.service';
+import { PermisosDataInterface, PermisosInterface, PermisosResponseInterface } from 'src/app/models/permisos';
 
 @Component({
   selector: 'app-add-role',
@@ -34,7 +38,9 @@ import {
     IonTextarea,
     IonToggle,
     IonList,
-    IonNote
+    IonNote,
+    IonListHeader,
+    IonLabel,
   ],
 })
 export class AddRoleComponent implements OnInit {
@@ -44,24 +50,61 @@ export class AddRoleComponent implements OnInit {
     activo: 1,
   };
 
-  constructor(private modalCtrl: ModalController) {}
+  private modalCtrl = inject(ModalController);
+  private permisosService = inject(PermisosService);
+  permisos = signal<PermisosInterface[]>([]);
 
-  ngOnInit() {}
+  // Array para almacenar los IDs de los permisos seleccionados
+  permisosSeleccionados: number[] = [];
+
+  ngOnInit() {
+    this.obtenerPermisos();
+  }
+
+  obtenerPermisos() {
+    this.permisosService.getPermisos().subscribe({
+      next: (res: PermisosDataInterface) => {
+        this.permisos.set(res.general)
+        console.log('permisos:', this.permisos());
+      },
+    });
+  }
+
+  // Método para manejar el cambio en los toggles de permisos
+  togglePermiso(event: any, idPermiso: number) {
+    const isChecked = event.detail.checked;
+
+    if (isChecked) {
+      // Si se activa, agregar el ID al array
+      this.permisosSeleccionados.push(idPermiso);
+    } else {
+      // Si se desactiva, remover el ID del array
+      this.permisosSeleccionados = this.permisosSeleccionados.filter(
+        (id) => id !== idPermiso
+      );
+    }
+    console.log('Permisos seleccionados:', this.permisosSeleccionados);
+  }
 
   cancelar() {
     this.modalCtrl.dismiss(null, 'cancel');
   }
 
   guardar() {
-    this.modalCtrl.dismiss(this.dataRole, 'confirm');
+    // Combinar los datos del rol con los permisos seleccionados
+    const dataToSave = {
+      ...this.dataRole,
+      permisos: this.permisosSeleccionados,
+    };
+    this.modalCtrl.dismiss(dataToSave, 'confirm');
   }
 
   onSubmit(form: NgForm) {
-    if(form.valid) {
-      this.modalCtrl.dismiss(this.dataRole, 'confirm');
+    if (form.valid) {
+      this.guardar();
     } else {
       // Marca los controles como tocados para que se muestren estados de error si agregas mensajes
-      Object.values(form.controls).forEach(c => c.markAsTouched())
+      Object.values(form.controls).forEach((c) => c.markAsTouched());
     }
   }
 }

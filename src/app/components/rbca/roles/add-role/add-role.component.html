@@ -34,6 +34,28 @@
         class="ion-margin-bottom"
       ></ion-textarea>
 
+      <!-- Lista de Permisos -->
+      <ion-list class="ion-margin-top">
+        <ion-list-header color="primary">
+          <ion-label >Asignar Permisos</ion-label>
+        </ion-list-header>
+
+        @for (permiso of permisos(); track permiso.id_permiso; let i = $index) {
+        <ion-item lines="full">
+          <ion-label class="ion-text-wrap">
+            <h2>{{ permiso.nombre_permiso }}</h2>
+            <p>{{ permiso.descripcion_permiso }}</p>
+          </ion-label>
+          <ion-toggle
+            slot="end"
+            [checked]="false"
+            (ionChange)="togglePermiso($event, permiso.id_permiso)"
+            color="primary"
+          ></ion-toggle>
+        </ion-item>
+        } </ion-list
+      >
+
       <!-- Estado Activo (Toggle) -->
       <ion-item lines="none" class="ion-no-padding">
         <ion-toggle
@@ -48,7 +70,7 @@
       </ion-item>
 
       <!-- Nota informativa sobre el estado -->
-      <ion-note color="medium" class="ion-margin-bottom ion-display-block">
+      <ion-note color="medium" class="ion-margin-vertical ion-display-block">
         {{
           dataRole.activo === 1
             ? "El rol estará disponible para su asignación inmediatamente."
