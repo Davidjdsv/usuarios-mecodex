@@ -120,11 +120,21 @@ export class ConfiguracionPermisosPage implements OnInit {
     const { data, role } = await modal.onWillDismiss();
 
     console.log('data:', data, 'role:', role);
+    
     if (role === 'confirm') {
       this.rolesService.createRoles(data).subscribe({
-        next: (res: RolesInterface[]) => {
-          this.roles.set(res);
-          this.showSuccesAlert('Rol agregado satisfactoriamente');
+        next: async (_res: RolesInterface[]) => {
+          this.rolesService.getRoles().subscribe({
+            error: async (err) => {
+              await this.showErrorAlert(
+                'Error al obtener los roles, por favor intenta de nuevo'
+              );
+            },
+            next: async (roles: RolesInterface[]) => {
+              this.roles.set(roles);
+              await this.showSuccesAlert('Rol agregado satisfactoriamente');
+            },
+          });
         },
         error: () => {
           this.showErrorAlert(
