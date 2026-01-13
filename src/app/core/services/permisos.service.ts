@@ -1,7 +1,7 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { PermisosDataInterface, PermisosInterface, PermisosResponseInterface } from 'src/app/models/permisos';
+import { PermisosDataInterface, PermisosResponseInterface } from 'src/app/models/permisos';
 import { map, Observable } from 'rxjs';
 
 @Injectable({
