@@ -56,7 +56,11 @@
         <!-- Contenido Segmento Roles -->
         <ion-segment-content id="roles">
           <div class="ion-padding">
-            <ion-button color="primary" class="ion-margin" (click)="crearRolModal()">
+            <ion-button
+              color="primary"
+              class="ion-margin"
+              (click)="crearRolModal()"
+            >
               <ion-icon
                 name="person-add"
                 slot="end"
@@ -80,7 +84,10 @@
                     >
                       <ion-thumbnail class="thumb-cover">
                         <!-- Icono genérico para roles -->
-                        <img src="assets/icon/roles-group-solid.svg" alt="icono de roles">
+                        <img
+                          src="assets/icon/roles-group-solid.svg"
+                          alt="icono de roles"
+                        />
                       </ion-thumbnail>
                     </ion-col>
 
@@ -128,8 +135,8 @@
                         ></ion-icon>
                         <ion-label>
                           <ion-text>
-                            <strong>Estado:</strong> {{ rol.activo === 1 ? 'Activo' :
-                            'Inactivo' }}
+                            <strong>Estado:</strong> {{ rol.activo === 1 ?
+                            'Activo' : 'Inactivo' }}
                           </ion-text>
                         </ion-label>
                       </ion-item>
@@ -151,15 +158,17 @@
                           Editar
                         </ion-button>
 
-                        <ion-button color="danger" class="ion-margin-end">
-                          <ion-icon
-                            name="trash-outline"
-                            slot="start"
-                            class="delete-icon"
-                            color="danger"
-                          ></ion-icon>
-                          Eliminar
-                        </ion-button>
+                        @if (rol.id_rol > 2) {
+                          <ion-button color="danger" class="ion-margin-end">
+                            <ion-icon
+                              name="trash-outline"
+                              slot="start"
+                              class="delete-icon"
+                              color="danger"
+                            ></ion-icon>
+                            Eliminar
+                          </ion-button>
+                        }
                       </ion-buttons>
                     </ion-col>
                   </ion-row>
