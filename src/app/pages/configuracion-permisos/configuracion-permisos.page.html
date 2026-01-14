@@ -149,9 +149,12 @@
                     <ion-col size="12" size-md="4">
                       <ion-buttons
                         class="ion-justify-content-center ion-margin-horizontal"
-                        (click)="editRolmodal(rol)"
                       >
-                        <ion-button color="primary-dark" class="ion-margin-end">
+                        <ion-button
+                          (click)="editRolmodal(rol)"
+                          color="primary-dark"
+                          class="ion-margin-end"
+                        >
                           <ion-icon
                             name="create-outline"
                             slot="start"
@@ -160,15 +163,15 @@
                         </ion-button>
 
                         @if (rol.id_rol > 2) {
-                          <ion-button color="danger" class="ion-margin-end">
-                            <ion-icon
-                              name="trash-outline"
-                              slot="start"
-                              class="delete-icon"
-                              color="danger"
-                            ></ion-icon>
-                            Eliminar
-                          </ion-button>
+                        <ion-button color="danger" class="ion-margin-end">
+                          <ion-icon
+                            name="trash-outline"
+                            slot="start"
+                            class="delete-icon"
+                            color="danger"
+                          ></ion-icon>
+                          Eliminar
+                        </ion-button>
                         }
                       </ion-buttons>
                     </ion-col>

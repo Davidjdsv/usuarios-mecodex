@@ -121,7 +121,7 @@ export class ConfiguracionPermisosPage implements OnInit {
     const { data, role } = await modal.onWillDismiss();
 
     console.log('data:', data, 'role:', role);
-    
+
     if (role === 'confirm') {
       this.rolesService.createRoles(data).subscribe({
         next: async (_res: RolesInterface[]) => {
@@ -151,34 +151,23 @@ export class ConfiguracionPermisosPage implements OnInit {
       component: EditRoleComponent,
       backdropDismiss: true,
       componentProps: {
-        dataRoles: rol,
+        dataRoles: { ...rol }, // Usar spread para evitar mutar el objeto original antes de confirmar
       },
     });
     await modal.present();
 
     const { data, role } = await modal.onWillDismiss();
 
-    console.log('data:', data, 'role:', role);
-    
-    if (role === 'confirm') {
-      this.rolesService.getPermisosActivos(data).subscribe({
-        next: async (_res: RolesInterface[]) => {
-          this.rolesService.getRoles().subscribe({
-            error: async (err) => {
-              await this.showErrorAlert(
-                'Error al obtener los roles, por favor intenta de nuevo'
-              );
-            },
-            next: async (roles: RolesInterface[]) => {
-              this.roles.set(roles);
-              await this.showSuccesAlert('Rol actualizado satisfactoriamente');
-            },
-          });
+    if (role === 'confirm' && data) {
+      // data.rol contiene los datos básicos, data.permisos contiene los IDs de permisos activos
+      this.rolesService.updateRol(data.rol, data.permisos).subscribe({
+        next: () => {
+          // Refrescamos la lista de roles tras el éxito
+          this.obtenerRoles();
+          this.showSuccesAlert('Rol actualizado satisfactoriamente');
         },
         error: () => {
-          this.showErrorAlert(
-            'Error al actualizar el rol, por favor intenta de nuevo'
-          );
+          this.showErrorAlert('Error al actualizar el rol');
         },
       });
     }

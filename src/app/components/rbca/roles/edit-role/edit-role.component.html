@@ -49,7 +49,7 @@
           <!-- Se envía si el toggle está activado y el id_permiso que se activa -->
           <ion-toggle
             slot="end"
-            [checked]="false"
+            [checked]="isPermisoSeleccionado(permiso.id_permiso)"
             (ionChange)="togglePermiso($event, permiso.id_permiso)"
             color="primary"
           ></ion-toggle>

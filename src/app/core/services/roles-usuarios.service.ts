@@ -37,4 +37,26 @@ export class RolesUsuariosService {
     )
   }
 
+  /**
+   * Actualiza un rol con sus permisos activos
+   * @param rol Rol a actualizar
+   * @param permisos Array de IDs de permisos activos
+   * @returns Observable con el rol actualizado
+   */
+  updateRol(rol: RolesInterface, permisos: number[]): Observable<any> {
+    const body = {
+      ...rol,
+      permisos: permisos // Enviamos el array de IDs seleccionados
+    };
+    
+    const url = `${this.url()}?id_rol=${rol.id_rol}`;
+
+    return this.http.put(url, body).pipe(
+      catchError((error) => {
+        console.error("Error al actualizar el rol: ", error.message);
+        return throwError(() => new Error(error.message));
+      })
+    );
+  }
+
 }
