@@ -9,6 +9,8 @@ export interface UsuariosWebClosterInterface {
     nombre_usuario: string;
     contrasena: string;
     id_tipo_documento: number;
+    created_at: string;
+    updated_at: string;
     abreviatura: string;
 }
 
