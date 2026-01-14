@@ -1,0 +1,100 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Agregar nuevo rol</ion-title>
+    <!-- Botón para cerrar el modal si es necesario -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+    <ion-list>
+      <!-- Nombre del rol -->
+      <ion-input
+        required
+        type="text"
+        name="nombre"
+        [(ngModel)]="dataRole.nombre_rol"
+        label="Nombre del rol"
+        label-placement="floating"
+        fill="outline"
+        maxlength="50"
+        minlength="3"
+        class="ion-margin-bottom"
+      ></ion-input>
+
+      <!-- Descripción -->
+      <ion-textarea
+        auto-grow="true"
+        label="Descripción"
+        label-placement="floating"
+        fill="outline"
+        [(ngModel)]="dataRole.descripcion"
+        name="descripcion"
+        maxlength="255"
+        class="ion-margin-bottom"
+      ></ion-textarea>
+
+      <!-- Lista de Permisos -->
+      <ion-list class="ion-margin-top">
+        <ion-list-header color="primary">
+          <ion-label >Asignar Permisos</ion-label>
+        </ion-list-header>
+
+        @for (permiso of permisos(); track permiso.id_permiso; let i = $index) {
+        <ion-item lines="full">
+          <ion-label class="ion-text-wrap">
+            <h2>{{ permiso.nombre_permiso }}</h2>
+            <p>{{ permiso.descripcion_permiso }}</p>
+          </ion-label>
+          <!-- Se envía si el toggle está activado y el id_permiso que se activa -->
+          <ion-toggle
+            slot="end"
+            [checked]="false"
+            (ionChange)="togglePermiso($event, permiso.id_permiso)"
+            color="primary"
+          ></ion-toggle>
+        </ion-item>
+        } </ion-list
+      >
+
+      <!-- Estado Activo (Toggle) -->
+      <ion-item lines="none" class="ion-no-padding">
+        <ion-toggle
+          name="activo"
+          value="1"
+          [(ngModel)]="dataRole.activo"
+          justify="space-between"
+          color="success"
+        >
+          Rol activo
+        </ion-toggle>
+      </ion-item>
+
+      <!-- Nota informativa sobre el estado -->
+      <ion-note color="medium" class="ion-margin-vertical ion-display-block">
+        {{
+          dataRole.activo === 1
+            ? "El rol estará disponible para su asignación inmediatamente."
+            : "El rol se creará como inactivo."
+        }}
+      </ion-note>
+    </ion-list>
+
+    <!-- Botones de Acción -->
+    <ion-toolbar>
+      <ion-buttons slot="end">
+        <ion-button expand="block" color="medium" (click)="cancelar()"
+          >Cancelar</ion-button
+        >
+        <ion-button
+          expand="block"
+          color="primary"
+          type="submit"
+          [disabled]="form.invalid"
+          (click)="guardar()"
+          >Guardar</ion-button
+        >
+      </ion-buttons>
+    </ion-toolbar>
+  </form>
+</ion-content>

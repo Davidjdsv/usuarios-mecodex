@@ -16,13 +16,24 @@ export class CuentaService {
   private http = inject(HttpClient);
 
   /**
-  * Obtiene todas las cuentas disponibles.
+  * Obtiene una única cuenta según su id.
   *
   * @returns Observable con un array de objetos CuentaInterface.
   */
   getCuenta(id_cliente: number): Observable<CuentaInterface[]> {
     const url = new URL(this.ApiCuentas());
     return this.http.get<CuentaResponseInterface>(`${url.toString()}?id_cliente=${id_cliente}`)
+    .pipe(map((res) => res.data as CuentaInterface[]));
+  }
+
+  /**
+  * Obtiene todas las cuentas disponibles.
+  *
+  * @returns Observable con un array de objetos CuentaInterface para luego ser recorrido y mostrado en la página.
+  */
+  getCuentas(): Observable<CuentaInterface[]>{
+    const url = new URL(this.ApiCuentas());
+    return this.http.get<CuentaResponseInterface>(url.toString())
     .pipe(map((res) => res.data as CuentaInterface[]));
   }
 

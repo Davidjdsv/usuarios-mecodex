@@ -17,7 +17,9 @@ import {
   IonIcon,
   IonLabel,
   IonText,
-  IonButton
+  IonButton,
+  IonButtons,
+  ModalController
 } from '@ionic/angular/standalone';
 import { ActivatedRoute } from '@angular/router';
 import { UsuariosWebClosterInterface } from 'src/app/models/usuarios-web-closter-interface';
@@ -44,9 +46,10 @@ import { UsuariosWebClosterService } from 'src/app/core/services/usuarios-webclo
     IonLabel,
     IonText,
     IonButton,
+    IonButtons,
     CommonModule,
     FormsModule,
-    RouterLink
+    RouterLink,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -54,6 +57,7 @@ export class UsuarioWebClosterPage implements OnInit {
   // Inyección de dependencias de router y servicio
   route = inject(ActivatedRoute)
   usuarioWebClosterService = inject(UsuariosWebClosterService)
+  modalController = inject(ModalController)
 
   // Señal única con el usuario a mostrar en detalle
   usuario_wc = signal<UsuariosWebClosterInterface | null>(null)
@@ -90,5 +94,33 @@ export class UsuarioWebClosterPage implements OnInit {
         console.error('Error al obtener el usuario Web Closter por ID:', err)
       }
     })
+  }
+
+  // Otorga permisos al usuario seleccionado
+  async otorgarPermisos() {
+    // 1. Crear y mostrar la ventana
+
+    // 1. Crear y mostrar la ventana
+    // const modal = await this.modalController.create({
+    //   component: ,
+    //   componentProps: {
+    //     id_usuario_wc: this.id_usuario_wc(),
+    //   },
+    // })
+    // await modal.present()
+
+    // 2. Enviar la solicitud al backend para otorgar permisos
+
+    // 3. Actualizar la lista de usuarios después de otorgar permisos
+  //   this.usuarioWebClosterService.otorgarPermisos(this.id_usuario_wc()).subscribe({
+  //     next: (response) => {
+  //       console.log('Permisos otorgados con éxito:', response)
+  //       // Actualizar la lista de usuarios después de otorgar permisos
+  //       this.obtenerUsuarioWc(this.id_usuario_wc())
+  //     },
+  //     error: (err) => {
+  //       console.error('Error al otorgar permisos:', err)
+  //     }
+  //   })
   }
 }

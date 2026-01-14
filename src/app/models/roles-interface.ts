@@ -1,6 +1,8 @@
 export interface RolesInterface {
     id_rol: number;
     nombre_rol: string;
+    descripcion?: string;
+    activo?: number;
 }
 
 export interface RolesResponseInterface{

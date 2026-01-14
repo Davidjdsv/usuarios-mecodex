@@ -37,6 +37,8 @@ import {
   IonInfiniteScrollContent,
   IonSegment,
   IonSegmentButton,
+  IonSelect,
+  IonSelectOption,
 } from '@ionic/angular/standalone';
 
 import { UsuariosInterface } from 'src/app/models/usuarios-interface';
@@ -49,6 +51,8 @@ import { DeleteClientComponent } from 'src/app/components/clientes/delete-client
 import { CacheUsuarioService } from 'src/app/core/services/cache/cache-usuario.service';
 import { CuentaInterface } from 'src/app/models/cuenta-interface';
 import { CacheCuentaService } from 'src/app/core/services/cache/cache-cuenta.service';
+import { LicenciaService } from 'src/app/core/services/licencia.service';
+import { LicenciaInterface } from 'src/app/models/licencia';
 
 @Component({
   selector: 'app-usuarios',
@@ -84,6 +88,8 @@ import { CacheCuentaService } from 'src/app/core/services/cache/cache-cuenta.ser
     IonInfiniteScrollContent,
     IonSegment,
     IonSegmentButton,
+    IonSelect,
+    IonSelectOption,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -105,6 +111,8 @@ export class UsuariosPage implements OnInit {
   // * SIGNAL PARA BÚSQUEDA (compartido)
   searchUsers = signal<string>('');
   searchCuentas = signal<string>('');
+  licencias = signal<LicenciaInterface[]>([]);  
+  licenciaSeleccionada = signal<string | null>(null);
 
   // * CONTADORES
   cont_usuarios_pro_plus = signal<number>(0);
@@ -125,6 +133,7 @@ export class UsuariosPage implements OnInit {
   private cacheService = inject(CacheUsuarioService);
   private cuentaService = inject(CuentaService);
   private cacheCuentaService = inject(CacheCuentaService);
+  private licenciaService = inject(LicenciaService);
 
   constructor() {
     effect(() => {
@@ -164,6 +173,7 @@ export class UsuariosPage implements OnInit {
         next: (res: UsuariosInterface[]) => {
           this.cacheService.setUsuarios(res);
           this.usuariosOriginales.set(res);
+          this.getLicencias();
           this.cargarUsuariosInicial();
           this.contarUsuariosPorTipo();
         },
@@ -190,7 +200,7 @@ export class UsuariosPage implements OnInit {
       this.cuentasOriginales.set(cuentasCache);
       this.cargarCuentasInicial();
     } else {
-      this.cuentaService.getCuenta(Number(this.id())).subscribe({
+      this.cuentaService.getCuentas().subscribe({
         next: (res: CuentaInterface[]) => {
           this.cacheCuentaService.setCuentas(res);
           this.cuentasOriginales.set(res);
@@ -211,6 +221,27 @@ export class UsuariosPage implements OnInit {
     this.cuentas.set(cuentasInicial);
     this.indiceActualCuentas.set(this.LIMITE_CUENTAS);
   }
+
+getLicenciaSeleccionada(event: CustomEvent) {
+  const licenciaId = event.detail.value;
+  
+  if (!licenciaId) {
+    this.cargarUsuariosInicial();
+    return;
+  }
+  
+  this.usuariosServices.getUsuariosPorLicencia(licenciaId).subscribe({
+    next: (usuariosFiltrados: UsuariosInterface[]) => {
+      this.usuarios.set(usuariosFiltrados);
+      this.indiceActual.set(usuariosFiltrados.length);
+      
+    },
+    error: (err: any) => {
+      console.error('Error al filtrar usuarios por licencia:', err);
+      this.cargarUsuariosInicial();
+    }
+  });
+}
 
   contarUsuariosPorTipo() {
     const contadores = {
@@ -360,6 +391,17 @@ export class UsuariosPage implements OnInit {
     this.indiceActualCuentas.set(siguienteIndice);
 
     event.target.complete();
+  }
+
+    getLicencias() {
+    this.licenciaService.getLicenciasService().subscribe({
+      next: (res) => {
+        this.licencias.set(res.data);
+      },
+      error(err: any) {
+        console.error('Error al obtener las licencias:', err);
+      },
+    });
   }
 
   /**

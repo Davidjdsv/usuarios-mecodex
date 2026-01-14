@@ -1,6 +1,16 @@
-# Guia de pasos para configurar el proyecto a zoneless
+# ActivaMecodex
 
-## ¿Por qué usar zoneless?
+Software interno de la empresa Webcloster para la gestión de usuarios de Mecodex y planes.
+
+ActivaMecodex nace con el propósito de agilizar tareas internas, mostrar información relevante haciendo uso de un dashboard con gráficas y facilitar la gestión de usuarios y planes de Mecodex, activación de cuentas y estadísticas en general de Mecodex.
+
+Cuenta con un sistema RBCA (Role-Based Access Control) para la gestión de permisos de usuarios internos de la aplicación ActivaMecodex.
+
+---
+
+## Guia de pasos para configurar el proyecto a zoneless
+
+### ¿Por qué usar zoneless?
 
 - Zoneless es más rápido y eficiente en términos de rendimiento.
 - Reduce la cantidad de código necesario para manejar cambios de detección de eventos.
