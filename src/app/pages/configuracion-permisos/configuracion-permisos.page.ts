@@ -35,6 +35,7 @@ import { RolesUsuariosService } from 'src/app/core/services/roles-usuarios.servi
 import { RolesInterface } from 'src/app/models/roles-interface';
 import { AddRoleComponent } from 'src/app/components/rbca/roles/add-role/add-role.component';
 import { PermisosService } from 'src/app/core/services/permisos.service';
+import { EditRoleComponent } from 'src/app/components/rbca/roles/edit-role/edit-role.component';
 
 @Component({
   selector: 'app-configuracion-permisos',
@@ -139,6 +140,44 @@ export class ConfiguracionPermisosPage implements OnInit {
         error: () => {
           this.showErrorAlert(
             'Error al agregar el rol, por favor intenta de nuevo'
+          );
+        },
+      });
+    }
+  }
+
+  async editRolmodal(rol: RolesInterface): Promise<void> {
+    const modal = await this.modalController.create({
+      component: EditRoleComponent,
+      backdropDismiss: true,
+      componentProps: {
+        dataRoles: rol,
+      },
+    });
+    await modal.present();
+
+    const { data, role } = await modal.onWillDismiss();
+
+    console.log('data:', data, 'role:', role);
+    
+    if (role === 'confirm') {
+      this.rolesService.getPermisosActivos(data).subscribe({
+        next: async (_res: RolesInterface[]) => {
+          this.rolesService.getRoles().subscribe({
+            error: async (err) => {
+              await this.showErrorAlert(
+                'Error al obtener los roles, por favor intenta de nuevo'
+              );
+            },
+            next: async (roles: RolesInterface[]) => {
+              this.roles.set(roles);
+              await this.showSuccesAlert('Rol actualizado satisfactoriamente');
+            },
+          });
+        },
+        error: () => {
+          this.showErrorAlert(
+            'Error al actualizar el rol, por favor intenta de nuevo'
           );
         },
       });

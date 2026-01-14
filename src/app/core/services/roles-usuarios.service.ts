@@ -29,4 +29,12 @@ export class RolesUsuariosService {
     )
   }
 
+  getPermisosActivos(rol: RolesInterface): Observable<RolesInterface[]> {
+    const url = `${this.url()}?id_rol=${rol.id_rol}`
+
+    return this.http.get<RolesResponseInterface>(url).pipe(
+      map(res => res.data as RolesInterface[])
+    )
+  }
+
 }
