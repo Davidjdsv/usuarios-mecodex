@@ -34,6 +34,7 @@
                   size-md="4"
                   class="ion-text-center img-ion-col ion-align-items-center"
                 >
+                <ion-item lines="none" aria-label="favorite">
                   <ion-thumbnail class="thumb-cover">
                     <!-- Icono genérico para roles -->
                     <img
@@ -41,6 +42,7 @@
                       alt="icono de roles"
                     />
                   </ion-thumbnail>
+                </ion-item>
                 </ion-col>
 
                 <!-- Col 2: Nombre / Descripción -->
@@ -70,7 +72,8 @@
                     ></ion-icon>
                     <ion-label class="ion-text-wrap">
                       <ion-text>
-                        <strong>Descripción:</strong> {{ rol.descripcion || 'Sin descripción' }}
+                        <strong>Descripción:</strong> {{ rol.descripcion || 'Sin
+                        descripción' }}
                       </ion-text>
                     </ion-label>
                   </ion-item>
