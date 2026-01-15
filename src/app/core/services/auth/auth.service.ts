@@ -94,8 +94,8 @@ export class AuthService {
   }
 
   /**
-   * Obtiene el id del rol del usuario autenticado.
-   * Prioriza el usuario almacenado; opcionalmente intenta leer del token si el claim existe.
+   * Traduce el ID numérico del rol a un String legible ("Administrador", "Soporte").
+   * ya que en las rutas no se toma por el id sino por el nombre del rol
    */
   getCurrentUserRole(): string {
     const user = this.getCurrentUser();
@@ -130,8 +130,11 @@ export class AuthService {
   }
 
   /**
-   * Verifica si el usuario autenticado posee alguno de los roles permitidos.
-   */
+ * Verifica si el usuario autenticado tiene uno de los roles permitidos.
+ * Esta función es consumida directamente por el rolesGuard.
+ * @param allowedRoles Array de strings con los roles permitidos (ej: ['Administrador', 'Soporte'])
+ * @returns true si el usuario tiene permiso, false si no.
+ */
   hasRole(allowedRoles: string[]): boolean {
     const role = this.getCurrentUserRole();
     console.log("El rol actual del usuario en authservice es: ", role)
