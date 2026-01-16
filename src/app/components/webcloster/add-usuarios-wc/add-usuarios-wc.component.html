@@ -113,6 +113,28 @@
         fill="outline"
         [(ngModel)]="dataUsuarioWc.contrasena"
       ></ion-input>
+
+      <!-- Estado Activo (Toggle) -->
+      <ion-toggle
+        class="ion-margin-vertical"
+        name="activo"
+        value="1"
+        (ionChange)="isToggleChecked($event)"
+        [checked]="dataUsuarioWc.activo === 1"
+        justify="space-between"
+        color="success"
+      >
+        Usuario activo
+      </ion-toggle>
+
+      <!-- Nota informativa sobre el estado -->
+      <ion-note color="medium" class="ion-margin-vertical ion-display-block">
+        {{
+          dataUsuarioWc.activo === 1
+            ? "El usuario estará disponible para su asignación inmediatamente."
+            : "El usuario se creará como inactivo."
+        }}
+      </ion-note>
     </ion-list>
 
     <ion-toolbar>
@@ -125,6 +147,7 @@
           color="primary"
           type="submit"
           [disabled]="form.invalid"
+          (click)="guardar()"
           >Guardar</ion-button
         >
       </ion-buttons>

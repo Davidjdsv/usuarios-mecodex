@@ -10,6 +10,8 @@ import {
   IonButton,
   IonInput,
   IonList,
+  IonNote,
+  IonToggle,
   IonSelectOption,
   IonSelect,
   ModalController
@@ -38,6 +40,8 @@ import { DocumentosService } from 'src/app/core/services/documentos.service';
     IonButton,
     IonInput,
     IonList,
+    IonToggle,
+    IonNote,
     IonSelectOption,
     IonSelect
   ]
@@ -59,13 +63,13 @@ export class AddUsuariosWcComponent  implements OnInit {
       id_rol_usuario: 0,
       contrasena: '',
       documento: '',
+      activo: 1,
       contacto: '',
       nombre_usuario: '',
     }
 
   // Inyección de dependencias
   constructor(private modalController: ModalController, 
-    private usuariosWebClosterService: UsuariosWebClosterService, 
     private documentosService: DocumentosService,
   private rolesUsuariosService: RolesUsuariosService) { }
 
@@ -93,12 +97,22 @@ export class AddUsuariosWcComponent  implements OnInit {
     })
   }
 
+  isToggleChecked(event: any){
+    const isChecked = event.detail.checked;
+
+    this.dataUsuarioWc.activo = isChecked ? 1 : 0;
+    console.log("Activo: ", this.dataUsuarioWc.activo)
+  }
+
   cancelar(){
     this.modalController.dismiss(null, "cancelar")
   }
 
   guardar(){
-    this.modalController.dismiss(this.dataUsuarioWc, "guardar")
+    const dataToSave = {
+      ...this.dataUsuarioWc,
+    }
+    this.modalController.dismiss(dataToSave, "guardar")
   }
 
     onSubmit(form: NgForm){

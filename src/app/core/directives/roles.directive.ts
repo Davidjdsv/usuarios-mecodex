@@ -39,10 +39,7 @@ export class RolesDirective {
     });
   }
 
-  private hasRole(
-    user: UsuariosWebClosterInterface,
-    allowedRoles: RolesInterface[]
-  ): boolean {
-    return allowedRoles.some((role) => role.id_rol === user.id_rol_usuario);
+  private hasRole(user: UsuariosWebClosterInterface, allowedRoles: RolesInterface[]): boolean {
+    return allowedRoles.some((role) => user.permisos.includes(role.id_rol));
   }
 }

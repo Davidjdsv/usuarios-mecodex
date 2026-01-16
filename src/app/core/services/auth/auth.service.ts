@@ -39,7 +39,7 @@ export class AuthService {
           this.setToken(res.token);
           // Actualiza el rol del usuario logeado
           this.isLoggedIn.set(true);
-          // Guarda el usuario autenticado para poder consultar su rol y otros datos posteriormente
+          // Guarda el usuario autenticado para poder consultar su rol con permisos y otros datos posteriormente
           localStorage.setItem(this.userKey, JSON.stringify(res.data));
           this.actualizarRol();
         }
@@ -94,31 +94,39 @@ export class AuthService {
   }
 
   /**
-   * Obtiene el id del rol del usuario autenticado.
-   * Prioriza el usuario almacenado; opcionalmente intenta leer del token si el claim existe.
+   * Obtiene TODOS los permisos del usuario desde el token JWT.
+   * Retorna un array vacío si no hay token o hay error.
    */
-  getCurrentUserRole(): string {
-    const user = this.getCurrentUser();
-    if (user && typeof user.id_rol_usuario === 'number') {
-      switch(user.id_rol_usuario){
-        case 1:
-          return "Administrador";
-        case 2:
-          return "Soporte";
-        default:
-          return "";
+  getPermisosUsuario(): number[] {
+      const token = this.getToken();
+      
+      if (!token) {
+        console.warn("No hay token disponible");
+        return [];
       }
-    }
-    const token = this.getToken();
-    if (token) {
+      
       try {
         const payload = JSON.parse(atob(token.split('.')[1]));
-        if (typeof payload?.id_rol_usuario === 'number') {
-          return payload.id_rol_usuario.toString();
+
+        console.log("Payload del token:", payload);
+
+        // Primero se verifica si el usuario está activo en la plataforma antes de obtener sus permisos
+        if(payload.activo !== 1){
+          console.warn("El usuario no está activo");
+          return payload.activo
         }
-      } catch {}
-    }
-    return "";
+        
+        // El backend envía permisos como array: [1, 2, 3, 5, 6, 7, 8, 9]
+        if (Array.isArray(payload?.permisos)) {
+          return payload.permisos;
+        }
+        
+        console.warn("El token no contiene un array de permisos válido");
+        return [];
+      } catch (err) {
+        console.error("Error al decodificar el token:", err);
+        return [];
+      }
   }
 
   // Variable observable para el rol del usuario logeado
@@ -130,12 +138,60 @@ export class AuthService {
   }
 
   /**
-   * Verifica si el usuario autenticado posee alguno de los roles permitidos.
+   * Verifica si el usuario está activo en la plataforma.
+   * Primero se verifica si el usuario está activo antes de preguntar por permisos
+   * @returns Verdadero si el usuario está activo; falso en caso contrario.
    */
-  hasRole(allowedRoles: string[]): boolean {
-    const role = this.getCurrentUserRole();
-    console.log("El rol actual del usuario en authservice es: ", role)
-    return role != null && allowedRoles.includes(role.toString());
+  isActivo(): boolean {
+    const token = this.getToken();
+    
+    if (!token) {
+      console.warn("No hay token disponible");
+      return false;
+    }
+    
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+
+      console.log("Payload del token:", payload);
+
+      // Primero se verifica si el usuario está activo en la plataforma antes de obtener sus permisos
+      if(payload.activo !== 1){
+        console.warn("El usuario no está activo");
+        return false;
+      }
+      
+      return true;
+      
+    } catch (err) {
+      console.error("Error al decodificar el token:", err);
+      return false;
+    }
+  }
+
+  /**
+   * Verifica si el usuario tiene AL MENOS UNO de los permisos requeridos.
+   * @param permisosRequeridos Array de IDs de permisos permitidos (ej: [1, 5, 9])
+   * @returns true si el usuario tiene alguno de esos permisos
+   */
+  hasPermisos(permisosRequeridos: number[]): boolean {
+      const permisosUsuario = this.getPermisosUsuario(); // Array: [1, 2, 3, 5, 6, 7, 8, 9]
+
+      if (permisosUsuario.length === 0) {
+        console.warn("El usuario no tiene permisos asignados");
+        return false;
+      }
+      
+      // Verifica si hay ALGÚN permiso en común
+      const tienePermiso = permisosRequeridos.some(permiso => 
+        permisosUsuario.includes(permiso)
+      );
+      
+      console.log(`Permisos del usuario:`, permisosUsuario);
+      console.log(`Permisos requeridos:`, permisosRequeridos);
+      console.log(`¿Tiene acceso?`, tienePermiso);
+      
+      return tienePermiso;
   }
 
   logOut(): void {

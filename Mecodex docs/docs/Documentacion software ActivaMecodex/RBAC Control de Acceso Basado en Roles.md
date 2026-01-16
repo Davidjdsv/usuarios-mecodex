@@ -29,18 +29,12 @@ RBAC es un modelo de seguridad que asigna permisos a usuarios basándose en sus 
 
 ## 🏗️ Arquitectura del Sistema
 
-ActivaMecodex utiliza una **jerarquía de 3 niveles** para determinar los permisos efectivos de cada usuario:
+ActivaMecodex utiliza una **jerarquía de 2 niveles** para determinar los permisos efectivos de cada usuario:
 ```
 ┌─────────────────────────────────────────┐
-│  Nivel 3: OVERRIDES INDIVIDUALES        │  ← Mayor prioridad
+│  Nivel 2: OVERRIDES INDIVIDUALES        │  ← Mayor prioridad
 │  (usuarios_permisos)                    │
 │  Excepción específica por usuario       │
-└─────────────────────────────────────────┘
-                  ↓
-┌─────────────────────────────────────────┐
-│  Nivel 2: PERFILES PERSONALIZABLES      │  ← Prioridad media
-│  (usuarios_perfiles + perfiles_permisos)│
-│  Plantillas reutilizables de permisos   │
 └─────────────────────────────────────────┘
                   ↓
 ┌─────────────────────────────────────────┐
@@ -54,10 +48,9 @@ ActivaMecodex utiliza una **jerarquía de 3 niveles** para determinar los permis
 
 Cuando el sistema evalúa si un usuario tiene un permiso específico, verifica en este orden:
 
-1. **¿Existe un override individual?** → Si existe, ese es el valor definitivo
-2. **¿Tiene perfiles asignados?** → Si existe, usa el permiso del perfil de mayor prioridad
-3. **¿Qué permisos tiene su rol base?** → Si no hay override ni perfil, usa el permiso del rol
-4. **Si no existe en ningún lado** → El permiso es **DENEGADO** por defecto
+1. **¿Existe un override individual?** → Si existe, ese es el valor definitivo por encima de permisos por el rol
+2. **¿Qué permisos tiene su rol?** → Si no hay override del usuario, usa el permiso del rol
+3. **Si no existe en ningún lado** → El permiso es **DENEGADO** por defecto
 
 ---
 
@@ -117,7 +110,7 @@ activo: 1
 ```
 
 :::info Buena práctica
-Los roles deben representar **funciones reales** en tu organización (ej: Gerente de Ventas, Auditor, Operador).
+Los roles deben representar **funciones reales** en tu empresa (ej: "Administrador", "Soporte Técnico", "Cartera", etc).
 :::
 
 ---
@@ -236,123 +229,7 @@ Cuando asignas el rol "Soporte" a un usuario, **automáticamente** obtiene los 4
 
 ---
 
-### 6. perfiles
-
-**Descripción**: Contenedores **reutilizables** de permisos personalizados. Permiten crear configuraciones específicas que pueden asignarse a múltiples usuarios sin modificar sus roles base.
-
-**Campos principales**:
-- `id_perfil`: Identificador único
-- `nombre_perfil`: Nombre descriptivo (ej: "Auditor Avanzado")
-- `descripcion`: Explicación del propósito del perfil
-- `activo`: Estado del perfil
-- `es_editable`: Si el perfil puede ser modificado
-- `created_by`: Usuario que creó el perfil (FK → usuarios_web_closter)
-
-**¿Cuándo usar perfiles?**
-
-✅ **Usa perfiles cuando**:
-- Necesitas la misma configuración de permisos para **varios usuarios**
-- Quieres crear "plantillas" reutilizables
-- Los permisos del rol base no son suficientes ni excesivos
-
-❌ **NO uses perfiles cuando**:
-- Solo un usuario necesita el cambio → usa **override individual**
-
-**Ejemplo de perfil**:
-```sql
-id_perfil: 1
-nombre_perfil: "Auditor Avanzado"
-descripcion: "Puede ver todo y crear clientes, pero no modificar ni eliminar"
-activo: 1
-es_editable: 1
-created_by: 1  -- Creado por Jhoan
-```
-
-**Caso de uso real**:
-
-Imagina que tienes **10 empleados nuevos** que necesitan:
-- Ver clientes y usuarios
-- Crear clientes
-- NO editar ni eliminar nada
-
-En lugar de hacer 10 overrides individuales, creas **1 perfil** y lo asignas a los 10 usuarios.
-
----
-
-### 7. perfiles_permisos
-
-**Descripción**: Tabla intermedia que define qué permisos están **habilitados o denegados** en cada perfil.
-
-**Campos principales**:
-- `id_perfil`: Perfil al que pertenece (FK → perfiles)
-- `id_permiso`: Permiso asociado (FK → permisos)
-- `permitido`: `1` = conceder, `0` = denegar
-- `created_by`: Usuario que configuró el permiso
-
-**Llave primaria compuesta**: `(id_perfil, id_permiso)`
-
-**Ejemplo de configuración del perfil "Auditor Avanzado"**:
-```sql
--- Perfil "Auditor Avanzado" (id=1)
-INSERT INTO perfiles_permisos (id_perfil, id_permiso, permitido, created_by) VALUES
-(1, 1, 1, 1),  -- ✅ clientes.ver = PERMITIDO
-(1, 2, 1, 1),  -- ✅ clientes.crear = PERMITIDO
-(1, 3, 0, 1),  -- ❌ clientes.editar = DENEGADO
-(1, 4, 0, 1),  -- ❌ clientes.eliminar = DENEGADO
-(1, 5, 1, 1),  -- ✅ usuarios.ver = PERMITIDO
-(1, 9, 1, 1);  -- ✅ inicio.ver = PERMITIDO
-```
-
-:::warning Importante
-Si un permiso no está en esta tabla, el perfil **NO lo otorga**. Solo incluye los permisos que quieres controlar.
-:::
-
----
-
-### 8. usuarios_perfiles
-
-**Descripción**: Asigna **perfiles** a usuarios específicos. Un usuario puede tener múltiples perfiles con diferentes prioridades.
-
-**Campos principales**:
-- `id_usuario_wc`: Usuario al que se asigna (FK → usuarios_web_closter)
-- `id_perfil`: Perfil asignado (FK → perfiles)
-- `prioridad`: Número que define precedencia (mayor = más importante)
-- `assigned_by`: Usuario que hizo la asignación
-
-**Llave primaria compuesta**: `(id_usuario_wc, id_perfil)`
-
-**¿Cómo funciona la prioridad?**
-
-Si un usuario tiene **2 perfiles** que definen el mismo permiso de forma diferente, gana el de **mayor prioridad**.
-
-**Ejemplo**:
-```sql
--- Usuario root (id=2) recibe perfil "Auditor Avanzado"
-INSERT INTO usuarios_perfiles (id_usuario_wc, id_perfil, prioridad, assigned_by) VALUES
-(2, 1, 1, 1);  -- root obtiene perfil 1, prioridad 1, asignado por Jhoan
-
--- Usuario David (id=10) también recibe el mismo perfil
-INSERT INTO usuarios_perfiles (id_usuario_wc, id_perfil, prioridad, assigned_by) VALUES
-(10, 1, 1, 1);
-```
-
-**Caso con múltiples perfiles y prioridades**:
-```sql
--- Usuario María tiene 2 perfiles
-INSERT INTO usuarios_perfiles (id_usuario_wc, id_perfil, prioridad) VALUES
-(5, 1, 1),  -- Perfil "Auditor" (prioridad 1) → clientes.eliminar = NO
-(5, 2, 2);  -- Perfil "Gerente" (prioridad 2) → clientes.eliminar = SÍ
-
--- Resultado: María SÍ puede eliminar clientes porque el perfil de prioridad 2 gana
-```
-
-:::info Buena práctica
-Usa prioridades solo cuando realmente necesites múltiples perfiles. Para la mayoría de casos, **un perfil por usuario** es suficiente.
-:::
-
----
-
-### 9. usuarios_permisos
+### 6. usuarios_permisos
 
 **Descripción**: Tabla de **overrides individuales**. Permite conceder o revocar permisos específicos a un usuario sin cambiar su rol ni perfil. Tiene la **máxima prioridad** en la jerarquía.
 
@@ -390,7 +267,7 @@ INSERT INTO usuarios_permisos (id_usuario_wc, id_permiso, permitido, created_by)
 ```
 
 :::danger Prioridad máxima
-Si existe un registro en `usuarios_permisos`, ese valor es **DEFINITIVO**. No importa qué diga el rol o el perfil.
+Si existe un registro en `usuarios_permisos`, ese valor es **DEFINITIVO**. No importa qué diga el rol.
 :::
 
 ---
@@ -416,55 +293,25 @@ Si existe un registro en `usuarios_permisos`, ese valor es **DEFINITIVO**. No im
 
 ---
 
-### Ejemplo 2: Usuario con rol + perfil
+### Ejemplo 3: Usuario con rol + override
 
 **Usuario**: root (id=2)  
 **Rol**: Soporte  
-**Perfil**: "Auditor Avanzado" (id=1)  
-**Overrides**: Ninguno  
-
-**¿Qué permisos tiene?**
-
-1. **Hereda del rol Soporte**: `clientes.ver`, `clientes.crear`, `clientes.editar`, `inicio.ver`
-2. **Hereda del perfil**: `clientes.ver`, `clientes.crear` (NO editar), `usuarios.ver`, `inicio.ver`
-
-**Conflicto**: El rol permite `clientes.editar` pero el perfil lo NIEGA.
-
-**Resolución**: Gana el **perfil** (nivel 2) sobre el rol (nivel 1).
-
-**Permisos efectivos**:
-```
-✅ clientes.ver        (rol + perfil)
-✅ clientes.crear      (rol + perfil)
-❌ clientes.editar     (perfil lo deniega, supera al rol)
-❌ clientes.eliminar   (ni rol ni perfil lo tienen)
-✅ usuarios.ver        (del perfil)
-❌ usuarios.crear      (ni rol ni perfil lo tienen)
-✅ inicio.ver          (rol + perfil)
-```
-
----
-
-### Ejemplo 3: Usuario con rol + perfil + override
-
-**Usuario**: root (id=2)  
-**Rol**: Soporte  
-**Perfil**: "Auditor Avanzado"  
 **Override**: `usuarios.suspender = 1` (CONCEDIDO)  
 
 **Permisos efectivos**:
 ```
-✅ clientes.ver        (rol + perfil)
-✅ clientes.crear      (rol + perfil)
-❌ clientes.editar     (perfil lo deniega)
-❌ clientes.eliminar   (ni rol ni perfil lo tienen)
-✅ usuarios.ver        (del perfil)
+✅ clientes.ver        (rol)
+✅ clientes.crear      (rol)
+❌ clientes.editar     (rol lo deniega)
+❌ clientes.eliminar   (rol lo deniega)
+✅ usuarios.ver        (rol)
 ✅ usuarios.suspender  (OVERRIDE individual - máxima prioridad)
-✅ inicio.ver          (rol + perfil)
+✅ inicio.ver          (OVERRIDE individual - máxima prioridad)
 ```
 
 :::tip Jerarquía en acción
-El override `usuarios.suspender = 1` **supera** el hecho de que ni el rol ni el perfil lo permiten.
+El override `usuarios.suspender = 1` y `inicio.ver = 1` **supera** el hecho de que rol lo permiten.
 :::
 
 ---
@@ -518,15 +365,15 @@ flowchart TD
 ### ✅ Recomendaciones
 
 1. **Usa roles para permisos comunes**: Define roles que representen funciones reales en tu empresa
-2. **Usa perfiles para grupos de usuarios**: Si 5+ usuarios necesitan los mismos permisos especiales, crea un perfil
+2. **Usa perfiles para grupos de usuarios**: Si 5+ usuarios necesitan los mismos permisos especiales, crea un nuevo rol
 3. **Usa overrides para excepciones**: Solo para casos únicos o temporales
 4. **Documenta los cambios**: Usa el campo `created_by` para saber quién modificó cada permiso
 5. **Revisa periódicamente**: Audita los overrides para detectar permisos obsoletos
 
 ### ❌ Evita
 
-1. **No abuses de los overrides**: Si muchos usuarios necesitan el mismo cambio, crea un perfil o ajusta el rol
-2. **No crees roles demasiado específicos**: Mejor usa perfiles para casos especiales
+1. **No abuses de los overrides**: Si muchos usuarios necesitan el mismo cambio, crea un nuevo rol
+2. **No crees roles demasiado específicos**: Mejor usa roles para casos especiales
 3. **No mezcles perfiles conflictivos**: Si asignas múltiples perfiles, asegúrate de que no se contradigan
 4. **No olvides desactivar usuarios**: Usa el campo `activo` en lugar de eliminar registros
 
@@ -544,11 +391,10 @@ flowchart TD
 
 ## 📝 Resumen
 
-ActivaMecodex implementa un sistema RBAC robusto con **3 niveles jerárquicos**:
+ActivaMecodex implementa un sistema RBAC robusto con **2 niveles jerárquicos**:
 
 1. **Rol base**: Permisos predeterminados según la función del usuario
-2. **Perfiles**: Plantillas reutilizables para grupos de usuarios con necesidades similares
-3. **Overrides individuales**: Excepciones específicas con máxima prioridad
+2. **Overrides individuales**: Excepciones específicas con máxima prioridad
 
 Esta arquitectura permite:
 - ✅ Gestión segura y escalable de permisos
