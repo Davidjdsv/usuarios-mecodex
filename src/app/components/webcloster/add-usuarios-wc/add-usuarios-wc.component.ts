@@ -14,7 +14,8 @@ import {
   IonToggle,
   IonSelectOption,
   IonSelect,
-  ModalController
+  ModalController,
+  IonIcon
 } from '@ionic/angular/standalone';
 import { UsuariosWebClosterService } from 'src/app/core/services/usuarios-webcloster.service';
 import { UsuariosWebClosterInterface } from 'src/app/models/usuarios-web-closter-interface';
@@ -43,7 +44,8 @@ import { DocumentosService } from 'src/app/core/services/documentos.service';
     IonToggle,
     IonNote,
     IonSelectOption,
-    IonSelect
+    IonSelect,
+    IonIcon
   ]
 })
 export class AddUsuariosWcComponent  implements OnInit {

@@ -15,7 +15,8 @@ import {
   IonList,
   IonNote,
   IonListHeader,
-  IonLabel
+  IonLabel,
+  IonIcon
 } from '@ionic/angular/standalone';
 import { PermisosService } from 'src/app/core/services/permisos.service';
 import { PermisosDataInterface, PermisosInterface, PermisosResponseInterface } from 'src/app/models/permisos';
@@ -41,6 +42,7 @@ import { PermisosDataInterface, PermisosInterface, PermisosResponseInterface } f
     IonNote,
     IonListHeader,
     IonLabel,
+    IonIcon
   ],
 })
 export class AddRoleComponent implements OnInit {

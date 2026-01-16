@@ -23,6 +23,7 @@ import {
   IonNote,
   IonListHeader,
   IonLabel,
+  IonIcon
 } from '@ionic/angular/standalone';
 import { PermisosService } from 'src/app/core/services/permisos.service';
 import { RolesUsuariosService } from 'src/app/core/services/roles-usuarios.service';
@@ -53,6 +54,7 @@ import { RolesInterface } from 'src/app/models/roles-interface';
     IonNote,
     IonListHeader,
     IonLabel,
+    IonIcon
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

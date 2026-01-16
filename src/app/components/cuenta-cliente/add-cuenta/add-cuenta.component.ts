@@ -10,6 +10,7 @@ import { IonHeader,
   IonSelectOption,
   IonButton,
   IonButtons,
+  IonIcon,
   ModalController, } from '@ionic/angular/standalone';
 import { PaisServicioService } from 'src/app/core/services/pais-servicio.service';
 import { PaisesInterface } from 'src/app/models/paises-interface';
@@ -33,6 +34,7 @@ import { LicenciaInterface } from 'src/app/models/licencia';
   IonButton,
   IonButtons,
   FormsModule,
+  IonIcon
   ]
 })
 export class AddCuentaComponent  implements OnInit {
