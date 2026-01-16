@@ -11,6 +11,9 @@ import {
   IonList,
   IonSelectOption,
   IonSelect,
+  IonToggle,
+  IonNote,
+  IonIcon,
   ModalController,
 } from '@ionic/angular/standalone';
 
@@ -37,6 +40,9 @@ import { UsuariosWebClosterInterface } from 'src/app/models/usuarios-web-closter
     IonList,
     IonSelectOption,
     IonSelect,
+    IonToggle,
+    IonNote,
+    IonIcon,
     FormsModule
   ],
 })
@@ -69,7 +75,13 @@ export class EditUsuariosWcComponent implements OnInit {
       },
     });
   }
-  
+
+  isToggleChecked(event: any){
+    const isChecked = event.detail.checked;
+
+    this.dataUsuarioWc.activo = isChecked ? 1 : 0;
+    console.log("Activo: ", this.dataUsuarioWc.activo)
+  }
 
   guardar() {
     this.modalController.dismiss(this.dataUsuarioWc, 'guardar');
