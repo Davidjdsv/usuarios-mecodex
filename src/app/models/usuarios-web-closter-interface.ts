@@ -12,6 +12,7 @@ export interface UsuariosWebClosterInterface {
     created_at: string;
     updated_at: string;
     abreviatura: string;
+    permisos: number[];
 }
 
 // Para LOGIN (un solo usuario)

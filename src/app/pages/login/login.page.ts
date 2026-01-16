@@ -56,7 +56,7 @@ export class LoginPage {
         if (response.success) {
           this.loading.set(true);
           //Validar vista según rol
-          if (this.authService.getCurrentUserRole() == 'Administrador') {
+          if (this.authService.getPermisosUsuario()) {
             this.router.navigate(['/inicio']);
           } else {
             this.router.navigate(['/usuarios']);
