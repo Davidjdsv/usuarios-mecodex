@@ -1,10 +1,11 @@
-// Para múltiples usuarios
+// Add activo field to interface to match backend changes
 export interface UsuariosWebClosterInterface {
     id_usuario_wc: number;
     nombre_completo: string;
     documento: string;
     contacto: string;
     correo: string;
+    activo: number; // 1 para activo, 0 para inactivo
     id_rol_usuario: number;
     nombre_usuario: string;
     contrasena: string;

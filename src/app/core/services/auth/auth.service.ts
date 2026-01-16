@@ -107,6 +107,14 @@ export class AuthService {
       
       try {
         const payload = JSON.parse(atob(token.split('.')[1]));
+
+        console.log("Payload del token:", payload);
+
+        // Primero se verifica si el usuario está activo en la plataforma antes de obtener sus permisos
+        if(payload.activo !== 1){
+          console.warn("El usuario no está activo");
+          return payload.activo
+        }
         
         // El backend envía permisos como array: [1, 2, 3, 5, 6, 7, 8, 9]
         if (Array.isArray(payload?.permisos)) {
@@ -130,13 +138,45 @@ export class AuthService {
   }
 
   /**
+   * Verifica si el usuario está activo en la plataforma.
+   * Primero se verifica si el usuario está activo antes de preguntar por permisos
+   * @returns Verdadero si el usuario está activo; falso en caso contrario.
+   */
+  isActivo(): boolean {
+    const token = this.getToken();
+    
+    if (!token) {
+      console.warn("No hay token disponible");
+      return false;
+    }
+    
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+
+      console.log("Payload del token:", payload);
+
+      // Primero se verifica si el usuario está activo en la plataforma antes de obtener sus permisos
+      if(payload.activo !== 1){
+        console.warn("El usuario no está activo");
+        return false;
+      }
+      
+      return true;
+      
+    } catch (err) {
+      console.error("Error al decodificar el token:", err);
+      return false;
+    }
+  }
+
+  /**
    * Verifica si el usuario tiene AL MENOS UNO de los permisos requeridos.
    * @param permisosRequeridos Array de IDs de permisos permitidos (ej: [1, 5, 9])
    * @returns true si el usuario tiene alguno de esos permisos
    */
   hasPermisos(permisosRequeridos: number[]): boolean {
       const permisosUsuario = this.getPermisosUsuario(); // Array: [1, 2, 3, 5, 6, 7, 8, 9]
-      
+
       if (permisosUsuario.length === 0) {
         console.warn("El usuario no tiene permisos asignados");
         return false;

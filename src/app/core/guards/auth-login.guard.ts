@@ -11,7 +11,7 @@ export const authLoginGuard: CanActivateFn = (
   const router = inject(Router);
 
   //Verifica que si está autenticado en al respuesta que tiene el servicio
-  if (authLogin.isAutenthicate()) {
+  if (authLogin.isAutenthicate() && authLogin.isActivo()) {
     return true;
   } else {
     router.navigate(['/login']);
