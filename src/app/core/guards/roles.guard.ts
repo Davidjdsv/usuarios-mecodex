@@ -6,7 +6,7 @@ import { inject } from '@angular/core';
 export const rolesGuard: CanActivateFn = (route, state) => {
   // 1. Leemos la configuración 'data' definida en app.routes.ts
   // route.data['roles'] nos dará algo como ["Administrador", "Soporte"]
-  const permisosEsperados = route.data?.['permisos'];
+  const permisosEsperados = route.data?.['permisos'] as number[];
   console.log("Los permisos esperados son: ", permisosEsperados)
 
   // 2. Inyectamos el servicio de autenticación
