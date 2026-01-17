@@ -13,9 +13,9 @@ import {
   IonTextarea,
   IonToggle,
   IonList,
-  IonNote,
   IonListHeader,
-  IonLabel
+  IonLabel,
+  IonIcon
 } from '@ionic/angular/standalone';
 import { PermisosService } from 'src/app/core/services/permisos.service';
 import { PermisosDataInterface, PermisosInterface, PermisosResponseInterface } from 'src/app/models/permisos';
@@ -38,16 +38,15 @@ import { PermisosDataInterface, PermisosInterface, PermisosResponseInterface } f
     IonTextarea,
     IonToggle,
     IonList,
-    IonNote,
     IonListHeader,
     IonLabel,
+    IonIcon
   ],
 })
 export class AddRoleComponent implements OnInit {
   dataRole = {
     nombre_rol: '',
     descripcion: '',
-    activo: 1,
   };
 
   private modalCtrl = inject(ModalController);

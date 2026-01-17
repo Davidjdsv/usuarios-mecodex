@@ -123,6 +123,21 @@
                   </ion-text>
                 </ion-label>
               </ion-item>
+
+              <!-- Col 3: Estado -->
+                <ion-item lines="none" aria-label="rol status">
+                  <ion-icon
+                    slot="start"
+                    [color]="usuario.activo === 1 ? 'success' : 'medium'"
+                    name="radio-button-on-outline"
+                    aria-hidden="true"
+                  ></ion-icon>
+                  <ion-label>
+                    <ion-text>
+                      <strong>Estado:</strong> {{ usuario.activo === 1 ? 'Activo': 'Inactivo' }}
+                    </ion-text>
+                  </ion-label>
+                </ion-item>
             </ion-col>
           </ion-row>
         </ion-grid>

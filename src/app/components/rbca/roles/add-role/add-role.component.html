@@ -1,7 +1,12 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-title>Agregar nuevo rol</ion-title>
-    <!-- Botón para cerrar el modal si es necesario -->
+        <!-- Botón para cerrar el modal -->
+    <ion-buttons slot="end">
+      <ion-button (click)="cancelar()">
+        <ion-icon name="close" color="medium"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -56,28 +61,6 @@
         </ion-item>
         } </ion-list
       >
-
-      <!-- Estado Activo (Toggle) -->
-      <ion-item lines="none" class="ion-no-padding">
-        <ion-toggle
-          name="activo"
-          value="1"
-          [(ngModel)]="dataRole.activo"
-          justify="space-between"
-          color="success"
-        >
-          Rol activo
-        </ion-toggle>
-      </ion-item>
-
-      <!-- Nota informativa sobre el estado -->
-      <ion-note color="medium" class="ion-margin-vertical ion-display-block">
-        {{
-          dataRole.activo === 1
-            ? "El rol estará disponible para su asignación inmediatamente."
-            : "El rol se creará como inactivo."
-        }}
-      </ion-note>
     </ion-list>
 
     <!-- Botones de Acción -->

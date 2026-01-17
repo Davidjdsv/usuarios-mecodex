@@ -42,7 +42,7 @@ export class DeleteClientComponent implements OnInit {
   // * Crear tanto la opción de cancelar como confirmar
 
   // Si se elige cancelar, el dato es null y el role es cancelar
-  cancel() {
+  cancelar() {
     return this.mdlController.dismiss(null, 'cancelar');
   }
 

@@ -12,10 +12,11 @@ import { RolesInterface } from 'src/app/models/roles-interface';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 @Directive({
-  selector: '[appRoles]',
+  selector: '[directivePermisos]',
   standalone: true,
 })
 export class RolesDirective {
+  // obtiene el valor actual del observable como una señal reactiva
   private user = toSignal<UsuariosWebClosterInterface | null>(
     inject(AuthService).rolUsuarioLogeado$
   );
@@ -23,14 +24,14 @@ export class RolesDirective {
   private viewContainerRef = inject(ViewContainerRef);
 
   roles = input.required<RolesInterface[]>({
-    alias: 'appRoles',
+    alias: 'directivePermisos',
   });
 
   constructor() {
     effect(() => {
       const user = this.user();
       const roles = this.roles();
-
+      console.log("el valor actual de la señal usuario es: ", user)
       this.viewContainerRef.clear();
 
       if (user && roles.length > 0 && this.hasRole(user, roles)) {

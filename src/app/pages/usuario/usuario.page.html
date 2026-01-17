@@ -270,9 +270,9 @@
         <ion-segment-content id="cuenta">
           @if(useCuenta()?.id_cliente){
             @for(cuenta of cuentaUsuario(); track cuenta.id; let i = $index){
-              <div class="break-section" aria-label="sección-divisor">
-                <span class="break-section__text"> {{ "Cuenta " + (i + 1) }} </span>
-              </div>
+              <ion-card-header color="primary" aria-label="sección-divisor">
+                <ion-card-title> {{ "Cuenta " + (i + 1) }} </ion-card-title>
+              </ion-card-header>
 
               <div class="break-section" aria-label="sección-divisor">
                 <span class="break-section__text">Información general</span>

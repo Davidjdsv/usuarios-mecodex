@@ -2,25 +2,30 @@
   <ion-toolbar color="primary">
     <ion-title>Agregar nuevo cliente</ion-title>
     <!-- Botón para cerrar el modal -->
+    <ion-buttons slot="end">
+      <ion-button (click)="cancelar()">
+        <ion-icon name="close" color="medium"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
   <form #form="ngForm" (ngSubmit)="onSubmit(form)">
-  <ion-list>
-    <!-- Identificación y nombres -->
+    <ion-list>
+      <!-- Identificación y nombres -->
       <ion-input
-      required
-      type="text"
-      name="nombre"
-      [(ngModel)]="datacliente.nombre"
-      label="Primer nombre"
-      label-placement="floating"      
-      maxlength="20"
-      minlength="5"
-      fill="outline"
+        required
+        type="text"
+        name="nombre"
+        [(ngModel)]="datacliente.nombre"
+        label="Primer nombre"
+        label-placement="floating"
+        maxlength="20"
+        minlength="5"
+        fill="outline"
       >
-    </ion-input>
+      </ion-input>
 
       <ion-input
         type="text"
@@ -56,7 +61,7 @@
         minlength="5"
       ></ion-input>
 
-    <!-- Documento -->
+      <!-- Documento -->
       <ion-select
         (click)="listarDocumentos()"
         required
@@ -86,35 +91,40 @@
         minlength="5"
       ></ion-input>
 
+      <ion-button expand="block" (click)="mostrarDatetime.set(true)">
+        <ion-icon slot="start" name="calendar-outline"></ion-icon>
+        Seleccionar fecha expedición documento
+      </ion-button>
 
-  <ion-button expand="block" (click)="mostrarDatetime.set(true)">
-    <ion-icon slot="start" name="calendar-outline"></ion-icon>
-    Seleccionar fecha expedición documento
-  </ion-button>
-
-  <ion-modal [canDismiss]="true" [isOpen]="mostrarDatetime()" (didDismiss)="mostrarDatetime.set(false)">
-    <ng-template>
-      <ion-header>
-        <ion-toolbar [color]="'primary'">
-          <ion-title>Seleccionar una fecha</ion-title>
-          <ion-buttons slot="end">
-            <ion-button (click)="mostrarDatetime.set(false)">Cerrar</ion-button>
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-header>
-      <ion-content>
-        <ion-datetime
-          size="cover"
-          locale="es-ES"
-          presentation="month-year"
-          name="fecha_expedicion"
-          [(ngModel)]="datacliente.fecha_expedicion"
-          presentation="date"
-          (ionChange)="mostrarDatetime.set(false)"
-        ></ion-datetime>
-      </ion-content>
-    </ng-template>
-  </ion-modal>
+      <ion-modal
+        [canDismiss]="true"
+        [isOpen]="mostrarDatetime()"
+        (didDismiss)="mostrarDatetime.set(false)"
+      >
+        <ng-template>
+          <ion-header>
+            <ion-toolbar [color]="'primary'">
+              <ion-title>Seleccionar una fecha</ion-title>
+              <ion-buttons slot="end">
+                <ion-button (click)="mostrarDatetime.set(false)"
+                  >Cerrar</ion-button
+                >
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+          <ion-content>
+            <ion-datetime
+              size="cover"
+              locale="es-ES"
+              presentation="month-year"
+              name="fecha_expedicion"
+              [(ngModel)]="datacliente.fecha_expedicion"
+              presentation="date"
+              (ionChange)="mostrarDatetime.set(false)"
+            ></ion-datetime>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
 
       <ion-input
         type="tel"
@@ -128,7 +138,7 @@
         required
       ></ion-input>
 
-    <ion-input
+      <ion-input
         type="email"
         name="correo"
         label="Correo"
@@ -139,7 +149,7 @@
         required
       ></ion-input>
 
-    <ion-input
+      <ion-input
         type="text"
         name="direccion"
         label="Dirección"
@@ -149,7 +159,7 @@
         fill="outline"
       ></ion-input>
 
-    <!-- País -->
+      <!-- País -->
       <ion-select
         (click)="listarPaises()"
         interface="popover"
@@ -168,7 +178,7 @@
         }
       </ion-select>
 
-    <!-- Observaciones -->
+      <!-- Observaciones -->
       <ion-textarea
         auto-grow="true"
         label="Observación cliente (Opcional)"
@@ -183,7 +193,7 @@
         auto-grow="true"
         label="Observación comercial (Opcional)"
         label-placement="floating"
-        fill="outline"  
+        fill="outline"
         [(ngModel)]="datacliente.observacion_comercial"
         name="observacion_comercial"
         maxlength="255"
@@ -209,15 +219,22 @@
         maxlength="255"
       ></ion-textarea>
 
-    <!-- Acciones -->
-    
-  </ion-list>
+      <!-- Acciones -->
+    </ion-list>
 
     <ion-toolbar>
       <ion-buttons slot="end">
-        <ion-button expand="block" color="medium" (click)="cancelar()">Cancelar</ion-button>
-        <ion-button expand="block" color="primary" type="submit" [disabled]="form.invalid">Guardar</ion-button>
+        <ion-button expand="block" color="medium" (click)="cancelar()"
+          >Cancelar</ion-button
+        >
+        <ion-button
+          expand="block"
+          color="primary"
+          type="submit"
+          [disabled]="form.invalid"
+          >Guardar</ion-button
+        >
       </ion-buttons>
     </ion-toolbar>
-</form>
+  </form>
 </ion-content>

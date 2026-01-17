@@ -1,7 +1,12 @@
 <ion-header>
   <ion-toolbar color="warning">
     <ion-title>Editar rol</ion-title>
-    <!-- Botón para cerrar el modal si es necesario -->
+    <!-- Botón para cerrar el modal -->
+    <ion-buttons slot="end">
+      <ion-button (click)="cancelar()">
+        <ion-icon name="close" color="medium"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -37,7 +42,7 @@
       <!-- Lista de Permisos -->
       <ion-list class="ion-margin-top">
         <ion-list-header color="primary">
-          <ion-label >Asignar Permisos</ion-label>
+          <ion-label>Asignar Permisos</ion-label>
         </ion-list-header>
 
         @for (permiso of permisos(); track permiso.id_permiso; let i = $index) {
@@ -54,30 +59,8 @@
             color="primary"
           ></ion-toggle>
         </ion-item>
-        } </ion-list
-      >
-
-      <!-- Estado Activo (Toggle) -->
-      <ion-item lines="none" class="ion-no-padding">
-        <ion-toggle
-          name="activo"
-          value="1"
-          [(ngModel)]="dataRoles.activo"
-          justify="space-between"
-          color="success"
-        >
-          Rol activo
-        </ion-toggle>
-      </ion-item>
-
-      <!-- Nota informativa sobre el estado -->
-      <ion-note color="medium" class="ion-margin-vertical ion-display-block">
-        {{
-          dataRoles.activo === 1
-            ? "El rol estará disponible para su asignación inmediatamente."
-            : "El rol se creará como inactivo."
-        }}
-      </ion-note>
+        }
+      </ion-list>
     </ion-list>
 
     <!-- Botones de Acción -->

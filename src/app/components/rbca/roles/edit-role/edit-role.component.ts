@@ -20,16 +20,15 @@ import {
   IonTextarea,
   IonToggle,
   IonList,
-  IonNote,
   IonListHeader,
   IonLabel,
+  IonIcon
 } from '@ionic/angular/standalone';
 import { PermisosService } from 'src/app/core/services/permisos.service';
 import { RolesUsuariosService } from 'src/app/core/services/roles-usuarios.service';
 import {
   PermisosDataInterface,
   PermisosInterface,
-  PermisosResponseInterface,
 } from 'src/app/models/permisos';
 import { RolesInterface } from 'src/app/models/roles-interface';
 @Component({
@@ -50,9 +49,9 @@ import { RolesInterface } from 'src/app/models/roles-interface';
     IonTextarea,
     IonToggle,
     IonList,
-    IonNote,
     IonListHeader,
     IonLabel,
+    IonIcon
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

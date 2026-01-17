@@ -1,6 +1,12 @@
 <ion-header>
   <ion-toolbar color="danger">
     <ion-title>Confirmar eliminación</ion-title>
+    <!-- Botón para cerrar el modal -->
+    <ion-buttons slot="end">
+      <ion-button (click)="cancelar()">
+        <ion-icon name="close" color="medium"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -27,7 +33,7 @@
 <ion-footer translucent="true">
   <ion-toolbar class="ion-flex-row">
     <ion-buttons slot="start">
-      <ion-button color="medium" (click)="cancel()">
+      <ion-button color="medium" (click)="cancelar()">
         <ion-icon slot="start" name="close-outline"></ion-icon>
         Cancelar
       </ion-button>
