@@ -79,10 +79,10 @@ export class AuthService {
   }
 
   /**
-   * Obtiene el usuario autenticado desde almacenamiento local.
+   * Obtiene la información del usuario autenticado desde almacenamiento local.
    * Retorna null si no existe.
    */
-  getCurrentUser(): UsuariosWebClosterInterface | null {
+  getCurrentData(): UsuariosWebClosterInterface | null {
     //Obtiene el localstorage desde el userKey
     const raw = localStorage.getItem(this.userKey);
     if (!raw) return null;
@@ -130,11 +130,11 @@ export class AuthService {
   }
 
   // Variable observable para el rol del usuario logeado
-  rolUsuario = new BehaviorSubject<UsuariosWebClosterInterface | null>(this.getCurrentUser())
+  rolUsuario = new BehaviorSubject<UsuariosWebClosterInterface | null>(this.getCurrentData())
   rolUsuarioLogeado$ = this.rolUsuario.asObservable();
 
   actualizarRol(){
-    this.rolUsuario.next(this.getCurrentUser());
+    this.rolUsuario.next(this.getCurrentData());
   }
 
   /**
