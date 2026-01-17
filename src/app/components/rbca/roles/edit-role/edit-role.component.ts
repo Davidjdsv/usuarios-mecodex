@@ -20,7 +20,6 @@ import {
   IonTextarea,
   IonToggle,
   IonList,
-  IonNote,
   IonListHeader,
   IonLabel,
   IonIcon
@@ -30,7 +29,6 @@ import { RolesUsuariosService } from 'src/app/core/services/roles-usuarios.servi
 import {
   PermisosDataInterface,
   PermisosInterface,
-  PermisosResponseInterface,
 } from 'src/app/models/permisos';
 import { RolesInterface } from 'src/app/models/roles-interface';
 @Component({
@@ -51,7 +49,6 @@ import { RolesInterface } from 'src/app/models/roles-interface';
     IonTextarea,
     IonToggle,
     IonList,
-    IonNote,
     IonListHeader,
     IonLabel,
     IonIcon

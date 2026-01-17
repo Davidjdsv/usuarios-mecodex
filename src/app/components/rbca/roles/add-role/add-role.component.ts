@@ -13,7 +13,6 @@ import {
   IonTextarea,
   IonToggle,
   IonList,
-  IonNote,
   IonListHeader,
   IonLabel,
   IonIcon
@@ -39,7 +38,6 @@ import { PermisosDataInterface, PermisosInterface, PermisosResponseInterface } f
     IonTextarea,
     IonToggle,
     IonList,
-    IonNote,
     IonListHeader,
     IonLabel,
     IonIcon
@@ -49,7 +47,6 @@ export class AddRoleComponent implements OnInit {
   dataRole = {
     nombre_rol: '',
     descripcion: '',
-    activo: 1,
   };
 
   private modalCtrl = inject(ModalController);
