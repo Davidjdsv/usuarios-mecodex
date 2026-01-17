@@ -27,7 +27,7 @@
         <ion-card class="ion-margin-top card-hover user-card ion-no-padding">
           <ion-card-content class="ion-no-padding">
             <ion-grid [fixed]="true">
-              <ion-row class="ion-justify-content-between">
+              <ion-row class="ion-justify-content-around">
                 <!-- Col 1: Imagen -->
                 <ion-col
                   size="12"
@@ -73,23 +73,6 @@
                     <ion-label class="ion-text-wrap">
                       <ion-text>
                         <strong>Descripción:</strong> {{ rol.descripcion || 'Sin descripción' }}
-                      </ion-text>
-                    </ion-label>
-                  </ion-item>
-                </ion-col>
-
-                <!-- Col 3: Estado -->
-                <ion-col size="12" size-md="4" class="meta">
-                  <ion-item lines="none" aria-label="rol status">
-                    <ion-icon
-                      slot="start"
-                      [color]="rol.activo === 1 ? 'success' : 'medium'"
-                      name="radio-button-on-outline"
-                      aria-hidden="true"
-                    ></ion-icon>
-                    <ion-label>
-                      <ion-text>
-                        <strong>Estado:</strong> {{ rol.activo === 1 ? 'Activo': 'Inactivo' }}
                       </ion-text>
                     </ion-label>
                   </ion-item>
