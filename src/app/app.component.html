@@ -5,7 +5,8 @@
       <ion-content>
         <ion-list id="inbox-list">
             <ion-list-header>ActivaMecodex</ion-list-header>
-            <ion-note>v1.0.0</ion-note>
+            <!-- <ion-note>Usuario: {{ currentUser()?.user?.usuario?.nombre_usuario || 'Usuario'  }}</ion-note> -->
+            <ion-note>Usuario: {{ currentUserName() }}</ion-note>
 
           @for (p of appPages; track p; let i = $index) {
           <ion-menu-toggle auto-hide="false">

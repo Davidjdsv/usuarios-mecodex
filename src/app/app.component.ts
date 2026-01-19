@@ -1,6 +1,7 @@
-import { Component, ChangeDetectionStrategy, computed } from '@angular/core';
+import { Component, ChangeDetectionStrategy, computed, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { LoginPage } from './pages/login/login.page';
+import { toSignal } from '@angular/core/rxjs-interop';
 import {
   IonApp,
   IonSplitPane,
@@ -113,12 +114,20 @@ export class AppComponent {
     },
   ];
 
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-
-  public isAuthenticated = computed(() => {
+  isAuthenticated = computed(() => {
     const logged = this.authService.authState();
     return logged || this.authService.isAutenthicate();
   });
+
+  currentUser = toSignal<any | null>(
+    inject(AuthService).rolUsuarioLogeado$
+  )
+
+  currentUserName = computed(() => {
+    console.log({user: this.currentUser()} )
+    return this.currentUser()?.nombre_usuario || 'Usuario'
+  })
+
 
   constructor(
     private menuCtrl: MenuController,
@@ -163,8 +172,6 @@ export class AppComponent {
       documentSharp,
       addCircle
     });
-
-    console.log('El usuario está autenticado? ', this.isAuthenticated());
   }
 
   async logOut(): Promise<void> {

@@ -23,10 +23,8 @@ export class PermisosDirective {
     inject(AuthService).rolUsuarioLogeado$
   )
 
-  // INYECCIONES NECESARIAS PARA MANIPULAR EL DOM:
-  // TemplateRef: Referencia al contenido HTML que está dentro de la directiva
+  
   private templateRef = inject(TemplateRef); 
-  // ViewContainerRef: Contenedor donde se inserta o elimina el contenido
   private viewContainerRef = inject(ViewContainerRef);
 
   // Obtiene los permisos por el id
@@ -37,7 +35,7 @@ export class PermisosDirective {
   constructor(){
     effect(() => {
 
-      const user = this.user();
+      const user = this.user(); 
       const permisos = this.permisosRequeridos()
 
       this.viewContainerRef.clear()
