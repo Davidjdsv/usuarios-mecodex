@@ -31,7 +31,6 @@ export class RolesDirective {
     effect(() => {
       const user = this.user();
       const roles = this.roles();
-      console.log("el valor actual de la señal usuario es: ", user)
       this.viewContainerRef.clear();
 
       if (user && roles.length > 0 && this.hasRole(user, roles)) {
