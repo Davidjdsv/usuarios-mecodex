@@ -15,11 +15,10 @@ import {
   IonLabel,
   IonRouterOutlet,
   IonRouterLink,
-  AlertController,
 } from '@ionic/angular/standalone';
 import { MenuController } from '@ionic/angular';
 import { AuthService } from './core/services/auth/auth.service';
-import { RolesDirective } from './core/directives/roles.directive';
+import { PermisosDirective } from './core/directives/permisos.directive';
 import { addIcons } from 'ionicons';
 import {
   mailOutline,
@@ -60,7 +59,6 @@ import {
   documentSharp,
   addCircle
 } from 'ionicons/icons';
-import { RolesInterface } from './models/roles-interface';
 
 @Component({
   selector: 'app-root',
@@ -84,43 +82,34 @@ import { RolesInterface } from './models/roles-interface';
     IonRouterLink,
     IonRouterOutlet,
     LoginPage,
-    RolesDirective,
+    PermisosDirective
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  public adminRoles: RolesInterface[] = [
-    { id_rol: 1, nombre_rol: 'Administrador' },
-  ];
-
-  public adminYSoporteRoles: RolesInterface[] = [
-    { id_rol: 1, nombre_rol: 'Administrador' },
-    { id_rol: 2, nombre_rol: 'Soporte' },
-  ];
-
   public appPages = [
     { 
       title: 'Inicio', 
       url: '/inicio', 
       icon: 'home', 
-      roles: this.adminRoles },
+      permisos: [9] },
     {
       title: 'Clientes Mecodex',
       url: '/usuarios',
       icon: 'people',
-      roles: this.adminYSoporteRoles,
+      permisos: [1],
     },
     {
       title: 'Usuarios webcloster',
       url: '/usuarios-web-closter',
       icon: 'cloudy',
-      roles: this.adminYSoporteRoles,
+      permisos: [5],
     },
     {
       title: 'RBCA',
       url: '/configuracion-permisos',
       icon: 'key',
-      roles: this.adminRoles,
+      permisos: [10],
     },
   ];
 

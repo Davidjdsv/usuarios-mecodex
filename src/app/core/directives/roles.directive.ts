@@ -12,7 +12,7 @@ import { RolesInterface } from 'src/app/models/roles-interface';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 @Directive({
-  selector: '[directivePermisos]',
+  selector: '[directiveRoles]',
   standalone: true,
 })
 export class RolesDirective {
@@ -24,7 +24,7 @@ export class RolesDirective {
   private viewContainerRef = inject(ViewContainerRef);
 
   roles = input.required<RolesInterface[]>({
-    alias: 'directivePermisos',
+    alias: 'directiveRoles',
   });
 
   constructor() {

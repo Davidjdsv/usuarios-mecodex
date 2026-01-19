@@ -10,7 +10,7 @@
           @for (p of appPages; track p; let i = $index) {
           <ion-menu-toggle auto-hide="false">
             <ion-item
-              *directivePermisos="p.roles"
+              *directivePermisos="p.permisos"
               routerDirection="root"
               [routerLink]="[p.url]"
               lines="none"

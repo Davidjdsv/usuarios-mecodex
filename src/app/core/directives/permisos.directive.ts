@@ -37,7 +37,7 @@ export class PermisosDirective {
   constructor(){
     effect(() => {
 
-      const user = this.user(); 
+      const user = this.user();
       const permisos = this.permisosRequeridos()
 
       this.viewContainerRef.clear()
