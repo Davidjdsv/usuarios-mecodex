@@ -47,7 +47,7 @@ export class AuthService {
           // Actualiza el rol del usuario logeado
           this.isLoggedIn.set(true);
           // Guarda el usuario autenticado con sus datos
-          localStorage.setItem(this.userKey, JSON.stringify(res.data.usuario));
+          localStorage.setItem(this.userKey, JSON.stringify(res.data));
           // Guarda los permisos de ese usuario
           localStorage.setItem(this.permisosKey, JSON.stringify(res.data.permisos));
           this.actualizarRol();
