@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { LoginResponseInterface, UsuariosWebClosterInterface } from 'src/app/models/usuarios-web-closter-interface';
@@ -21,18 +21,19 @@ export class AuthService {
     return this.isLoggedIn.asReadonly();
   }
 
-  constructor(private http: HttpClient, private router: Router) { }
+  http = inject(HttpClient)
+  router = inject(Router)
 
   /**
    * 
-   * @param nombre_usuario Nombre de usuario para autenticación.
+   * @param nombreUsuario Nombre de usuario para autenticación.
    * @param contrasena Contraseña para autenticación.
    * @returns Observable con la respuesta de autenticación a obtener el token.
    */
-  loginUsuarioService(nombre_usuario: string, contrasena: string): Observable<LoginResponseInterface>{
+  loginUsuarioService(nombreUsuario: string, contrasena: string): Observable<LoginResponseInterface>{
     const url = (`${this.apiLoginURL()}?login`);
     return this.http.post<LoginResponseInterface>(url.toString(), { 
-      usuario: nombre_usuario,
+      usuario: nombreUsuario,
       contrasena: contrasena }).pipe(
       tap(res => {
         if(res.token){
@@ -41,7 +42,7 @@ export class AuthService {
           console.group('🔐 Auth Service Login Success');
           console.log('Token recibido:', res.token);
           console.log('📦 DATOS USUARIO (RAW):', res.data.usuario); 
-          console.log('⚠️ Verifica si existe la propiedad "nombre_usuario" en el objeto de arriba');
+          console.log('⚠️ Verifica si existe la propiedad "nombreUsuario" en el objeto de arriba');
           console.groupEnd();
           this.setToken(res.token);
           // Actualiza el rol del usuario logeado
