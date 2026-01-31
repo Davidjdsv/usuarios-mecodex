@@ -8,6 +8,7 @@ export interface UsuariosWebClosterInterface {
     activo: number; // 1 para activo, 0 para inactivo
     id_rol_usuario: number;
     nombre_usuario: string;
+    usuario: string;
     contrasena: string;
     id_tipo_documento: number;
     created_at: string;
@@ -15,6 +16,7 @@ export interface UsuariosWebClosterInterface {
     abreviatura: string;
     permisos: number[];
 }
+
 
 // Para LOGIN (un solo usuario)
 export interface LoginResponseInterface {

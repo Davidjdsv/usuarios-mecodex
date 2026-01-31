@@ -14,6 +14,7 @@ export class AuthService {
   private apiLoginURL = signal(environment.api_usuarios_web_closter); // Será tanto para las tareas del CRUD como para obtener token
   private tokenKey: string = "authToken";
   private userKey: string = "authUsuario";
+  private permisosKey: string = "permisosKey"
 
   // Propiedad de solo lectura para exponer el estado de autenticación
   public get authState(){
@@ -35,12 +36,20 @@ export class AuthService {
       contrasena: contrasena }).pipe(
       tap(res => {
         if(res.token){
-          console.log(res.token)
+
+          // DEBUG: Ver qué llega exactamente del backend
+          console.group('🔐 Auth Service Login Success');
+          console.log('Token recibido:', res.token);
+          console.log('📦 DATOS USUARIO (RAW):', res.data.usuario); 
+          console.log('⚠️ Verifica si existe la propiedad "nombre_usuario" en el objeto de arriba');
+          console.groupEnd();
           this.setToken(res.token);
           // Actualiza el rol del usuario logeado
           this.isLoggedIn.set(true);
-          // Guarda el usuario autenticado para poder consultar su rol con permisos y otros datos posteriormente
+          // Guarda el usuario autenticado con sus datos
           localStorage.setItem(this.userKey, JSON.stringify(res.data));
+          // Guarda los permisos de ese usuario
+          localStorage.setItem(this.permisosKey, JSON.stringify(res.data.permisos));
           this.actualizarRol();
         }
       })
@@ -61,6 +70,15 @@ export class AuthService {
    */
   private setToken(token: string): void {
     localStorage.setItem(this.tokenKey, token);
+  }
+
+  /**
+   * Obtiene los permisos del usuario almacenados en localStorage.
+   * @returns Un array de números que representan los permisos del usuario.
+   */
+  getPermisos(): number[] {
+    const permisos = localStorage.getItem(this.permisosKey);
+    return permisos ? JSON.parse(permisos) : [];
   }
 
   /**
@@ -86,6 +104,7 @@ export class AuthService {
     //Obtiene el localstorage desde el userKey
     const raw = localStorage.getItem(this.userKey);
     if (!raw) return null;
+    console.log("raw", JSON.parse(raw))
     try {
       return JSON.parse(raw) as UsuariosWebClosterInterface;
     } catch {
@@ -93,48 +112,44 @@ export class AuthService {
     }
   }
 
-  /**
-   * Obtiene TODOS los permisos del usuario desde el token JWT.
-   * Retorna un array vacío si no hay token o hay error.
-   */
-  getPermisosUsuario(): number[] {
-      const token = this.getToken();
+/**
+ * Obtiene TODOS los permisos del usuario desde localStorage.
+ * Retorna un array vacío si no hay permisos o hay error.
+ */
+getPermisosUsuario(): number[] {
+    // CAMBIO: Ya no lees del token, lees del localStorage donde guardaste los permisos
+    const permisosRaw = localStorage.getItem(this.permisosKey);
+    
+    if (!permisosRaw) {
+      console.warn("No hay permisos disponibles en localStorage");
+      return [];
+    }
+    
+    try {
+      const permisos = JSON.parse(permisosRaw);
       
-      if (!token) {
-        console.warn("No hay token disponible");
-        return [];
+      // Verifica que sea un array válido
+      if (Array.isArray(permisos)) {
+        console.log("Permisos cargados:", permisos);
+        return permisos;
       }
       
-      try {
-        const payload = JSON.parse(atob(token.split('.')[1]));
-
-        console.log("Payload del token:", payload);
-
-        // Primero se verifica si el usuario está activo en la plataforma antes de obtener sus permisos
-        if(payload.activo !== 1){
-          console.warn("El usuario no está activo");
-          return payload.activo
-        }
-        
-        // El backend envía permisos como array: [1, 2, 3, 5, 6, 7, 8, 9]
-        if (Array.isArray(payload?.permisos)) {
-          return payload.permisos;
-        }
-        
-        console.warn("El token no contiene un array de permisos válido");
-        return [];
-      } catch (err) {
-        console.error("Error al decodificar el token:", err);
-        return [];
-      }
-  }
+      console.warn("Los permisos no son un array válido");
+      return [];
+    } catch (err) {
+      console.error("Error al parsear permisos:", err);
+      return [];
+    }
+}
 
   // Variable observable para el rol del usuario logeado
-  rolUsuario = new BehaviorSubject<UsuariosWebClosterInterface | null>(this.getCurrentData())
+  rolUsuario = new BehaviorSubject< UsuariosWebClosterInterface | null>(this.getCurrentData())
   rolUsuarioLogeado$ = this.rolUsuario.asObservable();
 
   actualizarRol(){
     this.rolUsuario.next(this.getCurrentData());
+    console.log("rolUsuario", this.rolUsuario.value)
+    console.log("rol usuario logeado", (this.rolUsuarioLogeado$))
   }
 
   /**
@@ -197,6 +212,7 @@ export class AuthService {
   logOut(): void {
     localStorage.removeItem(this.tokenKey)
     localStorage.removeItem(this.userKey)
+    localStorage.removeItem(this.permisosKey);
     this.isLoggedIn.set(false);
     this.router.navigate(['/login']);
     // Actualiza el rol del usuario logeado a vacío

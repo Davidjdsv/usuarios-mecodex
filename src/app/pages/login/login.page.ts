@@ -58,6 +58,8 @@ export class LoginPage {
 
           // * 1. Se valida si el usuario está activo
           if (this.authService.isActivo()) {
+            this.authService.actualizarRol();
+
             // ? Si el usuario SI ESTÁ ACTIVO, el paso siguiente es verificar si cuenta con los permisos para acceder a la plataforma
             // * 3. Si el usuario tiene permisos de administrador, se redirige a la página de inicio
             if (this.authService.getPermisosUsuario().includes(9)) {
@@ -73,7 +75,6 @@ export class LoginPage {
             // * 2. Si el usuario no está activo, se muestra un mensaje de error
             await this.errorAccess('El usuario no está activo');
           }
-          this.authService.actualizarRol();
         }
       },
       error: async () => {

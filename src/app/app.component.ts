@@ -1,6 +1,7 @@
-import { Component, ChangeDetectionStrategy, computed } from '@angular/core';
+import { Component, ChangeDetectionStrategy, computed, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { LoginPage } from './pages/login/login.page';
+import { toSignal } from '@angular/core/rxjs-interop';
 import {
   IonApp,
   IonSplitPane,
@@ -15,11 +16,10 @@ import {
   IonLabel,
   IonRouterOutlet,
   IonRouterLink,
-  AlertController,
 } from '@ionic/angular/standalone';
 import { MenuController } from '@ionic/angular';
 import { AuthService } from './core/services/auth/auth.service';
-import { RolesDirective } from './core/directives/roles.directive';
+import { PermisosDirective } from './core/directives/permisos.directive';
 import { addIcons } from 'ionicons';
 import {
   mailOutline,
@@ -60,7 +60,6 @@ import {
   documentSharp,
   addCircle
 } from 'ionicons/icons';
-import { RolesInterface } from './models/roles-interface';
 
 @Component({
   selector: 'app-root',
@@ -84,52 +83,51 @@ import { RolesInterface } from './models/roles-interface';
     IonRouterLink,
     IonRouterOutlet,
     LoginPage,
-    RolesDirective,
+    PermisosDirective
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  public adminRoles: RolesInterface[] = [
-    { id_rol: 1, nombre_rol: 'Administrador' },
-  ];
-
-  public adminYSoporteRoles: RolesInterface[] = [
-    { id_rol: 1, nombre_rol: 'Administrador' },
-    { id_rol: 2, nombre_rol: 'Soporte' },
-  ];
-
   public appPages = [
     { 
       title: 'Inicio', 
       url: '/inicio', 
       icon: 'home', 
-      roles: this.adminRoles },
+      permisos: [9] },
     {
       title: 'Clientes Mecodex',
       url: '/usuarios',
       icon: 'people',
-      roles: this.adminYSoporteRoles,
+      permisos: [1],
     },
     {
       title: 'Usuarios webcloster',
       url: '/usuarios-web-closter',
       icon: 'cloudy',
-      roles: this.adminYSoporteRoles,
+      permisos: [5],
     },
     {
       title: 'RBCA',
       url: '/configuracion-permisos',
       icon: 'key',
-      roles: this.adminRoles,
+      permisos: [10],
     },
   ];
 
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-
-  public isAuthenticated = computed(() => {
+  isAuthenticated = computed(() => {
     const logged = this.authService.authState();
     return logged || this.authService.isAutenthicate();
   });
+
+  currentUser = toSignal<any | null>(
+    inject(AuthService).rolUsuarioLogeado$
+  )
+
+  currentUserName = computed(() => {
+    console.log({user: this.currentUser()} )
+    return this.currentUser()?.nombre_usuario || 'Usuario'
+  })
+
 
   constructor(
     private menuCtrl: MenuController,
@@ -174,8 +172,6 @@ export class AppComponent {
       documentSharp,
       addCircle
     });
-
-    console.log('El usuario está autenticado? ', this.isAuthenticated());
   }
 
   async logOut(): Promise<void> {
