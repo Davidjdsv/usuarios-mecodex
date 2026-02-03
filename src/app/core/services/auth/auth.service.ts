@@ -218,9 +218,9 @@ export class AuthService {
       permisosUsuario.includes(permiso),
     );
 
-    console.log(`Permisos del usuario:`, permisosUsuario);
-    console.log(`Permisos requeridos:`, permisosRequeridos);
-    console.log(`¿Tiene acceso?`, tienePermiso);
+    // console.log(`Permisos del usuario:`, permisosUsuario);
+    // console.log(`Permisos requeridos:`, permisosRequeridos);
+    // console.log(`¿Tiene acceso?`, tienePermiso);
 
     return tienePermiso;
   }
