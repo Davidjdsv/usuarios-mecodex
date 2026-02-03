@@ -120,12 +120,11 @@ export class AppComponent {
   });
 
   currentUser = toSignal<any | null>(
-    inject(AuthService).rolUsuarioLogeado$
+    inject(AuthService).datosUsuario$
   )
 
   currentUserName = computed(() => {
-    console.log({user: this.currentUser()} )
-    return this.currentUser()?.nombre_usuario || 'Usuario'
+    return this.currentUser()?.usuario?.nombre_usuario || 'Usuario'
   })
 
 
