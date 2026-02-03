@@ -1,63 +1,62 @@
 <ion-app>
-  @if(isAuthenticated()){
-  <ion-split-pane contentId="main-content">
-    <ion-menu contentId="main-content" type="overlay">
-      <ion-content>
-        <ion-list id="inbox-list">
+  @if (isAuthenticated()) {
+    <ion-split-pane contentId="main-content">
+      <ion-menu contentId="main-content" type="overlay">
+        <ion-content>
+          <ion-list id="inbox-list">
             <ion-list-header>ActivaMecodex</ion-list-header>
-            <!-- <ion-note>Usuario: {{ currentUser()?.user?.usuario?.nombre_usuario || 'Usuario'  }}</ion-note> -->
             <ion-note>Usuario: {{ currentUserName() }}</ion-note>
 
-          @for (p of appPages; track p; let i = $index) {
-          <ion-menu-toggle auto-hide="false">
-            <ion-item
-              *directivePermisos="p.permisos"
-              routerDirection="root"
-              [routerLink]="[p.url]"
-              lines="none"
-              detail="false"
-              routerLinkActive="selected"
-            >
+            @for (p of appPages; track p; let i = $index) {
+              <ion-menu-toggle auto-hide="false">
+                <ion-item
+                  *directivePermisos="p.permisos"
+                  routerDirection="root"
+                  [routerLink]="[p.url]"
+                  lines="none"
+                  detail="false"
+                  routerLinkActive="selected"
+                >
+                  <ion-icon
+                    aria-hidden="true"
+                    slot="start"
+                    color="primary-dark"
+                    [ios]="p.icon + '-outline'"
+                    [md]="p.icon + '-sharp'"
+                  ></ion-icon>
+                  <ion-label>{{ p.title }}</ion-label>
+                </ion-item>
+              </ion-menu-toggle>
+            }
+
+            <ion-item button detail="false" lines="none" (click)="goToDocs()">
               <ion-icon
                 aria-hidden="true"
                 slot="start"
                 color="primary-dark"
-                [ios]="p.icon + '-outline'"
-                [md]="p.icon + '-sharp'"
+                ios="document-outline"
+                md="document-sharp"
               ></ion-icon>
-              <ion-label>{{ p.title }}</ion-label>
+              <ion-label>Ir a la documentación</ion-label>
             </ion-item>
-          </ion-menu-toggle>
-          }
 
-          <ion-item button detail="false" lines="none" (click)="goToDocs()">
-            <ion-icon
-              aria-hidden="true"
-              slot="start"
-              color="primary-dark"
-              ios="document-outline"
-              md="document-sharp"
-            ></ion-icon>
-            <ion-label>Ir a la documentación</ion-label>
-          </ion-item>
-
-          <ion-item button detail="false" lines="none" (click)="logOut()">
-            <ion-icon
-              aria-hidden="true"
-              slot="start"
-              color="primary-dark"
-              ios="log-out-outline"
-              md="log-out-sharp"
-            ></ion-icon>
-            <ion-label>Cerrar sesión</ion-label>
-          </ion-item>
-        </ion-list>
-      </ion-content>
-    </ion-menu>
-    <ion-router-outlet id="main-content"></ion-router-outlet>
-  </ion-split-pane>
-} @else {
+            <ion-item button detail="false" lines="none" (click)="logOut()">
+              <ion-icon
+                aria-hidden="true"
+                slot="start"
+                color="primary-dark"
+                ios="log-out-outline"
+                md="log-out-sharp"
+              ></ion-icon>
+              <ion-label>Cerrar sesión</ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-content>
+      </ion-menu>
+      <ion-router-outlet id="main-content"></ion-router-outlet>
+    </ion-split-pane>
+  } @else {
     <!-- <ion-router-outlet id="main-content"></ion-router-outlet> -->
-  <app-login></app-login>
-}
+    <app-login></app-login>
+  }
 </ion-app>
