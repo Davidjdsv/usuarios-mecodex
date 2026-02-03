@@ -53,6 +53,7 @@ import { CuentaInterface } from 'src/app/models/cuenta-interface';
 import { CacheCuentaService } from 'src/app/core/services/cache/cache-cuenta.service';
 import { LicenciaService } from 'src/app/core/services/licencia.service';
 import { LicenciaInterface } from 'src/app/models/licencia';
+import { PermisosDirective } from 'src/app/core/directives/permisos.directive';
 
 @Component({
   selector: 'app-usuarios',
@@ -90,6 +91,7 @@ import { LicenciaInterface } from 'src/app/models/licencia';
     IonSegmentButton,
     IonSelect,
     IonSelectOption,
+    PermisosDirective
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
