@@ -47,7 +47,6 @@ import { CuentaService } from 'src/app/core/services/cuenta.service';
 import { NotFoundComponent } from 'src/app/components/not-found/not-found.component';
 import { AddClientComponent } from 'src/app/components/clientes/add-client/add-client.component';
 import { EditClientComponent } from 'src/app/components/clientes/edit-client/edit-client.component';
-import { DeleteClientComponent } from 'src/app/components/clientes/delete-client/delete-client.component';
 import { CacheUsuarioService } from 'src/app/core/services/cache/cache-usuario.service';
 import { CuentaInterface } from 'src/app/models/cuenta-interface';
 import { CacheCuentaService } from 'src/app/core/services/cache/cache-cuenta.service';
@@ -91,13 +90,13 @@ import { PermisosDirective } from 'src/app/core/directives/permisos.directive';
     IonSegmentButton,
     IonSelect,
     IonSelectOption,
-    PermisosDirective
+    PermisosDirective,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UsuariosPage implements OnInit {
   folder = signal('Clientes Mecodex');
-  
+
   // * SIGNALS PARA CLIENTES
   usuarios = signal<UsuariosInterface[]>([]);
   usuariosOriginales = signal<UsuariosInterface[]>([]);
@@ -113,7 +112,7 @@ export class UsuariosPage implements OnInit {
   // * SIGNAL PARA BÚSQUEDA (compartido)
   searchUsers = signal<string>('');
   searchCuentas = signal<string>('');
-  licencias = signal<LicenciaInterface[]>([]);  
+  licencias = signal<LicenciaInterface[]>([]);
   licenciaSeleccionada = signal<string | null>(null);
 
   // * CONTADORES
@@ -127,7 +126,7 @@ export class UsuariosPage implements OnInit {
 
   // * SIGNAL PARA EL SEGMENT
   selectedSegment = signal<string>('clientes');
-  
+
   private mdlController = inject(ModalController);
   private alertController = inject(AlertController);
   private router = inject(Router);
@@ -141,7 +140,7 @@ export class UsuariosPage implements OnInit {
     effect(() => {
       const segment = this.selectedSegment();
       console.log('Segment cambió a:', segment);
-      
+
       // Solo ejecuta la carga si ya pasó el ngOnInit
       if (segment === 'clientes') {
         // Si ya hay datos de usuarios cargados, no hace nada
@@ -189,13 +188,12 @@ export class UsuariosPage implements OnInit {
   cargarUsuariosInicial() {
     const usuariosInicial = this.usuariosOriginales().slice(
       0,
-      this.LIMITE_USUARIOS
+      this.LIMITE_USUARIOS,
     );
     this.usuarios.set(usuariosInicial);
     this.indiceActual.set(this.LIMITE_USUARIOS);
   }
 
-  // 👇 MÉTODOS PARA CARGAR CUENTAS
   private cargarCuentas() {
     if (this.cacheCuentaService.isCacheValido()) {
       const cuentasCache = this.cacheCuentaService.getCuentas();
@@ -218,32 +216,31 @@ export class UsuariosPage implements OnInit {
   cargarCuentasInicial() {
     const cuentasInicial = this.cuentasOriginales().slice(
       0,
-      this.LIMITE_CUENTAS
+      this.LIMITE_CUENTAS,
     );
     this.cuentas.set(cuentasInicial);
     this.indiceActualCuentas.set(this.LIMITE_CUENTAS);
   }
 
-getLicenciaSeleccionada(event: CustomEvent) {
-  const licenciaId = event.detail.value;
-  
-  if (!licenciaId) {
-    this.cargarUsuariosInicial();
-    return;
-  }
-  
-  this.usuariosServices.getUsuariosPorLicencia(licenciaId).subscribe({
-    next: (usuariosFiltrados: UsuariosInterface[]) => {
-      this.usuarios.set(usuariosFiltrados);
-      this.indiceActual.set(usuariosFiltrados.length);
-      
-    },
-    error: (err: any) => {
-      console.error('Error al filtrar usuarios por licencia:', err);
+  getLicenciaSeleccionada(event: CustomEvent) {
+    const licenciaId = event.detail.value;
+
+    if (!licenciaId) {
       this.cargarUsuariosInicial();
+      return;
     }
-  });
-}
+
+    this.usuariosServices.getUsuariosPorLicencia(licenciaId).subscribe({
+      next: (usuariosFiltrados: UsuariosInterface[]) => {
+        this.usuarios.set(usuariosFiltrados);
+        this.indiceActual.set(usuariosFiltrados.length);
+      },
+      error: (err: any) => {
+        console.error('Error al filtrar usuarios por licencia:', err);
+        this.cargarUsuariosInicial();
+      },
+    });
+  }
 
   contarUsuariosPorTipo() {
     const contadores = {
@@ -294,7 +291,7 @@ getLicenciaSeleccionada(event: CustomEvent) {
         usuario.nombre.toLowerCase().includes(query) ||
         usuario.correo.toLowerCase().includes(query) ||
         usuario.telefono.toLowerCase().includes(query) ||
-        usuario.documento.trim().toLowerCase().includes(query)
+        usuario.documento.trim().toLowerCase().includes(query),
     );
 
     if (usuariosFiltrados.length === 0) {
@@ -318,7 +315,7 @@ getLicenciaSeleccionada(event: CustomEvent) {
     const cuentasFiltradas = this.cuentasOriginales().filter(
       (cuenta) =>
         cuenta.cliente_nombre.toLowerCase().includes(query) ||
-        cuenta.correo.toLowerCase().includes(query)
+        cuenta.correo.toLowerCase().includes(query),
     );
 
     if (cuentasFiltradas.length === 0) {
@@ -346,12 +343,12 @@ getLicenciaSeleccionada(event: CustomEvent) {
 
     const siguienteIndice = Math.min(
       indice + this.LIMITE_USUARIOS,
-      totalUsuarios
+      totalUsuarios,
     );
 
     const nuevosUsuarios = this.usuariosOriginales().slice(
       indice,
-      siguienteIndice
+      siguienteIndice,
     );
 
     const usuariosActuales = this.usuarios();
@@ -378,12 +375,12 @@ getLicenciaSeleccionada(event: CustomEvent) {
 
     const siguienteIndice = Math.min(
       indice + this.LIMITE_CUENTAS,
-      totalCuentas
+      totalCuentas,
     );
 
     const nuevasCuentas = this.cuentasOriginales().slice(
       indice,
-      siguienteIndice
+      siguienteIndice,
     );
 
     const cuentasActuales = this.cuentas();
@@ -395,7 +392,7 @@ getLicenciaSeleccionada(event: CustomEvent) {
     event.target.complete();
   }
 
-    getLicencias() {
+  getLicencias() {
     this.licenciaService.getLicenciasService().subscribe({
       next: (res) => {
         this.licencias.set(res.data);
@@ -412,22 +409,28 @@ getLicenciaSeleccionada(event: CustomEvent) {
    * @param usuarioId - ID del usuario
    * @param cuentaCliente - ID de la cuenta del cliente
    */
-getUser(usuarioId: number, cuentaCliente: number) {
-  // 👇 Busca en memoria SIN modificar el array
-  const usuarioEncontrado = this.usuariosOriginales().find(
-    (usuario) => usuario.id === usuarioId && usuario.id_cuenta === cuentaCliente
-  );
+  getUser(usuarioId: number, cuentaCliente: number) {
+    // 👇 Busca en memoria SIN modificar el array
+    const usuarioEncontrado = this.usuariosOriginales().find(
+      (usuario) =>
+        usuario.id === usuarioId && usuario.id_cuenta === cuentaCliente,
+    );
 
-  if (!usuarioEncontrado) {
-    console.error('⚠️ Usuario no encontrado con ID:', usuarioId, 'y cuenta:', cuentaCliente);
-    return;
+    if (!usuarioEncontrado) {
+      console.error(
+        '⚠️ Usuario no encontrado con ID:',
+        usuarioId,
+        'y cuenta:',
+        cuentaCliente,
+      );
+      return;
+    }
+
+    // 👇 Navega directamente sin tocar el signal usuarios()
+    this.router.navigate(['/usuario', usuarioEncontrado.id], {
+      queryParams: { id_cuenta: cuentaCliente },
+    });
   }
-
-  // 👇 Navega directamente sin tocar el signal usuarios()
-  this.router.navigate(['/usuario', usuarioEncontrado.id], {
-    queryParams: { id_cuenta: cuentaCliente }
-  });
-}
 
   // * INICIO DE MODALES DE ALERTA
   private async showSuccessAlert(mensaje?: string): Promise<void> {
@@ -471,7 +474,7 @@ getUser(usuarioId: number, cuentaCliente: number) {
               this.usuariosOriginales.set(lista);
 
               await this.showSuccessAlert(
-                'El cliente fue agregado satisfactoriamente!'
+                'El cliente fue agregado satisfactoriamente!',
               );
 
               this.cargarUsuariosInicial();
@@ -492,40 +495,53 @@ getUser(usuarioId: number, cuentaCliente: number) {
     }
   }
 
+
   async deleteClient(usuario: UsuariosInterface) {
-    const modal = await this.mdlController.create({
-      component: DeleteClientComponent,
-      componentProps: {
-        userData: usuario,
-      },
-    });
-    await modal.present();
-
-    const { role } = await modal.onWillDismiss();
-
-    if (role === 'confirmar') {
-      this.usuariosServices.deleteUser(usuario.id).subscribe({
-        next: async (_res) => {
-          this.cacheService.invalidarCache();
-          this.usuariosServices.getUsuarios().subscribe({
-            next: async (lista: UsuariosInterface[]) => {
-              this.cacheService.setUsuarios(lista);
-              this.usuariosOriginales.set(lista);
-
-              await this.showSuccessAlert(
-                'El cliente fue eliminado satisfactoriamente!'
-              );
-
-              this.cargarUsuariosInicial();
-              this.contarUsuariosPorTipo();
-            },
-            error: async (err) => {
-              await this.showErrorAlert('Algo falló al eliminar al cliente');
-            },
-          });
+    const alert = await this.alertController.create({
+      header: 'Confirmar eliminación',
+      message: `¿Estás seguro de eliminar al usuario ${usuario.nombre} ${usuario.apellido}?`,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
         },
-      });
-    }
+        {
+          text: 'Eliminar',
+          handler: () => {
+            this.usuariosServices.deleteUser(usuario.id).subscribe({
+              next: async (_res) => {
+                this.cacheService.invalidarCache();
+                this.usuariosServices.getUsuarios().subscribe({
+                  next: async (lista: UsuariosInterface[]) => {
+                    this.cacheService.setUsuarios(lista);
+                    this.usuariosOriginales.set(lista);
+
+                    await this.showSuccessAlert(
+                      'El cliente fue eliminado satisfactoriamente!',
+                    );
+
+                    this.cargarUsuariosInicial();
+                    this.contarUsuariosPorTipo();
+                  },
+                  error: async (err) => {
+                    await this.showErrorAlert(
+                      'Algo falló al eliminar al cliente',
+                    );
+                  },
+                });
+              },
+              error: async (err) => {
+                console.log('Error al eliminar usuario:', err);
+                await this.showErrorAlert('Error al eliminar el cliente');
+              },
+            });
+          },
+        },
+      ],
+    });
+
+    await alert.present();
   }
 
   async editClient(usuario: UsuariosInterface) {
@@ -549,7 +565,7 @@ getUser(usuarioId: number, cuentaCliente: number) {
               this.usuariosOriginales.set(lista);
 
               await this.showSuccessAlert(
-                'El cliente fue actualizado satisfactoriamente!'
+                'El cliente fue actualizado satisfactoriamente!',
               );
 
               this.cargarUsuariosInicial();
