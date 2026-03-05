@@ -51,30 +51,40 @@
     ></ion-searchbar>
   </div>
 
-  <div class="ion-display-flex ion-justify-content-between ion-align-items-center ion-margin-horizontal">
-    <ion-button color="primary-dark" class="ion-margin-vertical" (click)="addClient()">
+  <div
+    class="ion-display-flex ion-justify-content-between ion-align-items-center ion-margin-horizontal"
+  >
+    <ion-button
+      *directivePermisos="[2]"
+      color="primary-dark"
+      class="ion-margin-vertical"
+      (click)="addClient()"
+    >
       <ion-icon name="person-add" slot="end" color="tertiary"></ion-icon>
       Agregar Cliente
     </ion-button>
 
-    <ion-select 
-      fill="outline" 
-      interface="popover" 
-      placeholder="Filtrar por plan" 
+    <ion-select
+      fill="outline"
+      interface="popover"
+      placeholder="Filtrar por plan"
       (ionChange)="getLicenciaSeleccionada($event)"
       class="ion-margin-vertical"
-      style="min-width: 50px;"
+      style="min-width: 50px"
     >
-    <!-- Opción por defecto para limpiar filtros -->
-    <ion-select-option value="null">Todos</ion-select-option>
+      <!-- Opción por defecto para limpiar filtros -->
+      <ion-select-option value="null">Todos</ion-select-option>
       @for (licencia of licencias(); track licencia.id) {
-        <ion-select-option value="{{ licencia.id }}">{{ licencia.nombre }}</ion-select-option>
+      <ion-select-option value="{{ licencia.id }}"
+        >{{ licencia.nombre }}</ion-select-option
+      >
       }
     </ion-select>
   </div>
 
   <!-- Obtener y recorrer todos los clientes traidos por el servicio -->
-  @for (usuario of usuarios(); track usuario.id + '-' + usuario.id_cuenta; let i = $index) {
+  @for (usuario of usuarios(); track usuario.id + '-' + usuario.id_cuenta; let i
+  = $index) {
   <ion-card class="ion-margin-top card-hover user-card ion-no-padding">
     <ion-card-content class="ion-no-padding">
       <ion-grid [fixed]="true">
@@ -220,6 +230,7 @@
               class="ion-justify-content-center ion-margin-horizontal"
             >
               <ion-button
+                *directivePermisos="[3]"
                 (click)="editClient(usuario)"
                 color="primary-dark"
                 class="ion-margin-end"
@@ -228,12 +239,16 @@
                 Editar
               </ion-button>
 
-              <ion-button color="primary-dark" (click)="getUser(usuario.id, usuario.id_cuenta)">
+              <ion-button
+                color="primary-dark"
+                (click)="getUser(usuario.id, usuario.id_cuenta)"
+              >
                 <ion-icon name="caret-forward-outline" slot="start"></ion-icon>
                 Más detalles
               </ion-button>
 
               <ion-button
+                *directivePermisos="[4]"
                 (click)="deleteClient(usuario)"
                 color="danger"
                 class="ion-margin-end"
@@ -254,7 +269,11 @@
   </ion-card>
   }
 
-  <ion-infinite-scroll loadingText="Cargando más usuarios..." (ionInfinite)="loadMore($event)" threshold="10%">
+  <ion-infinite-scroll
+    loadingText="Cargando más usuarios..."
+    (ionInfinite)="loadMore($event)"
+    threshold="10%"
+  >
     <ion-infinite-scroll-content
       loading-text="Cargando más clientes..."
       loadingSpinner="crescent"
@@ -315,7 +334,9 @@
                 aria-hidden="true"
               ></ion-icon>
               <ion-label>
-                <ion-text> <strong>Plan Mecodex:</strong> {{ cuenta.plan_mecodex }} </ion-text>
+                <ion-text>
+                  <strong>Plan Mecodex:</strong> {{ cuenta.plan_mecodex }}
+                </ion-text>
               </ion-label>
             </ion-item>
 

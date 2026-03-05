@@ -59,4 +59,15 @@ export class RolesUsuariosService {
     );
   }
 
+  deleteRol(idRol: RolesInterface): Observable<RolesInterface[]>{
+    const url = `${this.url()}?id=${idRol.id_rol}`
+    return this.http.delete<RolesResponseInterface>(url).pipe(
+      map(res => res.data as RolesInterface[]),
+      catchError((error) => {
+        console.error("Error al eliminar el rol: ", error.message);
+        return throwError(() => new Error(error.message));
+      })
+    );
+  }
+
 }

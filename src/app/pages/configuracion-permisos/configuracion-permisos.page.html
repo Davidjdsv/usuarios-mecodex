@@ -96,7 +96,11 @@
                     </ion-button>
 
                     @if (rol.id_rol > 2) {
-                    <ion-button color="danger" class="ion-margin-end">
+                    <ion-button
+                      (click)="deleteRolModal(rol)"
+                      color="danger"
+                      class="ion-margin-end"
+                    >
                       <ion-icon
                         name="trash-outline"
                         slot="start"

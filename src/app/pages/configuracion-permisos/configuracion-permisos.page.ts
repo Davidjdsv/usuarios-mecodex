@@ -120,7 +120,7 @@ export class ConfiguracionPermisosPage implements OnInit {
           this.rolesService.getRoles().subscribe({
             error: async (err) => {
               await this.showErrorAlert(
-                'Error al obtener los roles, por favor intenta de nuevo'
+                'Error al obtener los roles, por favor intenta de nuevo',
               );
             },
             next: async (roles: RolesInterface[]) => {
@@ -131,7 +131,7 @@ export class ConfiguracionPermisosPage implements OnInit {
         },
         error: () => {
           this.showErrorAlert(
-            'Error al agregar el rol, por favor intenta de nuevo'
+            'Error al agregar el rol, por favor intenta de nuevo',
           );
         },
       });
@@ -163,5 +163,34 @@ export class ConfiguracionPermisosPage implements OnInit {
         },
       });
     }
+  }
+
+  async deleteRolModal(rol: RolesInterface): Promise<void> {
+    const alert = await this.alertController.create({
+      header: 'Confirmar eliminación',
+      message: `¿Estás seguro de eliminar el rol ${rol.nombre_rol}?`,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+        },
+        {
+          text: 'Eliminar',
+          handler: () => {
+            this.rolesService.deleteRol(rol).subscribe({
+              next: () => {
+                this.obtenerRoles();
+                this.showSuccesAlert('Rol eliminado satisfactoriamente');
+              },
+              error: () => {
+                this.showErrorAlert('Error al eliminar el rol');
+              },
+            });
+          },
+        },
+      ],
+    });
+    await alert.present();
   }
 }

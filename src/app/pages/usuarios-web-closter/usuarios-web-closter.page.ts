@@ -39,6 +39,7 @@ import { EditUsuariosWcComponent } from 'src/app/components/webcloster/edit-usua
 import { DeleteUsuariosWcComponent } from 'src/app/components/webcloster/delete-usuarios-wc/delete-usuarios-wc.component';
 import type { InfiniteScrollCustomEvent } from '@ionic/angular';
 import { CacheWebClosterService } from 'src/app/core/services/cache/cache-web-closter.service';
+import { PermisosDirective } from 'src/app/core/directives/permisos.directive';
 
 @Component({
   selector: 'app-usuarios-web-closter',
@@ -67,7 +68,8 @@ import { CacheWebClosterService } from 'src/app/core/services/cache/cache-web-cl
     IonCardContent,
     IonInfiniteScroll,
     IonInfiniteScrollContent,
-    RouterLink
+    RouterLink,
+    PermisosDirective
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
